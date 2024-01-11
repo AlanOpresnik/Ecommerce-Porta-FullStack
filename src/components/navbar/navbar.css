@@ -1,0 +1,17 @@
+.swiper-pagination-bullet {
+    width: 4px !important;
+    height: 4px !important;
+
+}
+
+.swiper-pagination-bullet-active {
+    background: #FF9FCE !important;
+}
+
+.swiper-wrapper {
+    padding: 0 0 1.5rem 0;
+}
+
+.navbar{
+    z-index: 999999 !important;
+}

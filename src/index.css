@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body{
+    font-family: 'Inter', sans-serif;
+}
+
+.newsLetter-heading{
+    font-family: 'Libre Baskerville', sans-serif !important; 
+}
+.products-flex{
+    justify-content: start !important;
+}

@@ -1,0 +1,15 @@
+.swiper-button-next::after {
+    right: -26px;
+
+    transform: scale(1.6);
+}
+
+.swiper-button-next {
+    right: -5px;
+}
+.swiper-button-prev::after {    
+    transform: scale(1.6);
+}
+.swiper-button-prev {
+    left: -5px;
+}

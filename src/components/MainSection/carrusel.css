@@ -1,0 +1,11 @@
+.swiper-button-next::after  {
+    color: #DDD6CD !important;
+    font-size: 26px !important;
+    z-index: 99999 !important;
+}
+.swiper-button-prev::after{
+    color: #DDD6CD !important;
+    font-size: 26px !important;
+    z-index: 99999 !important;
+    
+}

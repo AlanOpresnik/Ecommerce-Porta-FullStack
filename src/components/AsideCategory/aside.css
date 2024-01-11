@@ -1,0 +1,5 @@
+.no-truncate {
+    text-overflow: unset !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
