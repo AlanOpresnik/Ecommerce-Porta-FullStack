@@ -2,4 +2,16 @@
     text-overflow: unset !important;
     overflow: visible !important;
     white-space: normal !important;
+
+    font-size: "xs" !important;
+  }
+
+  @media (max-width: 768px) {
+
+    span {
+      font-size: 12px !important;
+      text-overflow: unset !important;
+      overflow: visible !important;
+      margin-right: 15px;
+    }
   }

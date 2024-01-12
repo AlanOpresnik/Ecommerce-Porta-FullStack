@@ -33,7 +33,7 @@ const ProductCompraCard = ({ prod, index }) => {
               isHovered ? "opacity-100" : ""
             } transition-opacity duration-300`}
           >
-            <button className="bg-[#DDD6CD] hover:bg-[#AFAFAF] transition-colors text-white px-4 py-2 rounded-full text-sm w-[100px]">
+            <button className="bg-[#DDD6CD] hover:bg-[#e5ded5] transition-colors text-white px-4 py-2 rounded-full text-sm w-[100px]">
               COMPRAR
             </button>
             <button className="text-[#9b9b9bf7] border px-4 py-2 rounded-full">

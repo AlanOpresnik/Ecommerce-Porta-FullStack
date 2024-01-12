@@ -34,7 +34,7 @@ const ProductCards = ({ prod, index }) => {
               isHovered ? "opacity-100" : ""
             } transition-opacity duration-300`}
           >
-            <button className="bg-[#a2a2a2] hover:bg-[#AFAFAF] transition-colors text-white px-4 py-2 rounded-full text-sm w-[100px]">
+            <button className="bg-[#DDD6CD] hover:bg-[#e5ded5] transition-colors text-white px-4 py-2 rounded-full text-sm w-[100px]">
               COMPRAR
             </button>
             <button className="text-[#9b9b9bf7] border px-4 py-2 rounded-full">
@@ -43,7 +43,7 @@ const ProductCards = ({ prod, index }) => {
           </div>
           {/* Botones visibles en dispositivos móviles */}
           <div className="flex justify-center mt-2 gap-6 md:gap-2">
-            <button className="md:hidden bg-[#AFAFAF] text-white px-4 py-2 rounded-full text-sm w-[100px]">
+            <button className="md:hidden bg-[#DDD6CD] text-white px-4 py-2 rounded-full text-sm w-[100px]">
               COMPRAR
             </button>
             <button className="md:hidden text-[#9b9b9bf7] border px-4 py-2 rounded-full">

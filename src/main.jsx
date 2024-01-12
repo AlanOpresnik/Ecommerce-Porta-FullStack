@@ -88,8 +88,8 @@ const router = createHashRouter([
         </Helmet>
         <Navbar />
         <ProductsProvider>
-          <div className="px-2 md:hidden">
-            <AsideCategory />
+          <div className="px-2 md:hidden ml-5">
+            <AsideCategory category={"Hogar"} />
           </div>
           <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white z-10">
             <div className="w-[170px]">
@@ -126,8 +126,8 @@ const router = createHashRouter([
         </Helmet>
         <Navbar />
         <ProductsProvider>
-          <div className="px-2 md:hidden">
-            <AsideCategory />
+        <div className="px-2 md:hidden ml-5">
+            <AsideCategory category={"Construccion"} />
           </div>
           <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white z-10">
             <div className="w-[170px]">

@@ -14,9 +14,9 @@ import "./aside.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useProducts } from "../../context/ProductsContext";
 
-const AsideCategory = () => {
+const AsideCategory = ({ category }) => {
   const navigate = useNavigate();
-  const {handleOrdenChange} = useProducts()
+  const { handleOrdenChange } = useProducts();
   return (
     <>
       <div className="flex justify-between gap-6 items-center md:hidden py-2 ">
@@ -28,11 +28,11 @@ const AsideCategory = () => {
           selectorIcon={<SelectorIcon />}
           onChange={(e) => handleOrdenChange(e.target.value)}
         >
-          <SelectItem className="no-truncate" value="lowToHigh">
+          <SelectItem className="no-truncate " value="lowToHigh">
             Mas bajo
           </SelectItem>
           <SelectItem className="no-truncate" value="highToLow">
-             Mas alto
+            Mas alto
           </SelectItem>
         </Select>
         <div className="flex items-center gap-2 md:hidden">
@@ -54,7 +54,12 @@ const AsideCategory = () => {
         </div>
       </div>
 
-      <div className="flex justify-end mt-6">
+      <div className="flex justify-between items-center mt-6">
+        <div className="flex items-center">
+          <h4 className="text-[16px]">Categoria / </h4>
+          <p className="ml-2 font-semibold">{category}</p>
+        </div>
+
         <Dropdown>
           <DropdownTrigger>
             <Button variant="bordered">Ver categorias</Button>
