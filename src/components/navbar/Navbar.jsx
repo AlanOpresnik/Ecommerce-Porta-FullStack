@@ -16,8 +16,8 @@ const NavbarItems = [
     title: "Hogar",
   },
   {
-    path: "/products/fabrica",
-    title: "Fabrica",
+    path: "/products/construccion",
+    title: "Construccion",
   },
 ];
 

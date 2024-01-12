@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -24,54 +24,12 @@ import { NextUIProvider } from "@nextui-org/react";
 import AsideCategoryDesktop from "./components/AsideCategory/AsideCategoryDesktop.jsx";
 import AsideFilterSelect from "./components/AsideCategory/AsideFilterSelect.jsx";
 import ProductCards from "./components/products/ProductCards.jsx";
-import prod from "./assets/img/prod.webp";
-import prod2 from "./assets/img/prod2.jpeg";
-import prod3 from "./assets/img/prod3.jpeg";
-import ProductCompraCard from "./components/products/ProductsCompra/ProductsCompraCard.jsx";
-const prodItems = [
-  {
-    id: 1,
-    img: prod2,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 2,
-    img: prod3,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 3,
-    img: prod3,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 4,
-    img: prod2,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 2,
-    img: prod3,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 3,
-    img: prod3,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 4,
-    img: prod2,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-];
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ProductsContext,
+  ProductsProvider,
+} from "./context/ProductsContext.jsx";
+import ProductsCompraSection from "./components/products/ProductsCompra/ProductsCompraSection.jsx";
 const router = createHashRouter([
   {
     path: "/",
@@ -89,6 +47,11 @@ const router = createHashRouter([
           />
         </Helmet>
         <Navbar />
+        <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}>
         <div className="p-2">
           <Main />
           <InfoDividerSection />
@@ -104,6 +67,7 @@ const router = createHashRouter([
           <InstagramDividerSection />
           <FooterSection />
         </div>
+        </motion.div>
       </>
     ),
   },
@@ -123,31 +87,30 @@ const router = createHashRouter([
           />
         </Helmet>
         <Navbar />
-        <div className="px-2 md:hidden">
-          <AsideCategory />
-        </div>
-        <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white z-10">
-          <div className="w-[170px]">
-            <AsideFilterSelect />
+        <ProductsProvider>
+          <div className="px-2 md:hidden">
+            <AsideCategory />
           </div>
-        </div>
-        <div className="flex justify-center px-2 gap-12 max-w-[1260px] mx-auto">
-          <div className="hidden md:block">
-            <AsideCategoryDesktop />
+          <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white z-10">
+            <div className="w-[170px]">
+              <AsideFilterSelect />
+            </div>
           </div>
-          <div className="grid grid-cols-2 mt-6 md:mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-center items-center">
-            {prodItems.map((item) => (
-              <div key={item.id} className="w-full h-[490px] md:h-[530px]">
-                <ProductCompraCard prod={item} />
-              </div>
-            ))}
+          <div className="flex justify-center px-2 gap-12 max-w-[1260px] mx-auto">
+            <div className="hidden md:block">
+              <AsideCategoryDesktop category={"Hogar"} />
+            </div>
+            <ProductsCompraSection />
           </div>
-        </div>
+          <div className="w-full mt-24 ">
+            <FooterSection />
+          </div>
+        </ProductsProvider>
       </>
     ),
   },
   {
-    path: "/products/fabrica",
+    path: "/products/construccion",
 
     element: (
       <>
@@ -162,6 +125,25 @@ const router = createHashRouter([
           />
         </Helmet>
         <Navbar />
+        <ProductsProvider>
+          <div className="px-2 md:hidden">
+            <AsideCategory />
+          </div>
+          <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white z-10">
+            <div className="w-[170px]">
+              <AsideFilterSelect />
+            </div>
+          </div>
+          <div className="flex justify-center px-2 gap-12 max-w-[1260px] mx-auto">
+            <div className="hidden md:block">
+              <AsideCategoryDesktop category={"Construccion"} />
+            </div>
+            <ProductsCompraSection />
+          </div>
+          <div className="w-full mt-24 ">
+            <FooterSection />
+          </div>
+        </ProductsProvider>
       </>
     ),
   },
