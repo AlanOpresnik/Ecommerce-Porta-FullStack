@@ -12,72 +12,47 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
+import { useProducts } from "../../context/ProductsContext";
 
-const prodItems = [
-  {
-    id: 1,
-    img: prod2,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 2,
-    img: prod3,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 3,
-    img: prod3,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 4,
-    img: prod2,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-  {
-    id: 5,
-    img: prod,
-    title: "Silla para casa con tremendo color blanco",
-    price: "125.000,00",
-  },
-];
 const breakpoints = {
   320: {
-    slidesPerView: 1.1,
-  },
-  400: {
     slidesPerView: 1.2,
   },
-  465: {
-    slidesPerView: 1.3,
-  },
-  500: {
+  350: {
     slidesPerView: 1.4,
   },
-  550: {
-    slidesPerView: 1.6,
+  400: {
+    slidesPerView: 1.5,
   },
-  590: {
+  455: {
     slidesPerView: 1.7,
   },
-  610: {
-    slidesPerView: 1.8,
+  500: {
+    slidesPerView: 2.1,
   },
-  650: {
-    slidesPerView: 1.9,
-  },
-  670: {
-    slidesPerView: 2,
-  },
-  700: {
+  550: {
     slidesPerView: 2.2,
   },
-  750: {
+  590: {
     slidesPerView: 2.3,
+  },
+  610: {
+    slidesPerView: 2.4,
+  },
+  650: {
+    slidesPerView: 2.6,
+  },
+  670: {
+    slidesPerView: 2.7,
+  },
+  700: {
+    slidesPerView: 2.8,
+  },
+  750: {
+    slidesPerView: 2.9,
+  },
+  768: {
+    slidesPerView: 2.4,
   },
   788: {
     slidesPerView: 2.4,
@@ -115,6 +90,7 @@ const breakpoints = {
 };
 
 const ProductCarrusel = () => {
+  const {prodItems} = useProducts()
   return (
     <Swiper
       navigation={true}

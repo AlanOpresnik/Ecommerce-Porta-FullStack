@@ -1,30 +1,35 @@
 import React, { useState } from "react";
 import RemoveRedEyeOutlined from "@mui/icons-material/RemoveRedEyeOutlined";
 import prod from "../../assets/img/prod.webp";
+import { useNavigate } from "react-router-dom";
+import { useProducts } from "../../context/ProductsContext";
 
 const ProductCards = ({ prod, index }) => {
+  const {handleRedirect} = useProducts()
   const [isHovered, setIsHovered] = useState(false);
+  const formattedProductName = prod.title.replace(/ /g, "-");
+  const navigate = useNavigate();
   return (
     <div>
       <div
         key={index}
-        className={`w-[300px] cursor-pointer h-auto md:h-[530px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${
-          isHovered ? "h-auto md:h-[570px]" : ""
+        className={`w-[220px]  md:w-[300px] cursor-pointer h-auto md:h-[480px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${
+          isHovered ? "h-auto md:h-[530px]" : ""
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={() => handleRedirect(prod.id, prod.category ,formattedProductName )}
       >
-        <div className="border-b-4 h-[400px] relative">
+        <div className="border-b-4 h-[280px] md:h-[360px] relative">
           <img
-            src={prod.img} 
+            src={prod.img}
             className="h-full object-contain rounded-t-[20px]"
             alt="product"
           />
         </div>
         <div className="text-center p-3">
-          <p>{prod.title}</p> 
-          <p className="font-bold text-2xl text-[#aaaaaa]">{prod.price}</p>{" "}
-        
+          <p className="line-clamp-2">{prod.title}</p>
+          <p className="font-bold text-2xl text-[#ddd6cd]">{prod.price}</p>{" "}
           <p className="text-sm">
             <strong>{3}</strong> Cuotas sin interés de{" "}
             <strong>$3.200,00</strong>
@@ -47,7 +52,7 @@ const ProductCards = ({ prod, index }) => {
               COMPRAR
             </button>
             <button className="md:hidden text-[#9b9b9bf7] border px-4 py-2 rounded-full">
-              <RemoveRedEyeOutlined /> Ver
+              <RemoveRedEyeOutlined />
             </button>
           </div>
         </div>

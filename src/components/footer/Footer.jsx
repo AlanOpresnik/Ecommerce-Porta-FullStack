@@ -63,9 +63,16 @@ const Footer = () => {
                 Sigamos conectando
               </h4>
               <Button
-                className="rounded-full transition-opacity py-7 h-[10px] w-[20px] hover:opacity-70 hover:bg-[#9B856F]  "
+                className="rounded-full transition-opacity py-7 h-[60px] w-[20px] "
                 variant="contained"
-                sx={{ backgroundColor: "#9B856F" }}
+                sx={{
+                  backgroundColor: "#9B856F",
+                  borderRadius: "9999px",
+                  "&:hover": {
+                    backgroundColor: "#9B856F", 
+                    opacity: 0.7, 
+                  },
+                }}
               >
                 <Instagram sx={{ fontSize: "23px" }} />
               </Button>
