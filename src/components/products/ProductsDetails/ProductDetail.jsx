@@ -3,22 +3,22 @@ import { useProducts } from "../../../context/ProductsContext";
 import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
-  
+
   const params = useParams()
   console.log(params)
   const { prodItems, id } = useProducts();
   const [productFilter, setProductFilter] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
+
   useEffect(() => {
-    const filteredProducts = prodItems.filter((product) => product.id == params.id);
+    const filteredProducts = prodItems.filter((product) => product._id == params.id);
     setProductFilter(filteredProducts);
     console.log(filteredProducts)
     setLoading(false);
   }, [id, prodItems]);
 
-  if(loading){
+  if (loading) {
     return <p className="mt-24">Cargando...</p>
   }
 
@@ -107,9 +107,8 @@ const ProductDetail = () => {
                     {[...Array(3)].map((_, index) => (
                       <button
                         key={index}
-                        className={`border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none ${
-                          index === 1 ? "ml-1 bg-gray-700" : ""
-                        } ${index === 2 ? "ml-1 bg-indigo-500" : ""}`}
+                        className={`border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none ${index === 1 ? "ml-1 bg-gray-700" : ""
+                          } ${index === 2 ? "ml-1 bg-indigo-500" : ""}`}
                       ></button>
                     ))}
                   </div>

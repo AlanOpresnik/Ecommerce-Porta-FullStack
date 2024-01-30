@@ -99,15 +99,17 @@ const ProductCarrusel = () => {
       modules={[Pagination, Navigation]}
       className="mySwiper max-w-full h-[620px] md:h-[600px]"
     >
+      {prodItems.length > 1 ? (
       <div className="">
-        {prodItems.map((prod, index) => (
+        {prodItems?.map((prod, index) => (
           <SwiperSlide key={prod.id}>
             <ProductCards prod={prod} index={index} />
           </SwiperSlide>
         ))}
       </div>
+      ):"cargando..."}
     </Swiper>
   );
-};
+}
 
 export default ProductCarrusel;

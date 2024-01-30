@@ -10,77 +10,23 @@ const ProductsProvider = ({ children }) => {
   const [sortingOption, setSortingOption] = useState(null);
   const [id, setId] = useState();
   const navigate = useNavigate();
-  const [prodItems, setProdItems] = useState([
-    {
-      id: 1,
-      img: prod2,
-      title: "Silla para casa con tremendo color blanco",
-      slug:
-      "Silla-para-casa-con-tremendo-color-blanco",
-      category: "Hogar",
-      price: 125000,
-    },
-    {
-      id: 2,
-      img: prod3,
-      title: "a",
-      slug:
-      "a",
-      description:
-        "Experimenta la perfecta fusión de estilo y comodidad con nuestra silla para hogar en un deslumbrante color blanco. Esta pieza exquisitamente diseñada no solo eleva la estética de cualquier espacio, sino que también proporciona un nivel excepcional de confort para tus momentos de descanso y convivencia.",
-      category: "construccion",
-      price: 125000,
-    },
-    {
-      id: 3,
-      img: prod3,
-      title: "Silla para casa con tremendo color blanco",
-      slug:
-      "Silla-para-casa-con-tremendo-color-blanco",
-      description:
-        "Experimenta la perfecta fusión de estilo y comodidad con nuestra silla para hogar en un deslumbrante color blanco. Esta pieza exquisitamente diseñada no solo eleva la estética de cualquier espacio, sino que también proporciona un nivel excepcional de confort para tus momentos de descanso y convivencia.",
-      category: "Hogar",
-      price: 125000,
-    },
-    {
-      id: 4,
-      img: prod2,
-      title: "Silla para casa con tremendo color blanco",
-      description:
-        "Experimenta la perfecta fusión de estilo y comodidad con nuestra silla para hogar en un deslumbrante color blanco. Esta pieza exquisitamente diseñada no solo eleva la estética de cualquier espacio, sino que también proporciona un nivel excepcional de confort para tus momentos de descanso y convivencia.",
-      category: "Hogar",
-      price: 25000,
-    },
-    {
-      id: 5,
-      img: prod3,
-      title: "Silla para casa con tremendo color blanco",
-      description:
-        "Experimenta la perfecta fusión de estilo y comodidad con nuestra silla para hogar en un deslumbrante color blanco. Esta pieza exquisitamente diseñada no solo eleva la estética de cualquier espacio, sino que también proporciona un nivel excepcional de confort para tus momentos de descanso y convivencia.",
-      category: "construccion",
-      price: 125000,
-    },
-    {
-      id: 6,
-      img: prod3,
-      title: "Silla para casa con tremendo color blanco",
-      description:
-        "Experimenta la perfecta fusión de estilo y comodidad con nuestra silla para hogar en un deslumbrante color blanco. Esta pieza exquisitamente diseñada no solo eleva la estética de cualquier espacio, sino que también proporciona un nivel excepcional de confort para tus momentos de descanso y convivencia.",
-      category: "construccion",
-      price: 125000,
-    },
-    {
-      id: 7,
-      img: prod2,
-      title:
-        "Silla para casa con tremendo color rojo Silla para casa con tremendo color rojo Silla para casa con tremendo color rojo",
-        description:
-        "Experimenta la perfecta fusión de estilo y comodidad con nuestra silla para hogar en un deslumbrante color blanco. Esta pieza exquisitamente diseñada no solo eleva la estética de cualquier espacio, sino que también proporciona un nivel excepcional de confort para tus momentos de descanso y convivencia.",
-        category: "construccion",
-      price: 125000,
-    },
-  ]);
+  const [prodItems, setProdItems] = useState([])
+  const [loading, setLoading] = useState(true)
   const [orden, setOrden] = useState("lowToHigh");
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('https://www.portaflex.com.ar/api/products/get');
+      setProdItems(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [])
 
   const handleOrdenChange = (valor) => {
     const nuevoOrden = valor === "$.0" ? "lowToHigh" : "highToLow";
@@ -110,6 +56,8 @@ const ProductsProvider = ({ children }) => {
         prodItems,
         handleRedirect,
         id,
+        fetchProducts,
+        loading,
       }}
     >
       {children}
