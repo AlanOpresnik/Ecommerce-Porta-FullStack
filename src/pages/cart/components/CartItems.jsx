@@ -5,9 +5,11 @@ import {
   RemoveCircleOutline,
 } from "@mui/icons-material";
 import React, { useState } from "react";
+import { useProducts } from "../../../context/ProductsContext";
 
 const CartItems = ({ prod }) => {
   const [quantity, setQuantity] = useState(1);
+  const {removeFromCart} = useProducts()
 
   const incrementQuantity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -46,7 +48,7 @@ const CartItems = ({ prod }) => {
           </div>
         </div>
         <div>
-        <button>
+        <button onClick={() => removeFromCart(prod._id)}>
           <Delete />
         </button>
         </div>

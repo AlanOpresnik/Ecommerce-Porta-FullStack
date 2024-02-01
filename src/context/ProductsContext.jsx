@@ -68,6 +68,12 @@ const ProductsProvider = ({ children }) => {
     }
   }, []);
 
+  const removeFromCart = (productId) => {
+    const updatedCartItems = cartItems.filter(item => item._id !== productId);
+    setCartItems(updatedCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+  };
+
   return (
     <ProductsContext.Provider
       value={{
@@ -79,6 +85,7 @@ const ProductsProvider = ({ children }) => {
         loading,
         addToCart,
         cartItems,
+        removeFromCart,
       }}
     >
       {children}

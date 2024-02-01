@@ -11,7 +11,7 @@ const Search = ({ products, onSearch }) => {
   return (
     //EL SEARCH SE HARA DESDE EL BACKEND ACTUALMENTE ES UNA FORMA BASICA DE MOSTRAR LOS PRODUCTOS
     <div className="flex flex-col relative">
-      <div className="relative w-[150px] md:w-[260px] lg:w-[460px]">
+      <div className="relative w-[130px] md:w-[260px] lg:w-[460px]">
         <div className="absolute inset-y-0 start-0 flex items-center  ps-3 pointer-events-none">
           <svg
             className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -32,7 +32,7 @@ const Search = ({ products, onSearch }) => {
         <input
           type="search"
           id="default-search"
-          className="block w-[150px] md:w-[260px] lg:w-[400px] xl:w-[600px]   p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg  dark:bg-[#ffff] "
+          className="block w-[130px] md:w-[260px] lg:w-[400px] xl:w-[600px]   p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg  dark:bg-[#ffff] "
           placeholder="Search"
           style={{ outline: "none" }}
           value={searchTerm}
@@ -49,7 +49,7 @@ const Search = ({ products, onSearch }) => {
               >
                 <div className="max-w-[150px] md:max-w-[200px]">
                   <img
-                  className="max-h-[120px] w-[120px]"
+                  className="max-h-[120px] w-[180px]"
                     src={
                       import.meta.env.VITE_ENDPOINT_IMAGES +
                       product.images[0].filename

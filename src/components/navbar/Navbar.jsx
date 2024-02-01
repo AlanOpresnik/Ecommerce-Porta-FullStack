@@ -86,7 +86,7 @@ const Navbar = () => {
               <div className=" flex relative md:hidden px-2 items-center">
                 <PiShoppingCartThin
                   onClick={() => navigate("/cart")}
-                  className="cursor-pointer text-[#cacaca] text-4xl font-bold"
+                  className="cursor-pointer  text-[#cacaca] text-3xl font-bold"
                   sx={{ color: "#D9D9D9" }}
                 />
                    {cartItems.length >= 1 ? (
@@ -100,7 +100,7 @@ const Navbar = () => {
                     ""
                   )}
               </div>
-                <Button onClick={() => setOpenMenu(!openMenu)}>
+                <Button className="block md:hidden" onClick={() => setOpenMenu(!openMenu)}>
                   <MenuIcon
                     sx={{ color: "#AAAAAA", width: "32px", height: "32px" }}
                   />
