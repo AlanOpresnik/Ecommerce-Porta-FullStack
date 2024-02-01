@@ -3,10 +3,15 @@ import NavbarItem from "./NavbarItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import { PiShoppingCartThin } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "./search/Search";
 import SecondNavbar from "./SecondNavbar";
 import { useProducts } from "../../context/ProductsContext";
+import {
+  FavoriteBorderOutlined,
+  FavoriteBorderTwoTone,
+  FavoriteOutlined,
+} from "@mui/icons-material";
 const NavbarItems = [
   {
     path: "/",
@@ -47,7 +52,7 @@ const NavbarItemsMobile = [
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const { prodItems } = useProducts();
+  const { prodItems, cartItems } = useProducts();
   const closeMenu = () => {
     setOpenMenu(false);
   };
@@ -55,19 +60,21 @@ const Navbar = () => {
 
   const handleSearch = (searchTerm) => {
     const filtered = prodItems.filter((product) =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredProducts(filtered);
   };
+
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="h-[90px] ">
         <nav className="bg-white  dark:bg-[#fff] fixed w-full z-20  start-0 border-b border-gray-200 ">
           <div className="w-full h-[30px]  bg-[#DDD6CD] z-50 "></div>
-          <div className="max-w-screen-xl  flex items-center justify-between  mx-auto p-4">
+          <div className="max-w-[1380px] flex items-center justify-between  mx-auto p-4">
             <Link
-              to="https://flowbite.com/"
+              to="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
               <h2 className="text-[24px] mr-4 md:text-[28px] text-[#9C9C9C] newsLetter-heading font-bold">
@@ -76,13 +83,28 @@ const Navbar = () => {
             </Link>
             <div className="flex md:order-1 space-x-0 md:space-x-0 rtl:space-x-reverse">
               <Search products={filteredProducts} onSearch={handleSearch} />
-              <div className=" flex md:hidden">
+              <div className=" flex relative md:hidden px-2 items-center">
+                <PiShoppingCartThin
+                  onClick={() => navigate("/cart")}
+                  className="cursor-pointer text-[#cacaca] text-4xl font-bold"
+                  sx={{ color: "#D9D9D9" }}
+                />
+                   {cartItems.length >= 1 ? (
+                    <span
+                      onClick={() => navigate("/cart")}
+                      className="absolute cursor-pointer text-xs font-bold text-white w-[23px] h-[24px] items-center text-center border p-1 rounded-full bg-[#aea18f] right-[-15px] top-[-10px]"
+                    >
+                      {cartItems.length}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+              </div>
                 <Button onClick={() => setOpenMenu(!openMenu)}>
                   <MenuIcon
                     sx={{ color: "#AAAAAA", width: "32px", height: "32px" }}
                   />
                 </Button>
-              </div>
             </div>
 
             <div
@@ -93,11 +115,22 @@ const Navbar = () => {
                 {NavbarItems.map((item) => (
                   <NavbarItem key={item.path} item={item} />
                 ))}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col relative items-center">
                   <PiShoppingCartThin
-                    className="cursor-pointer text-[#cacaca] text-4xl"
+                    onClick={() => navigate("/cart")}
+                    className="cursor-pointer text-[#cacaca] text-4xl font-bold"
                     sx={{ color: "#D9D9D9" }}
                   />
+                  {cartItems.length >= 1 ? (
+                    <span
+                      onClick={() => navigate("/cart")}
+                      className="absolute cursor-pointer text-xs font-bold text-white w-[23px] h-[24px] items-center text-center border p-1 rounded-full bg-[#aea18f] right-[-5px] top-[-10px]"
+                    >
+                      {cartItems.length}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </ul>
             </div>
@@ -105,6 +138,7 @@ const Navbar = () => {
           <SecondNavbar />
         </nav>
         {/*mobile navbar */}
+
         <div
           className={` shadow-md bg-[#ffff] w-[260px] rounded-lg fixed  z-50 top-[109px] p-6 ${
             openMenu ? "left-0" : "left-[-300px]"

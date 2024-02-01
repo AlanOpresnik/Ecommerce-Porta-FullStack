@@ -10,7 +10,7 @@ const ProductsSection = () => {
       <div>
         <h4 className="text-[26px] md:text-[32px] text-[#AAAAAA] text-center mt-24 font-bold">Productos Destacados</h4>
       </div>
-      <div className='max-w-full h-[600px] flex gap-12 justify-center mt-6'>
+      <div className='max-w-full h-[600px]  gap-12 justify-center mt-6'>
         {loading ? (
           "cargando productos..."
         ) : <ProductCarrusel />}

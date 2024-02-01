@@ -18,6 +18,7 @@ const CargarProdForm = () => {
     updatedAt: Date.now(),
     enabled: true,
     subcategoryId: "",
+    featured: false,
   });
 
   const handleFileChange = (e) => {
@@ -48,6 +49,7 @@ const CargarProdForm = () => {
       formData.append("createdAt", formDatasi.createdAt);
       formData.append("updatedAt", formDatasi.updatedAt);
       formData.append("enabled", formDatasi.enabled);
+      formData.append("featured", formDatasi.featured);
       formData.append("subcategoryId", "65af49766b738bed2caf5573");
       
 
@@ -73,6 +75,7 @@ const CargarProdForm = () => {
         createdAt: Date.now(),
         updatedAt: Date.now(),
         enabled: true,
+        featured: false,
         subcategoryId: ""
       });
     } catch (error) {
@@ -135,6 +138,13 @@ const CargarProdForm = () => {
         type="checkbox"
         name="enabled"
         checked={formDatasi.enabled}
+        onChange={handleChange}
+      />
+       <span>featured</span>
+      <input
+        type="checkbox"
+        name="featured"
+        checked={formDatasi.featured}
         onChange={handleChange}
       />
       <input type="file" name="images" onChange={handleFileChange} />

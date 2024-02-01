@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import RemoveRedEyeOutlined from "@mui/icons-material/RemoveRedEyeOutlined";
+import { useProducts } from "../../../context/ProductsContext";
 
 const ProductCompraCard = ({ prod, index }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { handleRedirect } = useProducts();
+  const formattedProductName = prod.name.replace(/ /g, "-");
+
   return (
     <div>
       <div
@@ -12,17 +16,22 @@ const ProductCompraCard = ({ prod, index }) => {
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={() =>
+          handleRedirect(prod._id, prod.category , formattedProductName)
+        }
       >
         <div className="border-b-4 h-[260px] md:h-[340px] relative">
           <img
-            src={prod.img}
-            className="h-full object-contain rounded-t-[20px]"
+            src={
+              import.meta.env.VITE_ENDPOINT_IMAGES + prod?.images[0].filename
+            }
+            className="h-full object-cover rounded-t-[20px]"
             alt="product"
             loading="lazy"
           />
         </div>
         <div className="text-center p-3">
-          <p className="line-clamp-2">{prod.title}</p>
+          <p className="line-clamp-2">{prod.name}</p>
           <p className="font-bold text-2xl text-[#ddd6cd]">{prod.price}</p>{" "}
           <p className="text-sm">
             <strong>{3}</strong> Cuotas sin interés de{" "}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import prod from "../../assets/img/prod.webp";
 import prod2 from "../../assets/img/prod2.jpeg";
 import prod3 from "../../assets/img/prod3.jpeg";
@@ -90,26 +90,35 @@ const breakpoints = {
 };
 
 const ProductCarrusel = () => {
-  const {prodItems} = useProducts()
+  const { prodItems } = useProducts();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    const filtered = prodItems.filter(product => product.featured === true);
+    setFilteredProducts(filtered);
+  }, [prodItems]); // agregamos prodItems como dependencia para que se ejecute el efecto cuando cambie
+  console.log(filteredProducts)
   return (
     <Swiper
       navigation={true}
       pagination={true}
       breakpoints={breakpoints}
       modules={[Pagination, Navigation]}
-      className="mySwiper max-w-full h-[620px] md:h-[600px]"
+      className="mySwiper max-w-full h-[540px] md:h-[600px]"
     >
-      {prodItems.length > 1 ? (
-      <div className="">
-        {prodItems?.map((prod, index) => (
-          <SwiperSlide key={prod.id}>
-            <ProductCards prod={prod} index={index} />
-          </SwiperSlide>
-        ))}
-      </div>
-      ):"cargando..."}
+      {filteredProducts.length > 0 ? (
+        <div className="">
+          {filteredProducts.map((prod, index) => (
+            <SwiperSlide key={prod._id}>
+              <ProductCards prod={prod} index={index} />
+            </SwiperSlide>
+          ))}
+        </div>
+      ) : (
+        <div>cargando...</div>
+      )}
     </Swiper>
   );
-}
+};
 
 export default ProductCarrusel;

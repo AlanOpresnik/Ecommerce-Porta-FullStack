@@ -32,6 +32,9 @@ import {
 import ProductsCompraSection from "./components/products/ProductsCompra/ProductsCompraSection.jsx";
 import ProductDetail from "./components/products/ProductsDetails/ProductDetail.jsx";
 import CargarProdForm from "./pages/admin/AdminComponents/CargarProdForm.jsx";
+import ProductsMatch from "./components/products/ProductsDetails/components/carruselProductsMatch/ProductsMatch.jsx";
+import CartSection from "./pages/cart/components/CartSection.jsx";
+import CartTotal from "./pages/cart/components/CartTotal.jsx";
 const router = createHashRouter([
   {
     path: "/",
@@ -49,7 +52,7 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-        <Navbar />
+          <Navbar />
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,7 +62,7 @@ const router = createHashRouter([
             <div className="p-2">
               <Main />
               <InfoDividerSection />
-              <div className="max-w-[1280px] flex flex-col items-center justify-center mx-auto">
+              <div className="max-w-[1280px]  flex-col items-center justify-center mx-auto">
                 <ProductsSection />
               </div>
             </div>
@@ -92,7 +95,7 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-        <Navbar />
+          <Navbar />
           <div className="px-2 md:hidden ml-5">
             <AsideCategory category={"Hogar"} />
           </div>
@@ -130,7 +133,7 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-        <Navbar />
+          <Navbar />
           <div className="px-2 md:hidden ml-5">
             <AsideCategory category={"Construccion"} />
           </div>
@@ -168,8 +171,9 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-        <Navbar />
+          <Navbar />
           <ProductDetail />
+          <ProductsMatch />
         </ProductsProvider>
       </>
     ),
@@ -190,8 +194,33 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-        <Navbar />
+          <Navbar />
           <CargarProdForm />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/cart",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <Navbar />
+          <div className="max-w-[1380px] px-4 mx-auto">
+            <CartSection />
+          </div>
+          <FooterSection />
         </ProductsProvider>
       </>
     ),

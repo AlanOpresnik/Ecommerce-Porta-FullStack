@@ -9,7 +9,7 @@ export default {
 
   theme: {
     extend: {},
-  },
+  },important:true,
   darkMode: "class",
   plugins: [nextui()],
 };

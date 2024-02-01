@@ -12,6 +12,10 @@ const ProductsProvider = ({ children }) => {
   const navigate = useNavigate();
   const [prodItems, setProdItems] = useState([])
   const [loading, setLoading] = useState(true)
+  const [cartItems, setCartItems] = useState([])
+
+
+
   const [orden, setOrden] = useState("lowToHigh");
 
   const fetchProducts = async () => {
@@ -49,6 +53,21 @@ const ProductsProvider = ({ children }) => {
     console.log(id);
   };
 
+  const addToCart = (product) => {
+    if (product) {
+      const updatedCartItems = [...cartItems, product];
+      setCartItems(updatedCartItems);
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+      console.log('producto agregado con éxito', product);
+    }
+  };
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
+
   return (
     <ProductsContext.Provider
       value={{
@@ -58,6 +77,8 @@ const ProductsProvider = ({ children }) => {
         id,
         fetchProducts,
         loading,
+        addToCart,
+        cartItems,
       }}
     >
       {children}

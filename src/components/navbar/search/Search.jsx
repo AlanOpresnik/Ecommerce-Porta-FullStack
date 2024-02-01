@@ -45,13 +45,20 @@ const Search = ({ products, onSearch }) => {
             {products.map((product) => (
               <div
                 className="flex items-center hover:bg-[#59595920] cursor-pointer px-2 py-2 border-b"
-                key={product.id}
+                key={product._id}
               >
                 <div className="max-w-[150px] md:max-w-[200px]">
-                  <img src={product.img} alt={product.title} />
+                  <img
+                  className="max-h-[120px] w-[120px]"
+                    src={
+                      import.meta.env.VITE_ENDPOINT_IMAGES +
+                      product.images[0].filename
+                    }
+                    alt={product.name}
+                  />
                 </div>
                 <div className="px-2">
-                  <h3 className="text-sm">{product.title}</h3>
+                  <h3 className="text-sm">{product.name}</h3>
                   <p className="text-md font-bold text-[#DDD6CD]">
                     ${product.price}
                   </p>

@@ -17,7 +17,7 @@ const ProductCards = ({ prod, index }) => {
       ) : (
         <div
           key={index}
-          className={`w-[220px]  md:w-[300px] cursor-pointer h-auto md:h-[480px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:h-[530px]" : ""
+          className={`w-[220px] hover:opacity-90  md:w-[300px] cursor-pointer h-auto md:h-[480px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:h-[530px]" : ""
             }`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -25,8 +25,8 @@ const ProductCards = ({ prod, index }) => {
         >
           <div className="border-b-4 h-[280px] md:h-[360px] relative">
             <img
-              src={prod.img}
-              className="h-full object-contain rounded-t-[20px]"
+              src={import.meta.env.VITE_ENDPOINT_IMAGES+ prod?.images[0].filename}
+              className="h-full object-cover rounded-t-[20px]"
               alt="product"
             />
           </div>
