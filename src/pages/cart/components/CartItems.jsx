@@ -6,10 +6,20 @@ import {
 } from "@mui/icons-material";
 import React, { useState } from "react";
 import { useProducts } from "../../../context/ProductsContext";
+import ModalDelete from "./ModalDelete";
 
 const CartItems = ({ prod }) => {
   const [quantity, setQuantity] = useState(1);
   const {removeFromCart} = useProducts()
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const incrementQuantity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -24,23 +34,23 @@ const CartItems = ({ prod }) => {
   return (
     <>
       <div
-        className=" shadow-md md:shadow flex items-center py-3 justify-between pr-6 gap-6 max-w-[600px]"
+        className="rounded-lg border shadow-md md:shadow flex items-center py-3 justify-between mr-2 pr-6 gap-6 max-w-[500px]"
         key={prod._id}
       >
         <div className="flex items-center gap-6">
           <img
-            className="h-[100px] min-w-[100px] md:h-[140px] md:min-w-[140px] w-[140px rounded-md shadow-md"
+            className="h-[100px] min-w-[100px] max-w-[100px] md:h-[100px] md:min-w-[100px] rounded-md ml-2"
             src={import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename}
           />
-          <div>
+          <div className="max-w-[300px]">
             <span className="text-xs font-bold">{prod.category}</span>
-            <h3 className="text-sm md:text-xl line-clamp-2 md:line-clamp-3 mb-2">{prod.name}</h3>
+            <h3 className="text-sm md:text-[17px] w-full line-clamp-2 md:line-clamp-3 mb-2">{prod.name}</h3>
             <p className="text-lg md:text-2xl font-bold text-[#cbc2b6]">${prod.price}</p>
             <div className="text-center  flex items-center gap-2">
               <button onClick={incrementQuantity}>
                 <AddCircleOutlineIcon fontSize="small" />
               </button>
-              <span className="text-center">{quantity}</span>
+              <span className="mr-0">{quantity}</span>
               <button onClick={decrementQuantity}>
                 <RemoveCircleOutline fontSize="small" />
               </button>
@@ -48,11 +58,20 @@ const CartItems = ({ prod }) => {
           </div>
         </div>
         <div>
-        <button onClick={() => removeFromCart(prod._id)}>
+        <button className="hover:opacity-50" onClick={handleOpenModal}>
           <Delete />
         </button>
         </div>
       </div>
+      <ModalDelete
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={() => {
+          handleCloseModal();
+          removeFromCart(prod._id);
+        }}
+        itemTitle={prod.name}
+      />
     </>
   );
 };

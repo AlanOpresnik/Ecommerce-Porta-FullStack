@@ -1,5 +1,5 @@
+import { Toaster } from "react-hot-toast"
 
-import Navbar from "./components/navbar/Navbar"
 
 function App() {
   

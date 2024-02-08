@@ -26,12 +26,12 @@ const ProductCards = ({ prod, index }) => {
           <div className="border-b-4 h-[280px] md:h-[360px] relative">
             <img
               src={import.meta.env.VITE_ENDPOINT_IMAGES+ prod?.images[0].filename}
-              className="h-full object-cover rounded-t-[20px]"
+              className="h-full object-cover w-full rounded-t-[20px]"
               alt="product"
             />
           </div>
-          <div className="text-center p-3">
-            <p className="line-clamp-2">{prod.name}</p>
+          <div className="text-center flex  flex-col items-center p-3">
+            <p className="line-clamp-2 w-[190px] text-center">{prod.name}</p>
             <p className="font-bold text-2xl text-[#ddd6cd]">{prod.price}</p>{" "}
             <p className="text-sm">
               <strong>{3}</strong> Cuotas sin interés de{" "}

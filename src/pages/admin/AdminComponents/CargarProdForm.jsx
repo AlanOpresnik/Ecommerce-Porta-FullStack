@@ -1,12 +1,11 @@
+import { Grid, TextField, Typography,Button, Container } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
-
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 import Swal from "sweetalert2";
-import { Checkbox } from "@mui/material";
 
 const CargarProdForm = () => {
-  const [file, setFile] = useState(null);
+  const [fileInput, setFileInput] = useState(null);
+  const [imagePreviews, setImagePreviews] = useState([]);
   const [formDatasi, setFormData] = useState({
     name: "",
     description: "",
@@ -17,13 +16,28 @@ const CargarProdForm = () => {
     createdAt: Date.now(),
     updatedAt: Date.now(),
     enabled: true,
-    subcategoryId: "",
     featured: false,
+    subcategoryId: "",
   });
 
+  
+
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const files = e.target.files;
+
+    // Leer y mostrar previsualizaciones de imágenes
+    const previews = Array.from(files).map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImagePreviews((prevPreviews) => [...prevPreviews, reader.result]);
+      };
+      return reader;
+    });
+
+    setFileInput(files);
   };
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -35,11 +49,43 @@ const CargarProdForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(file);
     e.preventDefault();
+    if (imagePreviews.length === 0) {
+      return Swal.fire({
+        icon: "error",
+        title: "Porfavor seleccione una imagen",
+        text: "Es nesecario una imagen valida para subir el producto",
+        footer: 'si seguis teniendo este problema contactate con @alan_opk',
+      });
+    }
+    let timerInterval;
+    Swal.fire({
+      title: "Su producto se esta subiendo",
+      html: "Este cartel se cerrara en <b></b> milisegundos .",
+      timer: 10000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+     
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log("I was closed by the timer");
+      }
+    });
+
     try {
       const formData = new FormData();
-      formData.append("images", file);
+      for (let i = 0; i < fileInput.length; i++) {
+        formData.append("images", fileInput[i]);
+      }
       formData.append("name", formDatasi.name);
       formData.append("description", formDatasi.description);
       formData.append("price", formDatasi.price);
@@ -51,9 +97,6 @@ const CargarProdForm = () => {
       formData.append("enabled", formDatasi.enabled);
       formData.append("featured", formDatasi.featured);
       formData.append("subcategoryId", "65af49766b738bed2caf5573");
-      
-
-
 
       const response = await axios.post(
         "https://www.portaflex.com.ar/api/products/create",
@@ -76,80 +119,140 @@ const CargarProdForm = () => {
         updatedAt: Date.now(),
         enabled: true,
         featured: false,
-        subcategoryId: ""
+        subcategoryId: "",
       });
+      setFileInput(null)
+      setImagePreviews([])
     } catch (error) {
       console.log("Error:", error);
     }
   };
 
   return (
-    <form
-      method="post"
-      encType="multipart/form-data"
-      className="mt-24"
-      onSubmit={handleSubmit}
-    >
-      <input
-        name="name"
-        placeholder="Nombre producto"
-        autoComplete="Nombre"
-        value={formDatasi.name}
-        onChange={handleChange}
-      />
-      <input
-        name="description"
-        placeholder="descripcion producto"
-        autoComplete="descripcion"
-        value={formDatasi.description}
-        onChange={handleChange}
-      />
-      <input
-        name="color"
-        placeholder="color producto"
-        autoComplete="color"
-        value={formDatasi.color}
-        onChange={handleChange}
-      />
-      <input
-        name="price"
-        placeholder="precio producto"
-        autoComplete="precio"
-        type="number"
-        value={formDatasi.price}
-        onChange={handleChange}
-      />
-      <input
-        name="category"
-        placeholder="categoria producto"
-        autoComplete="category"
-        value={formDatasi.category}
-        onChange={handleChange}
-      />
-  <span>stock</span>
-      <input
-        type="checkbox"
-        name="stock"
-        checked={formDatasi.stock}
-        onChange={handleChange}
-      />
-      <span>enabled</span>
-      <input
-        type="checkbox"
-        name="enabled"
-        checked={formDatasi.enabled}
-        onChange={handleChange}
-      />
-       <span>featured</span>
-      <input
-        type="checkbox"
-        name="featured"
-        checked={formDatasi.featured}
-        onChange={handleChange}
-      />
-      <input type="file" name="images" onChange={handleFileChange} />
-      <button type="submit">Submit</button>
-    </form>
+    <Container maxWidth="sm" className="mt-24">
+      <div className="mb-4 border-b w-[100px] md:w-full md:mb-2">
+        <Typography className="font-bold text-md" variant="body4">
+          Cargar Producto
+        </Typography>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Nombre producto"
+              variant="outlined"
+              name="name"
+              value={formDatasi.name}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Descripción producto"
+              variant="outlined"
+              name="description"
+              value={formDatasi.description}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Color producto"
+              variant="outlined"
+              name="color"
+              value={formDatasi.color}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Precio producto"
+              variant="outlined"
+              type="number"
+              name="price"
+              value={formDatasi.price}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Categoría producto"
+              variant="outlined"
+              name="category"
+              value={formDatasi.category}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <label>
+              Stock
+              <input
+                type="checkbox"
+                name="stock"
+                checked={formDatasi.stock}
+                onChange={handleChange}
+              />
+            </label>
+          </Grid>
+          <Grid item xs={12}>
+            <label>
+              Habilitado
+              <input
+                type="checkbox"
+                name="enabled"
+                checked={formDatasi.enabled}
+                onChange={handleChange}
+              />
+            </label>
+          </Grid>
+          <Grid item xs={12}>
+            <label>
+              Destacado
+              <input
+                type="checkbox"
+                name="featured"
+                checked={formDatasi.featured}
+                onChange={handleChange}
+              />
+            </label>
+          </Grid>
+          <Grid item xs={12}>
+            <input
+              type="file"
+              name="images"
+              multiple
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </Grid>
+               {/* Previsualización de imágenes */}
+               <div className="flex gap-6">
+            {imagePreviews.map((preview, index) => (
+              <img 
+              key={index}
+                src={preview}
+                alt={`Preview ${index}`}
+                className="max-w-[120px] flex"
+              />
+            ))}
+          </div>
+        </Grid>
+        <Button
+          className="mt-6 bg-[#cdc3b5] hover:bg-[#d4c4af]"
+          variant="contained"
+          color="primary"
+          fullWidth
+          type="submit"
+        >
+          Enviar
+        </Button>
+      </form>
+    </Container>
   );
 };
 

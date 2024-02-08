@@ -23,7 +23,6 @@ import AsideCategory from "./components/AsideCategory/AsideCategory.jsx";
 import { NextUIProvider } from "@nextui-org/react";
 import AsideCategoryDesktop from "./components/AsideCategory/AsideCategoryDesktop.jsx";
 import AsideFilterSelect from "./components/AsideCategory/AsideFilterSelect.jsx";
-import ProductCards from "./components/products/ProductCards.jsx";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ProductsContext,
@@ -34,7 +33,10 @@ import ProductDetail from "./components/products/ProductsDetails/ProductDetail.j
 import CargarProdForm from "./pages/admin/AdminComponents/CargarProdForm.jsx";
 import ProductsMatch from "./components/products/ProductsDetails/components/carruselProductsMatch/ProductsMatch.jsx";
 import CartSection from "./pages/cart/components/CartSection.jsx";
-import CartTotal from "./pages/cart/components/CartTotal.jsx";
+import CheckoutSection from "./pages/checkout/components/CheckoutSection/CheckoutSection.jsx";
+import toast, { Toaster } from 'react-hot-toast';
+
+
 const router = createHashRouter([
   {
     path: "/",
@@ -53,6 +55,7 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
+          <Toaster />
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -96,10 +99,11 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
+          <Toaster />
           <div className="px-2 md:hidden ml-5">
             <AsideCategory category={"Hogar"} />
           </div>
-          <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white z-10">
+          <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white pb-2 z-10">
             <div className="w-[170px]">
               <AsideFilterSelect />
             </div>
@@ -134,6 +138,7 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
+          <Toaster />
           <div className="px-2 md:hidden ml-5">
             <AsideCategory category={"Construccion"} />
           </div>
@@ -172,8 +177,12 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
+          <Toaster position="top-right" />
           <ProductDetail />
+          <div className="max-w-[1380px] mb-12 mx-auto">
           <ProductsMatch />
+          </div>
+          <FooterSection/>
         </ProductsProvider>
       </>
     ),
@@ -224,10 +233,34 @@ const router = createHashRouter([
         </ProductsProvider>
       </>
     ),
+  },  {
+    path: "/checkout",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <Navbar />
+         <div>
+          <CheckoutSection/>
+         </div>
+          <FooterSection />
+        </ProductsProvider>
+      </>
+    ),
   },
 ]);
-
 ReactDOM.createRoot(document.getElementById("root")).render(
+  
   <React.StrictMode>
     <RouterProvider router={router}>
       <NextUIProvider>

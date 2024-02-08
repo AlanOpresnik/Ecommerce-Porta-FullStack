@@ -16,7 +16,7 @@ const ProductsCompraSection = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
             key={item._id}
-            className="w-full h-[490px] md:h-[530px]"
+            className="w-full h-[490px] md:h-[490px]"
           >
             <ProductCompraCard prod={item} />
           </motion.div>

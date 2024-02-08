@@ -33,14 +33,14 @@ const MainSectionCarrusel = () => {
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
           <div
-            className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center p-6 text-white"
+            className="absolute top-0  left-0 w-full h-full flex flex-col justify-center items-center p-6 text-white"
             style={{
               borderRadius: "31px",
               backgroundColor: "rgba(0, 0, 0, 0.61)",
             }}
           >
-            <p className="text-[32px]">HOGAR</p>
-            <p className="text-center text-[16px] mb-6">
+            <p className="text-[32px] opacity-100">HOGAR</p>
+            <p className="text-center opacity-100  text-[16px] mb-6">
               transformamos el plástico mediante el sistema de rotomoldeo en
               productos de utilidad para la vida cotidiana, con materias primas
               de óptima calidad creamos las mejores sillas y productos para tu
@@ -81,8 +81,8 @@ const MainSectionCarrusel = () => {
               backgroundColor: "rgba(0, 0, 0, 0.61)",
             }}
           >
-            <p className="text-[32px]">CONSTRUCCIONES</p>
-            <p className="text-center text-[16px] mb-6">
+            <p className="text-[32px] opacity-100 ">CONSTRUCCIONES</p>
+            <p className="text-center text-[16px] mb-6 opacity-100 ">
               transformamos el plástico mediante el sistema de rotomoldeo en
               productos de utilidad para la vida cotidiana, con materias primas
               de óptima calidad creamos las mejores sillas y productos para tu

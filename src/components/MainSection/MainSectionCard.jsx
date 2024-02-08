@@ -23,8 +23,8 @@ const MainSectionCard = () => {
             backgroundColor: "rgba(0, 0, 0, 0.61)",
           }}
         >
-          <p className="text-[32px] font-bold">HOGAR</p>
-          <p className="text-center text-[16px] mb-6">
+          <p className="text-[32px] opacity-100  font-bold">HOGAR</p>
+          <p className="text-center opacity-100  text-[16px] mb-6">
             transformamos el plástico mediante el sistema de rotomoldeo en
             productos de utilidad para la vida cotidiana, con materias primas de
             óptima calidad creamos las mejores sillas y productos para tu hogar
@@ -63,8 +63,8 @@ const MainSectionCard = () => {
             backgroundColor: "rgba(0, 0, 0, 0.61)",
           }}
         >
-          <p className="text-[32px] font-bold">CONSTRUCCIONES</p>
-          <p className="text-center text-[16px] mb-6">
+          <p className="text-[32px] opacity-100  font-bold">CONSTRUCCIONES</p>
+          <p className="text-center opacity-100  text-[16px] mb-6">
             transformamos el plástico mediante el sistema de rotomoldeo en
             productos de utilidad para la vida cotidiana, con materias primas de
             óptima calidad creamos las mejores sillas y productos para tu hogar

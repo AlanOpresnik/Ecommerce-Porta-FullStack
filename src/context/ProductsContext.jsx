@@ -3,6 +3,7 @@ import prod2 from "../assets/img/prod2.jpeg";
 import prod3 from "../assets/img/prod3.jpeg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 const ProductsContext = createContext();
 
@@ -55,10 +56,16 @@ const ProductsProvider = ({ children }) => {
 
   const addToCart = (product) => {
     if (product) {
-      const updatedCartItems = [...cartItems, product];
-      setCartItems(updatedCartItems);
-      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-      console.log('producto agregado con éxito', product);
+      const isProductInCart = cartItems.some(item => item._id === product._id);
+      if (!isProductInCart) {
+        const updatedCartItems = [...cartItems, product];
+        setCartItems(updatedCartItems);
+        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+        toast.success(`Producto: ${product.name} agregado con exito`)
+        console.log('Producto agregado con éxito', product);
+      } else {
+        toast.error(`El producto ya se encuentra en el carrito`)
+      }
     }
   };
   useEffect(() => {
@@ -73,7 +80,11 @@ const ProductsProvider = ({ children }) => {
     setCartItems(updatedCartItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   };
-
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+    toast.success('El carrito ha sido vaciado');
+  };
   return (
     <ProductsContext.Provider
       value={{
@@ -86,6 +97,7 @@ const ProductsProvider = ({ children }) => {
         addToCart,
         cartItems,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}
