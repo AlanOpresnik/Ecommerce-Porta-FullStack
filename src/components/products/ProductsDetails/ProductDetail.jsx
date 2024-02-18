@@ -85,7 +85,7 @@ const ProductDetail = () => {
             >
               <div className="container flex justify-start md:justify-center  px-5 pt-3 pb-6 md:py-24 ">
                 <div className="lg:w-full  grid grid-cols-1 sm:grid-cols-2">
-                  <div className="flex w-full justify-center flex-col">
+                  <div className=" w-full justify-center flex-col">
                     <Swiper
                       autoplay={{
                         delay: 2500,
@@ -95,7 +95,7 @@ const ProductDetail = () => {
                       navigation={true}
                       pagination={true}
                       modules={[Pagination, Navigation, Autoplay]}
-                      className="mySwiper2 w-full h-[395px]  sm:w-[280px] md:w-[320px] lg:w-[480px] sm:mr-24  col-span-1"
+                      className="mySwiper2 min-w-[90vw] w-full h-[395px]  sm:w-[280px] md:w-[320px] lg:w-[480px] sm:mr-24  col-span-1"
                     >
                       {product.images?.map((image) => (
                         <SwiperSlide className="w-full" key={image.filename}>
@@ -113,7 +113,7 @@ const ProductDetail = () => {
                   </div>
                   <div className="max-w-[500px] col-span-1 lg:pl-10 lg:py-6 mt-2 lg:mt-0">
                     <h2 className="text-sm title-font mb-1 text-gray-500 tracking-widest">
-                      {product.category}
+                      {product.subcategoryId.category}
                     </h2>
 
                     <h1 className="text-gray-900 text-3xl  title-font font-medium mb-1">
@@ -244,12 +244,14 @@ const ProductDetail = () => {
                       onSwiper={setThumbsSwiper}
                       spaceBetween={10}
                       slidesPerView={3}
+                      pagination
                       autoplay={{
                         delay: 2500,
                         disableOnInteraction: true,
                       }}
                       loop={true}
-                      modules={[Autoplay]}
+                      
+                      modules={[Autoplay,Pagination]}
                       freeMode={true}
                       watchSlidesVisibility={true}
                       watchSlidesProgress={true}
@@ -258,7 +260,7 @@ const ProductDetail = () => {
                           swiper.autoplay.stop(); // Detener la reproducción automática al llegar al final
                         }
                       }}
-                      className="mySwiper2 w-full lg:w-[520px]"
+                      className="mySwiper2 w-full lg:w-[520px] h-[160px] xl:w-[410px]"
                     >
                       <div className="flex justify-center items-center">
                         {product.images.map((image, index) => (
@@ -279,7 +281,7 @@ const ProductDetail = () => {
                   </div>
                   <div className="max-w-[500px] col-span-1 lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                     <h2 className="text-sm title-font mb-1 text-gray-500 tracking-widest">
-                      {product.category}
+                      {product.subcategoryId.category}
                     </h2>
 
                     <h1 className="text-gray-900 text-3xl  title-font font-medium mb-1">

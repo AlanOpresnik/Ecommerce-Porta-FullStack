@@ -31,16 +31,20 @@ const ModalDelete = ({ open, onClose, onConfirm, itemTitle }) => {
         >
           ¿Estas seguro?
         </Typography>
-        <Typography
-          id="confirm-delete-modal-description"
-          sx={{ marginTop: ".6rem" }}
-        >
-          ¿Deseas eliminar{" "}
-          <span className="text-[#b29f87] text-[16px] font-bold">{itemTitle}</span> de el carrito?
-        </Typography>
+        <div>
+
+          <Typography
+            id="confirm-delete-modal-description"
+            sx={{ marginTop: ".6rem" }}
+            className=""
+          >
+            ¿Deseas eliminar{" "}
+            <p className="text-[#b29f87] text-md font-bold">{itemTitle}</p> de el carrito?
+          </Typography>
+        </div>
 
         <Button
-        aria-label="eliminar de carrito"
+          aria-label="eliminar de carrito"
           sx={{
             bgcolor: "#cbc2b6",
             color: "white",
@@ -57,7 +61,7 @@ const ModalDelete = ({ open, onClose, onConfirm, itemTitle }) => {
           Confirmar
         </Button>
         <Button
-        aria-label="cancelar"
+          aria-label="cancelar"
           sx={{ color: "black", marginTop: "1rem", marginLeft: ".5rem" }}
           className="bg-transparent border hover:text-[#7a7267]"
           onClick={onClose}

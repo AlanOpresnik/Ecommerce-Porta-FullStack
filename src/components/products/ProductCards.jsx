@@ -8,6 +8,7 @@ const ProductCards = ({ prod, index }) => {
   const { handleRedirect, loading } = useProducts()
   const [isHovered, setIsHovered] = useState(false);
   const formattedProductName = prod.name.replace(/ /g, "-");
+ 
   const navigate = useNavigate();
   return (
 
@@ -21,12 +22,12 @@ const ProductCards = ({ prod, index }) => {
             }`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => handleRedirect(prod._id, prod.category, formattedProductName)}
+          onClick={() => handleRedirect(prod._id, prod.subcategoryId.category, formattedProductName)}
         >
           <div className="border-b-4 h-[280px] md:h-[360px] relative">
             <img
               src={import.meta.env.VITE_ENDPOINT_IMAGES+ prod?.images[0].filename}
-              className="h-full object-cover w-full rounded-t-[20px]"
+              className="h-full object-contain w-full rounded-t-[20px]"
               alt="product"
             />
           </div>

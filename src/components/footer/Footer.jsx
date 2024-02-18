@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { EmailOutlined, Instagram } from "@mui/icons-material";
 import { LocationOnOutlined } from "@mui/icons-material";
+
 import { Button } from "@mui/material";
 
 const Footer = () => {
@@ -11,7 +12,7 @@ const Footer = () => {
         <footer className="flex flex-col  md:items-start md:flex-row  p-12 gap-12 justify-between container ">
           <div className="">
             <h1 className="font-bold text-[24px] newsLetter-heading">
-              PETRO FLEX
+              PORTAFLEX
             </h1>
             <p className="text-sm mt-4">
               Te ofrecemos Productos de Excelente Calidad
@@ -45,7 +46,7 @@ const Footer = () => {
                 Contactanos
               </h4>
               <EmailOutlined />
-              <span className="ml-2">petroflex@gmail.com</span>
+              <span className="ml-2">info@portaflex.com.ar</span>
             </div>
             <div className="mt-4 flex items-center">
               <LocationOnOutlined />
@@ -59,23 +60,16 @@ const Footer = () => {
           </div>
           <div className="flex flex-col ">
             <div className="">
-              <h4 className="font-bold text-[24px] newsLetter-heading mb-2">
-                Sigamos conectando
+              <h4 className="font-bold text-[24px] newsLetter-heading mb-6">
+                Sigamos conectados
               </h4>
-              <Button
-                className="rounded-full transition-opacity py-7 h-[60px] w-[20px] "
-                variant="contained"
-                sx={{
-                  backgroundColor: "#9B856F",
-                  borderRadius: "9999px",
-                  "&:hover": {
-                    backgroundColor: "#9B856F", 
-                    opacity: 0.7, 
-                  },
-                }}
+              <a
+                href="https://www.instagram.com/portaflexargentina/?igsh=MWJidDYxOTRrdG1zcg%3D%3D"
+                className="bg-[#9B856F] hover:bg-[#a79686] transition-background p-4 px-4 rounded-full" 
+              target="_BLANK"
               >
-                <Instagram sx={{ fontSize: "23px" }} />
-              </Button>
+                <Instagram sx={{ fontSize: "23px", color:"white" }} />
+              </a>
             </div>
           </div>
         </footer>

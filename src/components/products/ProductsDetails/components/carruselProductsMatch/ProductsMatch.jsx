@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useProducts } from "../../../../../context/ProductsContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation,Autoplay } from "swiper/modules";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -15,7 +15,7 @@ const ProductsMatch = () => {
   const navigate = useNavigate();
 
   const matchProducts = prodItems.filter(
-    (product) => product.category === params.category
+    (product) => product.subcategoryId.category === params.category
   );
   console.log(matchProducts);
 
@@ -39,10 +39,13 @@ const ProductsMatch = () => {
 
   return (
     <>
-      <h3 className="text-center mt-8 text-xl md:text-2xl font-bold">
-        Productos que podrían{" "}
-        <span className="text-[#b3a38e] text-xl md:text-2xl">interesarte</span>
-      </h3>
+      <div className="flex justify-center mt-12 md:mt-[-20px] gap-2 items-center align-middle">
+
+        <h3 className="text-center  text-xl md:text-2xl font-bold">
+          Productos que podrían{" "}
+        </h3>
+        <p className="text-[#b3a38e] text-xl md:text-2xl font-bold">interesarte</p>
+      </div>
       <Swiper
         spaceBetween={30}
         autoplay={{
@@ -53,12 +56,12 @@ const ProductsMatch = () => {
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination, Navigation,Autoplay]}
+        modules={[Pagination, Navigation, Autoplay]}
         navigation
-        className="mySwiper mt-6 h-[480px]"
+        className="mySwiper mt-6 h-[520px] md:h-[490px]"
         breakpoints={{
           300: {
-            slidesPerView: 1.2,
+            slidesPerView: 1.3,
             navigation: true,
           },
           400: {
@@ -100,9 +103,8 @@ const ProductsMatch = () => {
                 ) : (
                   <div
                     key={prod._id}
-                    className={`w-[220px] hover:opacity-90  md:w-[250px] lg:w-[300px] cursor-pointer h-auto md:h-[430px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${
-                      hoveredProducts[index] ? "h-auto md:h-[430px]" : ""
-                    }`}
+                    className={`w-[220px] hover:opacity-90  md:w-[250px] lg:w-[300px] cursor-pointer h-auto md:h-[430px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${hoveredProducts[index] ? "h-auto md:h-[430px]" : ""
+                      }`}
                     onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={() => handleMouseLeave(index)}
                     onClick={() =>
@@ -113,13 +115,13 @@ const ProductsMatch = () => {
                       )
                     }
                   >
-                    <div className="border-b-4 h-[280px] md:h-[290px] relative">
+                    <div className="border-b-4 h-[280px] md:h-[270px] relative">
                       <img
                         src={
                           import.meta.env.VITE_ENDPOINT_IMAGES +
                           prod?.images[0].filename
                         }
-                        className="h-full object-cover w-full rounded-t-[20px]"
+                        className="h-full object-contain w-full rounded-t-[20px]"
                         alt="product"
                       />
                     </div>
@@ -135,9 +137,8 @@ const ProductsMatch = () => {
                         <strong>$3.200,00</strong>
                       </p>
                       <div
-                        className={`hidden md:flex gap-4 items-center justify-center opacity-0 ${
-                          hoveredProducts[index] ? "opacity-100" : ""
-                        } transition-opacity duration-300`}
+                        className={`hidden md:flex gap-4 items-center justify-center opacity-0 ${hoveredProducts[index] ? "opacity-100" : ""
+                          } transition-opacity duration-300`}
                       >
                         <button className="bg-[#DDD6CD] hover:bg-[#e5ded5] transition-colors text-white px-4 py-2 rounded-full text-sm w-[100px]">
                           COMPRAR

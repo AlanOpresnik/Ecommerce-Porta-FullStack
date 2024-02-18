@@ -35,8 +35,8 @@ const ModalEmptyCart = ({ open, onClose, onConfirm }) => {
           id="confirm-delete-modal-description"
           sx={{ marginTop: ".6rem" }}
         >
-          ¿Deseas Vaciar el
-          <span className="text-[#b29f87] text-[16px] font-bold"> carrito</span>de compras
+          ¿Deseas    <span className="text-[#b29f87] text-[16px] font-bold">Vaciar el {" "}
+        carrito</span> de compras
         </Typography>
 
         <Button

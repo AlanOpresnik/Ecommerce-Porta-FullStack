@@ -11,27 +11,36 @@ import {
 import { SelectorIcon } from "./SelectorIcon";
 import { animals } from "./data";
 import "./aside.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useProducts } from "../../context/ProductsContext";
 
-const AsideCategory = ({ category }) => {
+const AsideCategory = () => {
+  const { categorys } = useProducts()
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const params = useParams()
+  console.log(params)
   const navigate = useNavigate();
   const { handleOrdenChange } = useProducts();
+  const filteredCategories = categorys?.filter(category => (
+    category.category === params.category &&
+    category.subcategoryId?.category !== "Construcción"
+  )) || [];
   return (
     <>
       <div className="flex justify-between gap-6 items-center md:hidden py-2 ">
         <Select
           placeholder="Ordenar por"
           labelPlacement="outside"
-          className=" mt-6 "
+          className=" mt-6 text-xs no-truncate "
           disableSelectorIconRotation
           selectorIcon={<SelectorIcon />}
           onChange={(e) => handleOrdenChange(e.target.value)}
         >
-          <SelectItem className="no-truncate " value="lowToHigh">
+          <SelectItem className="no-truncate text-xs " value="lowToHigh">
             Mas bajo
           </SelectItem>
-          <SelectItem className="no-truncate" value="highToLow">
+          <SelectItem className="no-truncate text-xs" value="highToLow">
             Mas alto
           </SelectItem>
         </Select>
@@ -57,7 +66,7 @@ const AsideCategory = ({ category }) => {
       <div className="flex justify-between items-center mt-6">
         <div className="flex items-center">
           <h4 className="text-[16px]">Categoria / </h4>
-          <p className="ml-2 font-semibold">{category}</p>
+          <p className="ml-2 font-semibold">{params.category}</p>
         </div>
 
         <Dropdown>
@@ -65,30 +74,20 @@ const AsideCategory = ({ category }) => {
             <Button variant="bordered">Ver categorias</Button>
           </DropdownTrigger>
           <DropdownMenu aria-label="Static Actions">
-            <DropdownItem
-              onClick={() => navigate("/products/construccion ")}
-              key="new"
-            >
-              Construccion
-            </DropdownItem>
-            <DropdownItem
-              onClick={() => navigate("/products/hogar")}
-              key="copy"
-            >
-              Hogar
-            </DropdownItem>
-            <DropdownItem
-              onClick={() => navigate("/products/hogar/sillas")}
-              key="edit"
-            >
-              Sillas
-            </DropdownItem>
-            <DropdownItem
-              onClick={() => navigate("/products/reciclados")}
-              key="delete"
-            >
-              Reciclados
-            </DropdownItem>
+          <DropdownItem
+                onClick={() => navigate(`/products/${params.category}`)}
+                key="new"
+              >
+                {"Todas"}
+              </DropdownItem>
+            {filteredCategories.map((category => (
+              <DropdownItem
+                onClick={() => navigate(`/products/${category.category}/${category.name.replace(/\s+/g, '-')}`)}
+                key="new"
+              >
+                {category.name}
+              </DropdownItem>
+            )))}
           </DropdownMenu>
         </Dropdown>
       </div>

@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { PiShoppingCartThin } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "./search/Search";
+import logo from "../../assets/img/logo.png";
 import SecondNavbar from "./SecondNavbar";
 import { useProducts } from "../../context/ProductsContext";
 import {
@@ -77,9 +78,7 @@ const Navbar = () => {
               to="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
-              <h2 className="text-[24px] mr-4 md:text-[28px] text-[#9C9C9C] newsLetter-heading font-bold">
-                PortaFlex
-              </h2>
+              <img className=" w-[135px]  sm:w-[240px]" src={logo} />
             </Link>
             <div className="flex md:order-1 space-x-0 md:space-x-0 rtl:space-x-reverse">
               <Search products={filteredProducts} onSearch={handleSearch} />
@@ -89,22 +88,29 @@ const Navbar = () => {
                   className="cursor-pointer  text-[#cacaca] text-3xl font-bold"
                   sx={{ color: "#D9D9D9" }}
                 />
-                   {cartItems.length >= 1 ? (
-                    <span
-                      onClick={() => navigate("/cart")}
-                      className="absolute cursor-pointer text-xs font-bold text-white w-[23px] h-[24px] items-center text-center border p-1 rounded-full bg-[#aea18f] right-[-15px] top-[-10px]"
-                    >
-                      {cartItems.length}
-                    </span>
-                  ) : (
-                    ""
-                  )}
+                {cartItems.length >= 1 ? (
+                  <span
+                    onClick={() => navigate("/cart")}
+                    className="absolute cursor-pointer text-xs font-bold text-white w-[23px] h-[24px] items-center text-center border p-1 rounded-full bg-[#aea18f] right-[-15px] top-[-10px]"
+                  >
+                    {cartItems.length}
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
-                <Button className="block md:hidden" onClick={() => setOpenMenu(!openMenu)}>
-                  <MenuIcon
-                    sx={{ color: "#AAAAAA", width: "32px", height: "32px" }}
-                  />
-                </Button>
+              <Button className="block md:hidden" onClick={() => setOpenMenu(!openMenu)}>
+                <MenuIcon
+                  sx={{
+                    color: "#AAAAAA",
+                    width: "32px",
+                    height: "32px",
+                    "@media (min-width: 768px)": {
+                      display: "none" // Ocultar en dispositivos con un ancho mínimo de 768px (desktop)
+                    }
+                  }}
+                />
+              </Button>
             </div>
 
             <div
@@ -140,9 +146,8 @@ const Navbar = () => {
         {/*mobile navbar */}
 
         <div
-          className={` shadow-md bg-[#ffff] w-[260px] rounded-lg fixed  z-50 top-[109px] p-6 ${
-            openMenu ? "left-0" : "left-[-300px]"
-          } transition-all ease-in-out duration-300`}
+          className={` shadow-md bg-[#ffff] w-[260px] rounded-lg fixed  z-50 top-[109px] p-6 ${openMenu ? "left-0" : "left-[-300px]"
+            } transition-all ease-in-out duration-300`}
         >
           {/* Agrega un manejador de clic para cerrar el menú */}
           <div className="" onClick={closeMenu}>

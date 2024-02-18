@@ -35,6 +35,11 @@ import ProductsMatch from "./components/products/ProductsDetails/components/carr
 import CartSection from "./pages/cart/components/CartSection.jsx";
 import CheckoutSection from "./pages/checkout/components/CheckoutSection/CheckoutSection.jsx";
 import toast, { Toaster } from 'react-hot-toast';
+import LoginComponent from "./pages/login/LoginComponents/LoginComponent.jsx";
+import AdminProductsSection from "./pages/admin/AdminComponents/AdminProductsSection.jsx";
+import SideBar from "./pages/admin/AdminComponents/SideBar.jsx";
+import ScrollToTop from "./components/Scroll/ScrollToTop.js";
+import OrdenesSection from "./pages/admin/ordenes/OrdenesSection.jsx";
 
 
 const router = createHashRouter([
@@ -77,13 +82,14 @@ const router = createHashRouter([
               <InstagramDividerSection />
               <FooterSection />
             </div>
+            <ScrollToTop />
           </motion.div>
         </ProductsProvider>
       </>
     ),
   },
   {
-    path: "/products/hogar",
+    path: "/products/:category/:subcategory?",
 
     element: (
       <>
@@ -101,61 +107,23 @@ const router = createHashRouter([
           <Navbar />
           <Toaster />
           <div className="px-2 md:hidden ml-5">
-            <AsideCategory category={"Hogar"} />
+            <AsideCategory  />
           </div>
           <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white pb-2 z-10">
             <div className="w-[170px]">
               <AsideFilterSelect />
             </div>
           </div>
-          <div className="flex justify-center px-2 gap-12 max-w-[1260px] mx-auto">
+          <div className="flex justify-center px-2  md:gap-12  max-w-[1260px] mx-auto">
             <div className="hidden md:block">
-              <AsideCategoryDesktop category={"Hogar"} />
+              <AsideCategoryDesktop  />
             </div>
             <ProductsCompraSection />
           </div>
           <div className="w-full mt-24 ">
             <FooterSection />
           </div>
-        </ProductsProvider>
-      </>
-    ),
-  },
-  {
-    path: "/products/construccion",
-
-    element: (
-      <>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Lorecunas</title>
-          <meta name="description" />
-          <meta
-            name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
-          />
-        </Helmet>
-        <ProductsProvider>
-          <Navbar />
-          <Toaster />
-          <div className="px-2 md:hidden ml-5">
-            <AsideCategory category={"Construccion"} />
-          </div>
-          <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white z-10">
-            <div className="w-[170px]">
-              <AsideFilterSelect />
-            </div>
-          </div>
-          <div className="flex justify-center px-2 gap-12 max-w-[1260px] mx-auto">
-            <div className="hidden md:block">
-              <AsideCategoryDesktop category={"Construccion"} />
-            </div>
-            <ProductsCompraSection />
-          </div>
-          <div className="w-full mt-24 ">
-            <FooterSection />
-          </div>
+          <ScrollToTop />
         </ProductsProvider>
       </>
     ),
@@ -180,31 +148,10 @@ const router = createHashRouter([
           <Toaster position="top-right" />
           <ProductDetail />
           <div className="max-w-[1380px] mb-12 mx-auto">
-          <ProductsMatch />
+            <ProductsMatch />
           </div>
-          <FooterSection/>
-        </ProductsProvider>
-      </>
-    ),
-  },
-  {
-    path: "/admin/upload",
-
-    element: (
-      <>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Lorecunas</title>
-          <meta name="description" />
-          <meta
-            name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
-          />
-        </Helmet>
-        <ProductsProvider>
-          <Navbar />
-          <CargarProdForm />
+          <FooterSection />
+          <ScrollToTop />
         </ProductsProvider>
       </>
     ),
@@ -221,7 +168,7 @@ const router = createHashRouter([
           <meta
             name="description"
             content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
           />
         </Helmet>
         <ProductsProvider>
@@ -230,11 +177,119 @@ const router = createHashRouter([
             <CartSection />
           </div>
           <FooterSection />
+          <ScrollToTop />
         </ProductsProvider>
       </>
     ),
-  },  {
+  }, {
     path: "/checkout",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <Navbar />
+          <div>
+            <CheckoutSection />
+          </div>
+          <FooterSection />
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/admin/login",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <Navbar />
+          <div className={`flex px-2 flex-col items-center w-full`}>
+            <LoginComponent />
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-screen flex flex-1 ">
+            <SideBar />
+            <div className="w-[80%]  md:w-[1280px] mx-auto">
+
+              <AdminProductsSection />
+            </div>
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/ordenes",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-screen flex flex-1 ">
+            <SideBar />
+            <div className="w-[80%]  md:w-[1280px] mx-auto">
+
+              <OrdenesSection />
+            </div>
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/upload",
 
     element: (
       <>
@@ -249,21 +304,22 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-          <Navbar />
-         <div>
-          <CheckoutSection/>
-         </div>
-          <FooterSection />
+          <div className="h-screen flex flex-1 ">
+            <SideBar />
+            <CargarProdForm />
+          </div>
+          <ScrollToTop />
         </ProductsProvider>
       </>
     ),
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
-  
+
   <React.StrictMode>
     <RouterProvider router={router}>
       <NextUIProvider>
+      
         <App />
       </NextUIProvider>
     </RouterProvider>

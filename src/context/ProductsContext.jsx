@@ -14,7 +14,8 @@ const ProductsProvider = ({ children }) => {
   const [prodItems, setProdItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [cartItems, setCartItems] = useState([])
-
+  const [ordenes, setOrdenes] = useState([])
+  const [categorys, setCategorys] = useState()
 
 
   const [orden, setOrden] = useState("lowToHigh");
@@ -56,15 +57,18 @@ const ProductsProvider = ({ children }) => {
 
   const addToCart = (product) => {
     if (product) {
+      // Añadir la propiedad 'quantity' al producto
+      product.quantity = 1;
+
       const isProductInCart = cartItems.some(item => item._id === product._id);
       if (!isProductInCart) {
         const updatedCartItems = [...cartItems, product];
         setCartItems(updatedCartItems);
         localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-        toast.success(`Producto: ${product.name} agregado con exito`)
+        toast.success(`Producto: ${product.name} agregado con éxito`);
         console.log('Producto agregado con éxito', product);
       } else {
-        toast.error(`El producto ya se encuentra en el carrito`)
+        toast.error(`El producto ya se encuentra en el carrito`);
       }
     }
   };
@@ -74,6 +78,20 @@ const ProductsProvider = ({ children }) => {
       setCartItems(JSON.parse(storedCartItems));
     }
   }, []);
+
+  const removeProduct = async (product) => {
+    try {
+      const response = await axios.delete("https://www.portaflex.com.ar/api/products/delete", {
+        data: {
+          productId: product._id
+        }
+      });
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error);
+    }
+  };
+
+
 
   const removeFromCart = (productId) => {
     const updatedCartItems = cartItems.filter(item => item._id !== productId);
@@ -85,6 +103,41 @@ const ProductsProvider = ({ children }) => {
     localStorage.removeItem('cartItems');
     toast.success('El carrito ha sido vaciado');
   };
+
+
+  const getOrdenes = async () => {
+    try {
+      const response = await axios.get(`https://www.portaflex.com.ar/api/sales/get`)
+      setOrdenes(response.data)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getOrdenes()
+  }, [])
+
+
+  const getSubCategory = async () => {
+    const response = await axios.get(`https://www.portaflex.com.ar/api/subcategories/get`)
+    setCategorys(response.data)
+  }
+
+  useEffect(() => {
+    getSubCategory()
+  }, [])
+
+  const NewSubCategory = async (name, category, enabled) => {
+    const response = await axios.post(`https://www.portaflex.com.ar/api/subcategories/create`, {
+      name: name,
+      category: category,
+      enabled: enabled
+    })
+    console.log("respuesta:" + response.data)
+  }
+
   return (
     <ProductsContext.Provider
       value={{
@@ -98,6 +151,11 @@ const ProductsProvider = ({ children }) => {
         cartItems,
         removeFromCart,
         clearCart,
+        removeProduct,
+        getOrdenes,
+        ordenes,
+        categorys,
+        NewSubCategory
       }}
     >
       {children}

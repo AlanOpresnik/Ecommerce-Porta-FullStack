@@ -4,20 +4,21 @@ import {
   SportsFootballOutlined,
   WhereToVoteOutlined,
 } from "@mui/icons-material";
+import FactoryIcon from '@mui/icons-material/Factory';
 
 const cardItems = [
   {
-    title: "Enviamos tu compra",
-    description: "en 20 dias habiles",
+    title: "Somos fabricantes",
+    description: "Hace mas de 8 años",
     icon: (
-      <SportsFootballOutlined
+      <FactoryIcon
         sx={{ width: "69px", height: "69px", color: "#6D6D6D" }}
       />
     ),
   },
   {
-    title: "Enviamos tu compra",
-    description: "en 20 dias habiles",
+    title: "Nos ubicamos en",
+    description: "Polo 24 - Parque industrial",
     icon: (
       <WhereToVoteOutlined
         sx={{ width: "69px", height: "69px", color: "#6D6D6D" }}
