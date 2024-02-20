@@ -12,7 +12,7 @@ const ProductCompraCard = ({ prod, index }) => {
 
   const { handleRedirect } = useProducts();
   const formattedProductName = prod.name.replace(/ /g, "-");
-
+  const formattedSubCategoryName = prod.subcategoryId.name.replace(/ /g, "-");
   const handleMouseEnter = () => {
     if (prod && prod.images.length > 1) {
       setMouseEnter(true)
@@ -40,7 +40,7 @@ const ProductCompraCard = ({ prod, index }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() =>
-          handleRedirect(prod._id, prod.subcategoryId.category, formattedProductName)
+          handleRedirect(prod._id, prod.subcategoryId.category, formattedSubCategoryName, formattedProductName)
         }
       >
         <div className="border-b-4 h-[260px] md:h-[300px] relative">

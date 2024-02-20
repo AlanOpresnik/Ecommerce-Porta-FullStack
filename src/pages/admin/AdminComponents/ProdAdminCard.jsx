@@ -14,6 +14,8 @@ const ProdAdminCard = ({ prod }) => {
     const { removeProduct, categorys } = useProducts();
     const [openModal, setOpenModal] = useState(false);
     const [editedProduct, setEditedProduct] = useState(prod);
+    const formattedProductName = prod.name.replace(/ /g, "-");
+    const formattedSubCategoryName = prod.subcategoryId.name.replace(/ /g, "-");
 
     const handleOpenModal = () => {
         setOpenModal(true);
@@ -24,18 +26,31 @@ const ProdAdminCard = ({ prod }) => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, checked } = e.target;
+        const newValue = type === "checkbox" ? checked : value;
         setEditedProduct({
-            ...editedProduct,
-            [name]: value,
+          ...editedProduct,
+          [name]: newValue,
         });
-    };
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(editedProduct.subcategoryId)
         try {
             // Enviar los cambios al servidor
-            await axios.put(`https://www.portaflex.com.ar/api/products/${prod._id}`, editedProduct);
+            await axios.put(`https://portaflex.com.ar/api/products/update`, {
+                productId: editedProduct._id,
+                name: editedProduct.name,
+                description: editedProduct.description,
+                price: editedProduct.price,
+                subcategoryId: editedProduct.subcategoryId,
+                stock: editedProduct.stock,
+                featured: editedProduct.featured,
+                enabled: editedProduct.enabled,
+                createdAt: editedProduct.createdAt,
+                updatedAt: editedProduct.updatedAt,
+            });
             handleCloseModal();
             // Aquí puedes agregar alguna lógica adicional, como mostrar una notificación de éxito
         } catch (error) {
@@ -45,10 +60,10 @@ const ProdAdminCard = ({ prod }) => {
     };
 
     return (
-        <div className="flex justify-between gap-6 overflow-x-auto max-w-[600px] ma">
+        <div className="flex justify-between border shadow-md p-2 rounded-xl gap-6 overflow-x-auto max-w-[600px]">
             <div>
                 <img
-                    className="w-[160px] h-[100px] object-cover rounded"
+                    className="w-[160px] h-[100px] object-cover rounded-lg "
                     src={import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename}
                     alt={`Product ${prod._id}`}
                 />
@@ -76,7 +91,7 @@ const ProdAdminCard = ({ prod }) => {
                         </Button>
                     </Tooltip>
                     <Tooltip title="Ver Producto" arrow>
-                        <Button onClick={() => navigate(`/products/${prod.category}/${prod.name}/${prod._id}`)} >
+                        <Button onClick={() => navigate(`/products/${prod.subcategoryId.category}/${formattedSubCategoryName}/${formattedProductName}/${prod._id}`)} >
                             <OpenInNewIcon sx={{ color: "#C7B297" }} />
                         </Button>
                     </Tooltip>
@@ -148,7 +163,6 @@ const ProdAdminCard = ({ prod }) => {
                                         value={editedProduct.subcategoryId}
                                         sx={{ marginBottom: "1rem" }}
                                         label="Elegir categoria"
-
                                         onChange={handleChange}
                                     >
                                         {categorys?.map((category => (

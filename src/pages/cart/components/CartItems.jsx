@@ -43,7 +43,7 @@ const CartItems = ({ prod }) => {
             src={import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename}
           />
           <div className="max-w-[300px]">
-            <span className="text-xs font-bold">{prod.category}</span>
+            <span className="text-xs font-bold">{prod.subcategoryId.category}</span>
             <h3 className="text-sm md:text-[17px] w-full line-clamp-2 md:line-clamp-3 mb-2">{prod.name}</h3>
             <p className="text-lg md:text-2xl font-bold text-[#cbc2b6]">${prod.price}</p>
             <div className="text-center  flex items-center gap-2">

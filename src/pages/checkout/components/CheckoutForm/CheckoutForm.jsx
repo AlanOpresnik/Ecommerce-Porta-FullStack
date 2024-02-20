@@ -25,7 +25,7 @@ function CheckoutForm() {
     console.log(name, value); // Agregar esta línea para depurar
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value
+      [name]: value 
     }));
   };
   useEffect(() => {

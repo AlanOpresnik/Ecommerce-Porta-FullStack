@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { AccountCircle, CalendarToday, Chat, Search, Settings, Folder, BarChart, Dashboard } from '@mui/icons-material';
+import { AccountCircle, CalendarToday, Dashboard } from '@mui/icons-material';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import StarsIcon from '@mui/icons-material/Stars';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import logo from "../../../assets/img/logo-blanco.png";
 import { Link } from "react-router-dom";
@@ -12,10 +14,12 @@ const SideBar = () => {
         { title: "Ordenes", icon: <AccountCircle />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/ordenes` },
         { title: "Productos destacados", icon: <StarsIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/destacados` },
         { title: "Cargar un producto", icon: <CalendarToday />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/upload` },
+        { title: "Cupones", icon: <AutoStoriesIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/coupons` },
+        { title: "Cargar nuevo cupon", icon: <LibraryAddIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcupon` },
     ];
 
     return (
-        <div className="flex h-full">
+        <div className="flex relative h-[100vh]">
             <div
                 className={` ${open ? "w-72" : "w-20 "
                     } bg-[#c7b297]  p-5  h-full pt-8 relative duration-300`}

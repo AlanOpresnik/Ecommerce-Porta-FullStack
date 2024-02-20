@@ -13,9 +13,10 @@ const ProductsMatch = () => {
   const { prodItems, loading } = useProducts();
   const params = useParams();
   const navigate = useNavigate();
-
+const formattedSubCategoryName = params.name.replace(/-/g, ' ');
+console.log(params.name)
   const matchProducts = prodItems.filter(
-    (product) => product.subcategoryId.category === params.category
+    (product) => product.subcategoryId.name === formattedSubCategoryName
   );
   console.log(matchProducts);
 

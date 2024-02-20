@@ -3,10 +3,10 @@ import React from "react";
 import { useProducts } from "../../../context/ProductsContext";
 
 const ProductInfoCard = () => {
-    const {prodItems} = useProducts()
+  const { prodItems } = useProducts()
   return (
-    <div className="w-[250px] md:w-auto">
-      <Card sx={{bgcolor:"black", color:"white", opacity:".8", marginBottom:"2.5rem"}}>
+    <div className="w-[250px] md:w-auto ">
+      <Card sx={{ bgcolor: "black", color: "white", opacity: ".8", marginBottom: "2.5rem" }}>
         <CardContent>
           <div className="flex items-center w-[500px] justify-between">
             <p>Actualmente tienes:</p>

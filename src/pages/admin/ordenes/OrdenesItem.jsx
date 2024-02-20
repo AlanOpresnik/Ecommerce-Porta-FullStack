@@ -10,15 +10,14 @@ import { useProducts } from '../../../context/ProductsContext';
 import { formatearFecha } from './formatearFecha';
 
 
-export default function OrdenesItem() {
+export default function OrdenesItem({orden}) {
     const { ordenes } = useProducts()
 
 
 
     return (
 
-        <div className='max-w-[620px]'>
-            {ordenes.map((orden => (
+        <div className='max-w-[620px] shadow-md   px-3 '>
                 <Accordion className='my-6 relative w-[95%] md:w-full justify-between'>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -82,7 +81,6 @@ export default function OrdenesItem() {
                         </div>
                     </AccordionDetails>
                 </Accordion>
-            )))}
 
         </div>
 

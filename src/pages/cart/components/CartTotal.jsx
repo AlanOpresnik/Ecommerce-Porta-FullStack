@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useProducts } from "../../../context/ProductsContext";
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const CartTotal = () => {
-  const { cartItems } = useProducts();
+  const [cupon, setCupon] = useState("");
+  const [descuento, setDescuento] = useState(0);
+  const { cartItems, ValidateCupon, cuponData } = useProducts();
   const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (cuponData && cuponData.success) {
+      setDescuento(cuponData.discountValue);
+    } else {
+      setDescuento(0);
+    }
+  }, [cuponData]);
+
+
+
   return (
     <div className="border  max-w-[600px] rounded mt-16 md:mt-0 px-2 relative md:sticky md:top-[190px]">
 
@@ -27,25 +40,50 @@ const CartTotal = () => {
             )))}
           </div>
         </div>
+        {descuento > 0 && (
+          <div className="flex justify-between border-b items-center px-3 py-6">
+            <p className="text-lg md:text-xl">Precio anterior:</p>
+            <p className="text-xl">
+              <span style={{ textDecoration: 'line-through' }}>${subtotal}</span>
+            </p>
+          </div>
+        )}
+        {descuento > 0 && (
+          <div className="flex justify-between border-b items-center px-3 py-6">
+            <p className="text-lg md:text-xl">Descuento:</p>
+            <p className="text-xl">
+              Descuento de ${descuento}
+            </p>
+          </div>
+        )}
         <div className="flex justify-between border-b items-center px-3 py-6">
           <p className="text-lg md:text-xl">Precio final:</p>
-          <p className="text-xl">${subtotal}</p>
+          <p className="text-xl">
+            ${subtotal - descuento}
+          </p>
         </div>
         <div className="">
           <p className="mt-2 text-[#887966] text-xs">¿Tenes un <span className="text-[#887966] font-bold">cupon?</span></p>
-          <TextField
-            size="small"
-            label="Canjear cupon"
-            variant="outlined"
-            type="text"
-            name="Cupon"
-            sx={{
-              padding: "1px !important",
-              marginTop: "6px",
+          <div className="flex items-center align-middle h-full">
+            <TextField
+              onChange={(e) => setCupon(e.target.value)}
+              size="small"
+              label="Canjear cupon"
+              variant="outlined"
+              type="text"
+              name="Cupon"
+              sx={{
+                padding: "1px !important",
+                marginTop: "8px",
+                marginRight: '10px'
 
-            }}
-            className="w-[60vw] sm:w-auto "
-          />
+              }}
+              className="w-[60vw] sm:w-auto "
+            />
+            <Button onClick={() => ValidateCupon(cupon)}>
+              Validar cupon
+            </Button>
+          </div>
 
         </div>
         <div className="flex justify-center text-xs py-6">

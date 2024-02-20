@@ -40,6 +40,10 @@ import AdminProductsSection from "./pages/admin/AdminComponents/AdminProductsSec
 import SideBar from "./pages/admin/AdminComponents/SideBar.jsx";
 import ScrollToTop from "./components/Scroll/ScrollToTop.js";
 import OrdenesSection from "./pages/admin/ordenes/OrdenesSection.jsx";
+import ProductsFeatured from "./pages/admin/destacados/ProductsFeatured.jsx";
+import FeaturedSection from "./pages/admin/destacados/FeaturedSection.jsx";
+import CouponsSection from "./pages/admin/AdminComponents/CouponsSection.jsx";
+import NewCuponSection from "./pages/admin/AdminComponents/coupons/NewCuponSection.jsx";
 
 
 const router = createHashRouter([
@@ -107,7 +111,7 @@ const router = createHashRouter([
           <Navbar />
           <Toaster />
           <div className="px-2 md:hidden ml-5">
-            <AsideCategory  />
+            <AsideCategory />
           </div>
           <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white pb-2 z-10">
             <div className="w-[170px]">
@@ -116,7 +120,7 @@ const router = createHashRouter([
           </div>
           <div className="flex justify-center px-2  md:gap-12  max-w-[1260px] mx-auto">
             <div className="hidden md:block">
-              <AsideCategoryDesktop  />
+              <AsideCategoryDesktop />
             </div>
             <ProductsCompraSection />
           </div>
@@ -129,7 +133,7 @@ const router = createHashRouter([
     ),
   },
   {
-    path: "/products/:category/:name/:id",
+    path: "/products/:category/:name/:subcategory/:id",
 
     element: (
       <>
@@ -276,10 +280,11 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-          <div className="h-screen flex flex-1 ">
-            <SideBar />
-            <div className="w-[80%]  md:w-[1280px] mx-auto">
-
+          <div className="h-full relative  flex flex-1 ">
+            <div className="relative">
+              <SideBar />
+            </div> 
+            <div className="w-[80%] h-full   md:w-[1280px] mx-auto">
               <OrdenesSection />
             </div>
           </div>
@@ -304,9 +309,84 @@ const router = createHashRouter([
           />
         </Helmet>
         <ProductsProvider>
-          <div className="h-screen flex flex-1 ">
+          <div className="h-[100vh] flex flex-1 ">
             <SideBar />
             <CargarProdForm />
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/destacados",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <FeaturedSection />
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/coupons",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <CouponsSection />
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcupon",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <NewCuponSection />
           </div>
           <ScrollToTop />
         </ProductsProvider>
@@ -319,7 +399,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router}>
       <NextUIProvider>
-      
+
         <App />
       </NextUIProvider>
     </RouterProvider>
