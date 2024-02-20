@@ -17,7 +17,7 @@ const ProductsProvider = ({ children }) => {
   const [ordenes, setOrdenes] = useState([])
   const [categorys, setCategorys] = useState()
   const [cuponData, setCuponData] = useState([])
-  const [coupons, setCoupons] = useState([]);	
+  const [coupons, setCoupons] = useState([]);
 
 
   const [orden, setOrden] = useState("lowToHigh");
@@ -50,7 +50,7 @@ const ProductsProvider = ({ children }) => {
     setProdItems(productosOrdenados);
   };
 
-  const handleRedirect = (id, category,subcategory, formattedProductName) => {
+  const handleRedirect = (id, category, subcategory, formattedProductName) => {
     setId(id);
     navigate(`/products/${category}/${subcategory}/${formattedProductName}/${id}`);
 
@@ -94,8 +94,8 @@ const ProductsProvider = ({ children }) => {
   };
 
 
-  
-  
+
+
   const removeFromCart = (productId) => {
     const updatedCartItems = cartItems.filter(item => item._id !== productId);
     setCartItems(updatedCartItems);
@@ -106,8 +106,8 @@ const ProductsProvider = ({ children }) => {
     localStorage.removeItem('cartItems');
     toast.success('El carrito ha sido vaciado');
   };
-  
-  
+
+
   const getOrdenes = async () => {
     try {
       const response = await axios.get(`https://portaflex.com.ar/api/sales/get`)
@@ -117,21 +117,21 @@ const ProductsProvider = ({ children }) => {
       console.log(error)
     }
   }
-  
+
   useEffect(() => {
     getOrdenes()
   }, [])
-  
-  
+
+
   const getSubCategory = async () => {
     const response = await axios.get(`https://portaflex.com.ar/api/subcategories/get`)
     setCategorys(response.data)
   }
-  
+
   useEffect(() => {
     getSubCategory()
   }, [])
-  
+
   const NewSubCategory = async (name, category, enabled) => {
     const response = await axios.post(`https://portaflex.com.ar/api/subcategories/create`, {
       name: name,
@@ -151,25 +151,25 @@ const ProductsProvider = ({ children }) => {
     }
   }
 
-  
 
 
-  
 
-  const createCupon = async (key,value,expired) => {
+
+
+  const createCupon = async (key, value, expired) => {
 
     try {
-      const response = await axios.post("https://portaflex.com.ar/api/coupons/create",{
-        key:key,
+      const response = await axios.post("https://portaflex.com.ar/api/coupons/create", {
+        key: key,
         value: value,
-        expired:expired,
+        expired: expired,
       })
       console.log("respuesta post cupon", response.data)
     } catch (error) {
       console.log(error)
     }
   }
-  
+
   const ValidateCupon = async (key) => {
     try {
       const response = await axios.post(`https://portaflex.com.ar/api/coupons/validate`, {
@@ -183,17 +183,21 @@ const ProductsProvider = ({ children }) => {
   }
 
   const deleteCupon = async (id) => {
-    console.log(id)
+    console.log(id);
     try {
       const response = await axios.delete(`https://portaflex.com.ar/api/coupons/delete`, {
-        couponId: id
-      })
-      console.log("respuesta:", response.data)
+        data: {
+          couponId: id
+        },
+      });
+      getCoupons()
+   
+
+      console.log("respuesta:", response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  
+  };
   return (
     <ProductsContext.Provider
       value={{
