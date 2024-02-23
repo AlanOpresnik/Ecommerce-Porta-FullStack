@@ -67,7 +67,6 @@ const ProductsProvider = ({ children }) => {
 
   const addToCart = (product) => {
     if (product) {
-      // Añadir la propiedad 'quantity' al producto
       product.quantity = 1; // Valor inicial de la cantidad al agregar el producto
   
       const isProductInCart = cartItems.some(item => item._id === product._id);
@@ -104,6 +103,13 @@ const ProductsProvider = ({ children }) => {
     setCartItems(updatedCartItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   };
+  
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
 
   const removeProduct = async (product) => {
     Swal.fire({

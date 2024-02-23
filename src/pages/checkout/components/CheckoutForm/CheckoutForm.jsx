@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Grid, TextField, Button, Select, MenuItem, Modal, Box } from "@mui/material";
+import { Container, Typography, Grid, TextField, Button, Select, MenuItem, Modal, Box, ListItemIcon, ListItemText } from "@mui/material";
 import axios from 'axios';
 import { useProducts } from '../../../../context/ProductsContext';
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 import ReactConfetti from 'react-confetti';
-import { motion } from 'framer-motion';
+import mercadoPago from '../../../../assets/img/mercadoPago.png'
+import billete from '../../../../assets/img/billete.png'
+import tarjeta from '../../../../assets/img/tarjeta.png'
+
 function CheckoutForm() {
   const { cartItems, getCp, cp, precioFinal } = useProducts();
   const [codigoPostalEncontrado, setCodigoPostalEncontrado] = useState(null);
@@ -203,19 +206,58 @@ function CheckoutForm() {
             </Select>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Select
-              name='paymentMethod'
-              fullWidth
-              value={formData.paymentMethod}
-              onChange={handleInputChange}
-              variant="outlined"
-              displayEmpty
-            >
-              <MenuItem disabled value="">Método de pago</MenuItem>
-              <MenuItem value="Efectivo">Efectivo</MenuItem>
-              <MenuItem value="Mercado Pago">Mercado pago</MenuItem>
-              <MenuItem value="tarjeta">Tarjeta de crédito</MenuItem>
-            </Select>
+          <Select
+        sx={{ display: 'flex', height: "55px" }}
+        name='paymentMethod'
+        fullWidth
+        value={formData.paymentMethod}
+        onChange={handleInputChange}
+        variant="outlined"
+        displayEmpty
+        renderValue={(selected) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {selected === 'Efectivo' && (
+              <ListItemIcon>
+                <img src={billete} alt="Efectivo" style={{ width: '30px', height: "25px" }} />
+              </ListItemIcon>
+            )}
+            {selected === 'Mercado Pago' && (
+              <ListItemIcon>
+                <img src={mercadoPago} alt="Mercado Pago" style={{ width: '30px', height: "25px" }} />
+              </ListItemIcon>
+            )}
+
+            {selected === 'Tarjeta de credito' && (
+              <ListItemIcon>
+                <img src={tarjeta} alt="tarjeta" style={{ width: '30px', height: "25px" }} />
+              </ListItemIcon>
+            )}
+            <ListItemText primary={selected || "Método de pago"} />
+          </div>
+        )}
+      >
+        <MenuItem disabled value="">
+          Método de pago
+        </MenuItem>
+        <MenuItem value="Efectivo">
+        <ListItemIcon>
+            <img src={billete} alt="billete" style={{ width: '25px' }} />
+          </ListItemIcon>
+          <ListItemText primary="Efectivo" />
+        </MenuItem>
+        <MenuItem value="Mercado Pago">
+          <ListItemIcon>
+            <img src={mercadoPago} alt="Mercado Pago" style={{ width: '25px' }} />
+          </ListItemIcon>
+          <ListItemText primary="Mercado Pago" />
+        </MenuItem>
+        <MenuItem value="Tarjeta de credito">
+        <ListItemIcon>
+            <img src={tarjeta} alt="Mercado Pago" style={{ width: '25px' }} />
+          </ListItemIcon>
+          <ListItemText primary="Tarjeta de credito" />
+        </MenuItem>
+      </Select>
           </Grid>
           <Grid item xs={12} >
             <TextField
@@ -230,7 +272,7 @@ function CheckoutForm() {
             {existe ? (
               <div className='flex flex-col ml-2 border rounded-xl p-2 shadow-md'>
                 <p className='flex gap-1'>Localidad: <p className='font-bold'>{codigoPostalEncontrado.location}</p></p>
-                <p className='flex gap-1'>Costo de envío: <p className='font-bold'>{codigoPostalEncontrado.price === 0 ? "GRATIS" : codigoPostalEncontrado.price}</p></p>
+                <p className='flex gap-1'>Costo de envío: <p className='font-bold'>{codigoPostalEncontrado.price === 0 ? (<p className='underline font-bold text-[#4ca74c]'>GRATIS</p>) : codigoPostalEncontrado.price}</p></p>
                 <p className='flex gap-1 text-lg  py-2 border-t'>TOTAL FINAL + ENVÍO: <p className='font-bold'>{precioFinal + codigoPostalEncontrado.price}</p></p>
               </div>
             ) : (codigoPostalEncontrado === null ? "" : (

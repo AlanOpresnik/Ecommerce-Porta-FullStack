@@ -16,9 +16,10 @@ const CartSection = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  console.log(cartItems)
   return (
     <>
-      {cartItems.length > 0 ? (
+      {cartItems?.length > 0 ? (
         <div>
           <h4 className="mt-14 md:mt-24 flex items-center justify-between  text-2xl border-b max-w-[500px]">
             Mi carrito
