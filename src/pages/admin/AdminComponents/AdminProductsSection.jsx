@@ -13,8 +13,9 @@ const AdminProductsSection = () => {
 
     useEffect(() => {
         const filtered = prodItems.filter((prod) => {
+          
             const nameMatch = prod.name.toLowerCase().includes(search.toLowerCase());
-            const categoryMatch = !selectedCategory || prod.category === selectedCategory; // Filtrar por categoría si se ha seleccionado una
+            const categoryMatch = !selectedCategory || prod.subcategoryId?.category === selectedCategory; // Filtrar por categoría si se ha seleccionado una
             return nameMatch && categoryMatch;
         });
         setFilteredProducts(filtered);

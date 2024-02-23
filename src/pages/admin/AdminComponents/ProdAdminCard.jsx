@@ -11,7 +11,7 @@ import { Textarea } from '@material-tailwind/react';
 
 const ProdAdminCard = ({ prod }) => {
     const navigate = useNavigate();
-    const { removeProduct, categorys } = useProducts();
+    const { removeProduct, categorys,fetchProducts } = useProducts();
     const [openModal, setOpenModal] = useState(false);
     const [editedProduct, setEditedProduct] = useState(prod);
     const formattedProductName = prod.name.replace(/ /g, "-");
@@ -52,6 +52,7 @@ const ProdAdminCard = ({ prod }) => {
                 updatedAt: editedProduct.updatedAt,
             });
             handleCloseModal();
+            fetchProducts()
             // Aquí puedes agregar alguna lógica adicional, como mostrar una notificación de éxito
         } catch (error) {
             console.error("Error al actualizar el producto:", error);

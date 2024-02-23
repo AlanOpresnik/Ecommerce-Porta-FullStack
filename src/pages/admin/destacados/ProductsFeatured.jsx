@@ -6,6 +6,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Button, Tooltip, Modal, Backdrop, Fade, TextField, Grid, InputLabel, Select, MenuItem, TextareaAutosize } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
 const ProductsFeatured = ({ prod }) => {
@@ -29,6 +30,7 @@ const ProductsFeatured = ({ prod }) => {
         const { name, value } = e.target;
         setEditedProduct({
             ...editedProduct,
+            productId: prod._id,
             [name]: value,
         });
     };
@@ -37,7 +39,7 @@ const ProductsFeatured = ({ prod }) => {
         e.preventDefault();
         try {
             // Enviar los cambios al servidor
-            await axios.put(`https://www.portaflex.com.ar/api/products/${prod._id}`, editedProduct);
+            await axios.put(`https://portaflex.com.ar/api/products/update`, editedProduct);
             handleCloseModal();
             // Aquí puedes agregar alguna lógica adicional, como mostrar una notificación de éxito
         } catch (error) {

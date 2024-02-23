@@ -44,6 +44,11 @@ import ProductsFeatured from "./pages/admin/destacados/ProductsFeatured.jsx";
 import FeaturedSection from "./pages/admin/destacados/FeaturedSection.jsx";
 import CouponsSection from "./pages/admin/AdminComponents/CouponsSection.jsx";
 import NewCuponSection from "./pages/admin/AdminComponents/coupons/NewCuponSection.jsx";
+import CpSection from "./pages/admin/AdminComponents/cp/CpSection.jsx";
+import NewCpForm from "./pages/admin/AdminComponents/cp/NewCpForm.jsx";
+import ReactConfetti from "react-confetti";
+import WspLogo from "./components/WspLogo/WspLogo.jsx";
+
 
 
 const router = createHashRouter([
@@ -74,6 +79,7 @@ const router = createHashRouter([
             <div className="p-2">
               <Main />
               <InfoDividerSection />
+              <WspLogo/>
               <div className="max-w-[1280px]  flex-col items-center justify-center mx-auto">
                 <ProductsSection />
               </div>
@@ -110,6 +116,7 @@ const router = createHashRouter([
         <ProductsProvider>
           <Navbar />
           <Toaster />
+          <WspLogo/>
           <div className="px-2 md:hidden ml-5">
             <AsideCategory />
           </div>
@@ -149,6 +156,7 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
+          <WspLogo/>
           <Toaster position="top-right" />
           <ProductDetail />
           <div className="max-w-[1380px] mb-12 mx-auto">
@@ -177,6 +185,7 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
+          <WspLogo/>
           <div className="max-w-[1380px] px-4 mx-auto">
             <CartSection />
           </div>
@@ -186,7 +195,7 @@ const router = createHashRouter([
       </>
     ),
   }, {
-    path: "/checkout",
+    path: "/checkout/:coupon?",
 
     element: (
       <>
@@ -202,6 +211,7 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
+          <WspLogo/>
           <div>
             <CheckoutSection />
           </div>
@@ -387,6 +397,56 @@ const router = createHashRouter([
           <div className="h-[100vh] flex flex-1 ">
             <SideBar />
             <NewCuponSection />
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/cp",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <CpSection />
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcp",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <NewCpForm />
           </div>
           <ScrollToTop />
         </ProductsProvider>

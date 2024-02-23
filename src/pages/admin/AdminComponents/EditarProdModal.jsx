@@ -36,7 +36,7 @@ const EditarProdModal = ({ open, handleClose, formData, handleChange, handleSubm
                                             className="w-[60vw] sm:w-full"
                                         />
                                     </Grid>
-                                    
+
                                 </Grid>
                                 {/* Botón de guardar */}
                                 <Button className="w-[100%] mt-6 bg-[#cdc3b5] hover:bg-[#d4c4af]" variant="contained" color="primary" type="submit">

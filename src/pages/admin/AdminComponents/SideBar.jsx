@@ -4,8 +4,11 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import StarsIcon from '@mui/icons-material/Stars';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
 import logo from "../../../assets/img/logo-blanco.png";
 import { Link } from "react-router-dom";
+import { Tooltip } from "@mui/material";
 
 const SideBar = () => {
     const [open, setOpen] = useState(false);
@@ -16,6 +19,8 @@ const SideBar = () => {
         { title: "Cargar un producto", icon: <CalendarToday />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/upload` },
         { title: "Cupones", icon: <AutoStoriesIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/coupons` },
         { title: "Cargar nuevo cupon", icon: <LibraryAddIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcupon` },
+        { title: "Codigos Postales", icon: <LocalShippingIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/cp` },
+        { title: "Agregar nuevo codigo postal", icon: <AddLocationIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcp` },
     ];
 
     return (
@@ -38,18 +43,20 @@ const SideBar = () => {
                 </div>
                 <ul className="pt-6">
                     {Menus.map((Menu, index) => (
-                        <Link
-                            to={Menu.path}
-                            key={index}
-                            className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-white text-sm items-center gap-x-4 
+                        <Tooltip placement="right" title={Menu.title}>
+                            <Link
+                                to={Menu.path}
+                                key={index}
+                                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-white text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-2" : "mt-2"} ${index === 0 && "bg-light-white"
-                                } `}
-                        >
-                            {Menu.icon}
-                            <Link to={Menu.path} className={`${!open && "hidden"} origin-left duration-200`}>
-                                {Menu.title}
+                                    } `}
+                            >
+                                {Menu.icon}
+                                <Link to={Menu.path} className={`${!open && "hidden"} origin-left duration-200`}>
+                                    {Menu.title}
+                                </Link>
                             </Link>
-                        </Link>
+                        </Tooltip>
                     ))}
                 </ul>
             </div>

@@ -3,22 +3,48 @@ import { useProducts } from "../../../context/ProductsContext";
 import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 const CartTotal = () => {
-  const [cupon, setCupon] = useState("");
-  const [descuento, setDescuento] = useState(0);
-  const { cartItems, ValidateCupon, cuponData } = useProducts();
-  const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
+  const { cartItems, ValidateCupon, cuponData, setDescuento, descuento, setCupon, cupon, precioFinal, subtotal, cuponInvalid,cuponDataDiscout } = useProducts();
   const navigate = useNavigate();
+  const [cuponInvalido, setCuponInvalido] = useState(false);
+  const [updatedCartItems, setUpdatedCartItems] = useState([]); 
+  const [input, setInput] = useState(``)  
+
+  const precioAnterior = cartItems.reduce((total, item) => total + item.price, 0);
+ 
+  localStorage.setItem('couponKey', cupon);
+  console.log('Cupón almacenado en localStorage:', cupon);
+  useEffect(() => {
+    if (cuponDataDiscout && cuponDataDiscout.success) {
+        setDescuento(cuponDataDiscout.discountValue);
+        // Establecer el valor del cupón en localStorage
+    } else {
+        setDescuento(0);
+    }
+}, [cuponDataDiscout]);
+  
+  
 
   useEffect(() => {
-    if (cuponData && cuponData.success) {
-      setDescuento(cuponData.discountValue);
+
+    const updatedItems = cartItems.map(item => ({
+      ...item,
+      couponId: cuponData
+    }));
+    setUpdatedCartItems(updatedItems);
+
+    localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+  }, [cuponData, cartItems]);
+
+  const handleCheckout = () => {
+    if (descuento > 0 || cuponDataDiscout.success) {
+      navigate(`/checkout/${cupon}`);
     } else {
-      setDescuento(0);
+      navigate('/checkout');
+      l
     }
-  }, [cuponData]);
-
-
+  };
 
   return (
     <div className="border  max-w-[600px] rounded mt-16 md:mt-0 px-2 relative md:sticky md:top-[190px]">
@@ -44,7 +70,7 @@ const CartTotal = () => {
           <div className="flex justify-between border-b items-center px-3 py-6">
             <p className="text-lg md:text-xl">Precio anterior:</p>
             <p className="text-xl">
-              <span style={{ textDecoration: 'line-through' }}>${subtotal}</span>
+              <span style={{ textDecoration: 'line-through' }}>${precioAnterior}</span>
             </p>
           </div>
         )}
@@ -59,7 +85,7 @@ const CartTotal = () => {
         <div className="flex justify-between border-b items-center px-3 py-6">
           <p className="text-lg md:text-xl">Precio final:</p>
           <p className="text-xl">
-            ${subtotal - descuento}
+            ${precioFinal}
           </p>
         </div>
         <div className="">
@@ -72,6 +98,7 @@ const CartTotal = () => {
               variant="outlined"
               type="text"
               name="Cupon"
+
               sx={{
                 padding: "1px !important",
                 marginTop: "8px",
@@ -84,6 +111,9 @@ const CartTotal = () => {
               Validar cupon
             </Button>
           </div>
+          {cuponInvalid ? (
+            <p className="flex gap-1">El cupon ingresado es <p className="text-[#ff2626] font-semibold">incorrecto</p></p>
+          ) : ""}
 
         </div>
         <div className="flex justify-center text-xs py-6">
@@ -100,7 +130,7 @@ const CartTotal = () => {
               backgroundColor: "#b9a992"
             }
           }}
-            onClick={() => navigate('/checkout')}
+            onClick={handleCheckout}
             variant="contained">Finalizar compra</Button>
         </div>
       </div>

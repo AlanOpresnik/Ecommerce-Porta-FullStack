@@ -8,7 +8,7 @@ const CargarProdForm = () => {
   const [fileInput, setFileInput] = useState(null);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const { categorys, NewSubCategory } = useProducts()
+  const { categorys, NewSubCategory,fetchProducts } = useProducts()
   const [category, setCategory] = useState('')
   const [name, setName] = useState('')
   const [enabled, setEnabled] = useState(true)
@@ -126,6 +126,7 @@ const CargarProdForm = () => {
       });
       setFileInput(null)
       setImagePreviews([])
+      fetchProducts()
     } catch (error) {
       console.log("Error:", error);
     }

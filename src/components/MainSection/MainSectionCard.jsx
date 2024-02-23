@@ -2,7 +2,9 @@ import React from "react";
 import silla from "../../assets/img/SillaContemporanea_Frankfurt-600x600.png";
 import fabrica from "../../assets/img/toilet.jpg";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const MainSectionCard = () => {
+  const navigate = useNavigate()
   return (
     <div className="flex justify-center items-center gap-12 mt-24">
       <div
@@ -39,6 +41,7 @@ const MainSectionCard = () => {
               },
             }}
             variant="contained"
+            onClick={() => navigate(`/products/hogar`)}
           >
             Ver Productos
           </Button>
@@ -79,6 +82,7 @@ const MainSectionCard = () => {
               },
             }}
             variant="contained"
+            onClick={() => navigate(`/products/construccion`)}
           >
             Ver Productos
           </Button>

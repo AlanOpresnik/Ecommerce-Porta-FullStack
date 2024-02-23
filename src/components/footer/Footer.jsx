@@ -29,11 +29,11 @@ const Footer = () => {
               <Link className="hover:text-[#6E6B66]" to={"/nosotros"}>
                 Nuestra historia
               </Link>
-              <Link className="hover:text-[#6E6B66]" to={"/productos/hogar"}>
+              <Link className="hover:text-[#6E6B66]" to={"/products/hogar"}>
                 Productos de hogar
               </Link>
-              <Link className="hover:text-[#6E6B66]" to={"/productos/fabrica"}>
-                Productos de Fabria
+              <Link className="hover:text-[#6E6B66]" to={"/products/construccion"}>
+                Productos de construccion
               </Link>
               <Link className="hover:text-[#6E6B66]" to={"/devoluciones"}>
                 Cambios y devoluciones

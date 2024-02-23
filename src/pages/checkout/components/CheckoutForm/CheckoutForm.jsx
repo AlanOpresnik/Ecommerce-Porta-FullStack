@@ -1,59 +1,124 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Grid, TextField, Button, Select, MenuItem } from "@mui/material";
+import { Container, Typography, Grid, TextField, Button, Select, MenuItem, Modal, Box } from "@mui/material";
 import axios from 'axios';
 import { useProducts } from '../../../../context/ProductsContext';
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import ReactConfetti from 'react-confetti';
+import { motion } from 'framer-motion';
 function CheckoutForm() {
-  const { cartItems } = useProducts();
-  const navigate = useNavigate()
-  const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
+  const { cartItems, getCp, cp, precioFinal } = useProducts();
+  const [codigoPostalEncontrado, setCodigoPostalEncontrado] = useState(null);
+  const [existe, setExiste] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false); // Nuevo estado para controlar la visualización del confeti
+  const [open, setOpen] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  // useEffect para verificar la validez del formulario
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
+    apellido: '',
     email: '',
     shippingAddress: '',
     tel: '',
     dni: '',
     shippingMethod: '',
     paymentMethod: '',
-    cp: '',
-    total: subtotal,
-    productList: JSON.parse(localStorage.getItem('cartItems')) || [] // Obtener productos del localStorage o un array vacío si no hay ninguno
+    cp: "",
+    cpId: '',
+    couponKey: localStorage.getItem(`couponKey`) === '' ? '0' : localStorage.getItem(`couponKey`),
+    productList: JSON.parse(localStorage.getItem('cartItems')) || []
   });
+
+  console.log(localStorage.getItem(`couponKey`))
+
+  useEffect(() => {
+    getCp();
+  }, []);
+
+  console.log(cartItems[0])
+  localStorage.setItem(`cpKey`, formData.cp)
+
+
+  useEffect(() => {
+    console.log(formData)
+    const isValid = Object.values(formData).every(value => value !== undefined && value !== null && value !== "");
+    setIsFormValid(isValid);
+  }, [formData]);
+
+  const validatePostalCode = () => {
+    const formDataCpNumber = parseInt(formData.cp);
+    const cpEncontrado = cp.find((cpItem) => cpItem.key === formDataCpNumber);
+
+    if (cpEncontrado && cpEncontrado.price === 0) {
+      setShowConfetti(true);
+      setOpen(true)
+      setTimeout(() => {
+        setOpen(false)
+      }, 2500);
+    }
+    if (cpEncontrado) {
+      setExiste(true);
+      setCodigoPostalEncontrado(cpEncontrado);
+      setFormData(prevState => ({
+        ...prevState,
+        cpId: cpEncontrado._id,
+      }));
+      console.log(cpEncontrado._id)
+    } else {
+      setExiste(false);
+      setCodigoPostalEncontrado("");
+      setFormData(prevState => ({
+        ...prevState,
+        cpId: '' // Limpia el ID del código postal
+      }));
+    }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value); // Agregar esta línea para depurar
-    setFormData((prevFormData) => ({
+    setFormData(prevFormData => ({
       ...prevFormData,
-      [name]: value 
+      [name]: value
     }));
   };
-  useEffect(() => {
-    // Actualizar productList en localStorage cada vez que cambia en formData
-    localStorage.setItem('cartItems', JSON.stringify(formData.productList));
-  }, [formData.productList]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      console.log(formData)
       const nombreCompleto = formData.apellido ? `${formData.name} ${formData.apellido}` : formData.name;
-      const response = await axios.post('https://www.portaflex.com.ar/api/mercadopago/crear-preferencia', {
+      const response = await axios.post('https://portaflex.com.ar/api/mercadopago/crear-preferencia', {
         ...formData,
         name: nombreCompleto,
       });
-      console.log('Respuesta:', response.data);
-      console.log(response.data.response.init_point);
+      console.log(response)
+
       if (response.data.success === true) {
-        console.log("kasdfjmioásdjmasdf");
         window.location.href = response.data.response.init_point;
       }
-     
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '1px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
   return (
-    <Container maxWidth="sm" className="mt-6 md:mt-16 py-6">
+    <Container maxWidth="sm" className="mt-6 md:mt-6 py-6">
+      {showConfetti && <ReactConfetti recycle={false} />}
       <div className="mb-4 border-b w-[100px] md:w-full md:mb-2">
         <Typography className="font-bold text-md" variant="body4">
           Finalizar compra
@@ -147,12 +212,11 @@ function CheckoutForm() {
               displayEmpty
             >
               <MenuItem disabled value="">Método de pago</MenuItem>
-              <MenuItem value="efectivo">Efectivo</MenuItem>
-              <MenuItem value="mercadoPago">Mercado pago</MenuItem>
+              <MenuItem value="Efectivo">Efectivo</MenuItem>
+              <MenuItem value="Mercado Pago">Mercado pago</MenuItem>
               <MenuItem value="tarjeta">Tarjeta de crédito</MenuItem>
             </Select>
           </Grid>
-
           <Grid item xs={12} >
             <TextField
               name='cp'
@@ -162,9 +226,24 @@ function CheckoutForm() {
               value={formData.cp}
               onChange={handleInputChange}
               required />
+            <Button onClick={validatePostalCode}>Validar código postal</Button>
+            {existe ? (
+              <div className='flex flex-col ml-2 border rounded-xl p-2 shadow-md'>
+                <p className='flex gap-1'>Localidad: <p className='font-bold'>{codigoPostalEncontrado.location}</p></p>
+                <p className='flex gap-1'>Costo de envío: <p className='font-bold'>{codigoPostalEncontrado.price === 0 ? "GRATIS" : codigoPostalEncontrado.price}</p></p>
+                <p className='flex gap-1 text-lg  py-2 border-t'>TOTAL FINAL + ENVÍO: <p className='font-bold'>{precioFinal + codigoPostalEncontrado.price}</p></p>
+              </div>
+            ) : (codigoPostalEncontrado === null ? "" : (
+              <div>
+                <p className='flex gap-1 items-center'>Todavia no llegamos a esa <p className='font-bold text-black'>zona 😪</p></p>
+              </div>
+            ))}
           </Grid>
+
+
         </Grid>
         <Button
+          disabled={!isFormValid}
           type='submit'
           sx={{
             marginTop: "1.5rem",

@@ -9,9 +9,8 @@ import { useProducts } from "../../../context/ProductsContext";
 import ModalDelete from "./ModalDelete";
 
 const CartItems = ({ prod }) => {
-  const [quantity, setQuantity] = useState(1);
-  const {removeFromCart} = useProducts()
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const { removeFromCart,setQuantity,quantity,incrementQuantity,decrementQuantity } = useProducts()
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -21,15 +20,7 @@ const CartItems = ({ prod }) => {
     setIsModalOpen(false);
   };
 
-  const incrementQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-  };
 
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-    }
-  };
 
   return (
     <>
@@ -47,20 +38,20 @@ const CartItems = ({ prod }) => {
             <h3 className="text-sm md:text-[17px] w-full line-clamp-2 md:line-clamp-3 mb-2">{prod.name}</h3>
             <p className="text-lg md:text-2xl font-bold text-[#cbc2b6]">${prod.price}</p>
             <div className="text-center  flex items-center gap-2">
-              <button onClick={incrementQuantity}>
+              <button onClick={() => incrementQuantity(prod)}>
                 <AddCircleOutlineIcon fontSize="small" />
               </button>
-              <span className="mr-0">{quantity}</span>
-              <button onClick={decrementQuantity}>
+              <span className="mr-0">{prod.quantity}</span>
+              <button onClick={() => decrementQuantity(prod)}>
                 <RemoveCircleOutline fontSize="small" />
               </button>
             </div>
           </div>
         </div>
         <div>
-        <button className="hover:opacity-50" onClick={handleOpenModal}>
-          <Delete />
-        </button>
+          <button className="hover:opacity-50" onClick={handleOpenModal}>
+            <Delete />
+          </button>
         </div>
       </div>
       <ModalDelete

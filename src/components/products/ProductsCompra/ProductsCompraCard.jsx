@@ -56,8 +56,8 @@ const ProductCompraCard = ({ prod, index }) => {
           />
         </div>
         <div className="text-center relative p-3">
-          <p className="line-clamp-2">{prod.name}</p>
-          <p className="font-bold text-2xl text-[#ddd6cd]">{prod.price}</p>{" "}
+          <p className="line-clamp-2 font-bold">{prod.name}</p>
+          <p className="font-bold text-2xl text-[#ddd6cd]">${prod.price}</p>{" "}
           <p className="text-sm">
             <strong>{3}</strong> Cuotas sin interés de{" "}
             <strong>$3.200,00</strong>

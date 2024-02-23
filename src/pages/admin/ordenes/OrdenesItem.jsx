@@ -8,79 +8,106 @@ import Button from '@mui/material/Button';
 import { Chip, Typography } from '@mui/material';
 import { useProducts } from '../../../context/ProductsContext';
 import { formatearFecha } from './formatearFecha';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 
-export default function OrdenesItem({orden}) {
-    const { ordenes } = useProducts()
+export default function OrdenesItem({ orden }) {
+    const { coupons, getCoupons } = useProducts();
+
+    useEffect(() => {
+        getCoupons()
+    }, [])
 
 
+    const buscarCuponPorId = (couponId) => {
+        return coupons.find(coupon => coupon._id === couponId); 
+    };
 
+    // Buscar el cupón correspondiente al couponId de la orden
+    const cuponOrden = buscarCuponPorId(orden.couponId);
     return (
 
-        <div className='max-w-[620px] shadow-md   px-3 '>
-                <Accordion className='my-6 relative w-[95%] md:w-full justify-between'>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1-content"
-                        id="panel1-header"
-                        className='justify-between flex'
-                    >
-                        <div className='w-[200px] md:w-full block md:flex justify-between'>
-                            <Typography className='text-sm w-[100px]' variant="body1">{formatearFecha(orden.orderDate)}</Typography>
-                            <Typography className='text-xs font-extrabold md:text-medium' variant="body1">{orden.name}, Orden #{orden._id}</Typography>
-                            <div>
-                                <Chip
-                                    size='small'
-                                    className='px-0'
-                                    label={orden.paymentStatus}
-                                    color={orden.paymentStatus === 'Aprobado' ? 'success' : 'error'}
-                                    variant={orden.paymentStatus === "Aprobado" ? 'contained' : 'outlined'}
-                                />
-                            </div>
-
+        <div className='max-w-[720px] shadow-md mt-6   px-3 '>
+            <Accordion className='my-6 relative w-[95%] md:w-full justify-between'>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                    className='justify-between flex'
+                >
+                    <div className='w-[200px] md:w-full block md:flex justify-between'>
+                        <Typography className='text-sm w-[100px]' variant="body1">{formatearFecha(orden.orderDate)}</Typography>
+                        <Typography className='text-xs font-extrabold md:text-medium' variant="body1">{orden.name}, Orden #{orden._id}</Typography>
+                        <div>
+                            <Chip
+                                size='small'
+                                className='px-0'
+                                label={orden.paymentStatus}
+                                color={orden.paymentStatus === 'Aprobado' ? 'success' : 'error'}
+                                variant={orden.paymentStatus === "Aprobado" ? 'contained' : 'outlined'}
+                            />
                         </div>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <div className='flex flex-col gap-6  justify-center '>
-                            <h4>Detalles de la orden:</h4>
-                            <div>
-                                <div className='flex  border-t py-4 items-center'>
-                                    <p className='text-sm'>Nombre: {` `}</p><span className='text-sm font-semibold'> {orden.name}</span>
-                                </div>
-                                <div className='flex mt-3 border-t py-4'>
-                                    <p className='text-xs'>Correo electronico: {` `}</p><span className='text-sm font-semibold'> {orden.email}</span>
-                                </div>
-                                <div className='flex mt-3 border-t py-4'>
-                                    <p className='text-sm'>Numero de telefono: {` `}</p><span className='text-sm font-semibold'> {orden.tel}</span>
-                                </div>
-                                <div className='flex mt-3 border-t py-4'>
-                                    <p className='text-sm'>DNI: {` `}</p><span className='text-sm font-semibold'> {orden.dni}</span>
-                                </div>
-                                <div className='flex mt-3 border-t py-4'>
-                                    <p className='text-sm'>Metodo de pago: {` `}</p> <span className='text-sm font-semibold'> {orden.paymentMethod}</span>
-                                </div>
-                                <div className='flex mt-3 border-t py-4'>
-                                    <p className='text-sm'>Metodo de envio: {` `}</p><span className='text-sm font-semibold'> {orden.shippingMethod}</span>
-                                </div>
-                                <div className='flex mt-3 border-t py-4'>
-                                    <p className='text-sm'>Direccion de envio: {` `}</p><span className='text-sm font-semibold'> {orden.shippingAddress}</span>
-                                </div>
-                                <h4 className='font-bold text-xl mt-2'>Productos:</h4>
-                                <div className='flex gap-5 flex-col mt-3 border-t py-4'>
-                                    {orden.productList.map((product => (
-                                        <div className='flex flex-col'>
-                                            <p key={product._id} className='line-clamp-2 border-b py-2'>*{product.name}</p>
-                                            <p>precio:{product.price}</p>
-                                            <p>cantidad{product.quantity}</p>
-                                        </div>
-                                    )))}
 
-                                    <h4>TOTAL${orden.total}</h4>
-                                </div>
+                    </div>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <div className='flex flex-col gap-6  justify-center '>
+                        <h4>Detalles de la orden:</h4>
+                        <div>
+                            <div className='flex  border-t py-4 items-center'>
+                                <p className='text-sm'>Nombre: {` `}</p><span className='text-sm font-semibold'> {orden.name}</span>
+                            </div>
+                            <div className='flex mt-3 border-t py-4'>
+                                <p className='text-xs'>Correo electronico: {` `}</p><span className='text-sm font-semibold'> {orden.email}</span>
+                            </div>
+                            <div className='flex mt-3 border-t py-4'>
+                                <p className='text-sm'>Numero de telefono: {` `}</p><span className='text-sm font-semibold'> {orden.tel}</span>
+                            </div>
+                            <div className='flex mt-3 border-t py-4'>
+                                <p className='text-sm'>DNI: {` `}</p><span className='text-sm font-semibold'> {orden.dni}</span>
+                            </div>
+                            <div className='flex mt-3 border-t py-4'>
+                                <p className='text-sm'>Metodo de pago: {` `}</p> <span className='text-sm font-semibold'> {orden.paymentMethod}</span>
+                            </div>
+                            <div className='flex mt-3 border-t py-4'>
+                                <p className='text-sm'>Metodo de envio: {` `}</p><span className='text-sm font-semibold'> {orden.shippingMethod}</span>
+                            </div>
+                            <div className='flex mt-3 border-t py-4'>
+                                <p className='text-sm'>Direccion de envio: {` `}</p><span className='text-sm font-semibold'> {orden.shippingAddress}</span>
+                            </div>
+                            <h4 className='font-bold text-xl mt-2'>Productos y descuentos</h4>
+                            <div className='flex gap-5 flex-col mt-3 border-t py-4'>
+                                {orden.productList.map((product => (
+                                    <div key={product._id} className='flex flex-col border p-4 rounded-lg shadow-md'>
+                                        <p className=' flex gap-1 py-2'>Producto: <p className='font-bold text-black'>{product.name}</p></p>
+                                        <p className=' flex gap-1 py-2'>Precio: <p className='font-bold'>{product.price}</p></p>
+                                        <p className=' flex gap-1 py-2'>Cantidad: <p className='font-bold'>{product.quantity}</p></p>
+
+                                    </div>
+                                )))}
+                                {cuponOrden && (
+                                    <div className='flex flex-col border p-4 rounded-lg shadow-md'>
+                                        <p>Cupón utilizado:</p>
+                                        <p className='font-bold'>{cuponOrden.key}</p>
+                                        <p className='flex gap-1'>Descuento de: <p className='font-bold'>${cuponOrden.value}</p></p>
+                                    </div>
+                                )}
+                                {cuponOrden ? (
+                                    <div className='flex flex-col border p-4 rounded-lg shadow-md'>
+                                        <h4 className='font-bold'>TOTAL CON DESCUENTO : ${orden.total - cuponOrden.value}</h4>
+                                    </div>
+                                ) : (
+
+                                    <div className='flex flex-col border p-4 rounded-lg shadow-md'>
+                                       <h4 className='font-bold'>TOTAL: ${orden.total}</h4>
+                                    </div>)
+                                }
                             </div>
                         </div>
-                    </AccordionDetails>
-                </Accordion>
+                    </div>
+                </AccordionDetails>
+            </Accordion>
 
         </div>
 

@@ -3,7 +3,7 @@ import React from 'react'
 
 const DropDownCategorys = ({ onSelectCategory }) => { // Recibe onSelectCategory como prop
     const handleCategorySelect = (category) => {
-        onSelectCategory(category); // Llama a la función onSelectCategory con la categoría seleccionada
+        onSelectCategory(category); 
     };
 
     return (

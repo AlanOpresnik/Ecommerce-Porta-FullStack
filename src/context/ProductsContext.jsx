@@ -4,6 +4,7 @@ import prod3 from "../assets/img/prod3.jpeg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
+import Swal from "sweetalert2";
 
 const ProductsContext = createContext();
 
@@ -17,8 +18,15 @@ const ProductsProvider = ({ children }) => {
   const [ordenes, setOrdenes] = useState([])
   const [categorys, setCategorys] = useState()
   const [cuponData, setCuponData] = useState([])
+  const [cuponDataDiscout, setCuponDataDiscount] = useState([])
+  const [quantity, setQuantity] = useState(1)
   const [coupons, setCoupons] = useState([]);
-
+  const [cp, setCp] = useState([]);
+  const [cupon, setCupon] = useState("");
+  const [cuponInvalid, setCuponInvalid] = useState()
+  const [descuento, setDescuento] = useState(0);
+  const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
+  const precioFinal = subtotal - descuento
 
   const [orden, setOrden] = useState("lowToHigh");
 
@@ -60,8 +68,8 @@ const ProductsProvider = ({ children }) => {
   const addToCart = (product) => {
     if (product) {
       // Añadir la propiedad 'quantity' al producto
-      product.quantity = 1;
-
+      product.quantity = 1; // Valor inicial de la cantidad al agregar el producto
+  
       const isProductInCart = cartItems.some(item => item._id === product._id);
       if (!isProductInCart) {
         const updatedCartItems = [...cartItems, product];
@@ -74,23 +82,58 @@ const ProductsProvider = ({ children }) => {
       }
     }
   };
-  useEffect(() => {
-    const storedCartItems = localStorage.getItem('cartItems');
-    if (storedCartItems) {
-      setCartItems(JSON.parse(storedCartItems));
-    }
-  }, []);
+  
+  const incrementQuantity = (prod) => {
+    const updatedCartItems = cartItems.map(item => {
+      if (item._id === prod._id) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+    setCartItems(updatedCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+  };
+  
+  const decrementQuantity = (prod) => {
+    const updatedCartItems = cartItems.map(item => {
+      if (item._id === prod._id && item.quantity > 1) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    setCartItems(updatedCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+  };
 
   const removeProduct = async (product) => {
-    try {
-      const response = await axios.delete("https://portaflex.com.ar/api/products/delete", {
-        data: {
-          productId: product._id
+    Swal.fire({
+      title: "Estas seguro?",
+      html: `Deseas eliminar el producto:<p style='color: #aa9377'> ${product.name}</p>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete("https://portaflex.com.ar/api/products/delete", {
+            data: {
+              productId: product._id
+            }
+          });
+          fetchProducts()
+        } catch (error) {
+          console.error("Error al eliminar el producto:", error);
         }
-      });
-    } catch (error) {
-      console.error("Error al eliminar el producto:", error);
-    }
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+
   };
 
 
@@ -118,9 +161,7 @@ const ProductsProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    getOrdenes()
-  }, [])
+
 
 
   const getSubCategory = async () => {
@@ -133,12 +174,17 @@ const ProductsProvider = ({ children }) => {
   }, [])
 
   const NewSubCategory = async (name, category, enabled) => {
-    const response = await axios.post(`https://portaflex.com.ar/api/subcategories/create`, {
-      name: name,
-      category: category,
-      enabled: enabled
-    })
-    console.log("respuesta:" + response.data)
+    try {
+      const response = await axios.post(`https://portaflex.com.ar/api/subcategories/create`, {
+        name: name,
+        category: category,
+        enabled: enabled
+      })
+      getSubCategory()
+      console.log("respuesta:" + response.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const getCoupons = async () => {
@@ -157,13 +203,13 @@ const ProductsProvider = ({ children }) => {
 
 
   const createCupon = async (key, value, expired) => {
-
     try {
       const response = await axios.post("https://portaflex.com.ar/api/coupons/create", {
         key: key,
         value: value,
         expired: expired,
       })
+      getCoupons()
       console.log("respuesta post cupon", response.data)
     } catch (error) {
       console.log(error)
@@ -175,10 +221,14 @@ const ProductsProvider = ({ children }) => {
       const response = await axios.post(`https://portaflex.com.ar/api/coupons/validate`, {
         key: key
       })
-      setCuponData(response.data)
-      console.log("respuesta:", response.data)
+      setCuponData(response.data._id)
+      console.log(response.data)
+      setCuponDataDiscount(response.data)
+      console.log(response)
+      setCuponInvalid(false)
     } catch (error) {
       console.log(error)
+      setCuponInvalid(true)
     }
   }
 
@@ -191,13 +241,39 @@ const ProductsProvider = ({ children }) => {
         },
       });
       getCoupons()
-   
+
 
       console.log("respuesta:", response.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getCp = async () => {
+    try {
+      const response = await axios.get(`https://portaflex.com.ar/api/cp/get`)
+      setCp(response.data.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const deleteCp = async (id) => {
+    try {
+      const response = await axios.delete(`https://portaflex.com.ar/api/cp/delete`, {
+        data: {
+          cpId: id
+        }
+      })
+      getCp()
+      console.log(response)
+    } catch (error) {
+
+      console.log(error);
+    }
+  }
+
+
   return (
     <ProductsContext.Provider
       value={{
@@ -221,7 +297,21 @@ const ProductsProvider = ({ children }) => {
         createCupon,
         getCoupons,
         coupons,
-        deleteCupon
+        deleteCupon,
+        getCp,
+        cp,
+        cupon,
+        setCupon,
+        descuento,
+        setDescuento,
+        precioFinal,
+        deleteCp,
+        cuponInvalid,
+        cuponDataDiscout,
+        setQuantity,
+        quantity,
+        incrementQuantity,
+        decrementQuantity
       }}
     >
       {children}
