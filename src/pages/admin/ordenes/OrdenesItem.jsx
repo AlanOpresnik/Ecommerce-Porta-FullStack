@@ -21,14 +21,14 @@ export default function OrdenesItem({ orden }) {
 
 
     const buscarCuponPorId = (couponId) => {
-        return coupons.find(coupon => coupon._id === couponId); 
+        return coupons.find(coupon => coupon._id === couponId);
     };
 
     // Buscar el cupón correspondiente al couponId de la orden
     const cuponOrden = buscarCuponPorId(orden.couponId);
     return (
 
-        <div className='max-w-[720px] shadow-md mt-6   px-3 '>
+        <div className=' w-auto lg:w-[920px] shadow-md mt-6   px-3 '>
             <Accordion className='my-6 relative w-[95%] md:w-full justify-between'>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -37,8 +37,18 @@ export default function OrdenesItem({ orden }) {
                     className='justify-between flex'
                 >
                     <div className='w-[200px] md:w-full block md:flex justify-between'>
-                        <Typography className='text-sm w-[100px]' variant="body1">{formatearFecha(orden.orderDate)}</Typography>
-                        <Typography className='text-xs font-extrabold md:text-medium' variant="body1">{orden.name}, Orden #{orden._id}</Typography>
+                        <div className='flex md:flex-col items-center'>
+                            <p className='hidden md:block text-xs border-b'>Fecha de compra</p>
+                            <Typography className='text-sm w-[100px]' variant="body1">{formatearFecha(orden.orderDate)}</Typography>
+                        </div>
+                        <div className='flex  md:flex-col items-center'>
+                            <p className='text-xs hidden md:block border-b'>Nombre</p>
+                            <p className='text-sm font-semibold md:text-medium'>{orden.name}</p>
+                        </div>
+                        <div className='flex md:flex-col items-center'>
+                            <p className='text-xs hidden md:block border-b'>DNI del comprador</p>
+                            <p className='text-sm md:text-medium font-semibold '>{orden.dni}</p>
+                        </div>
                         <div>
                             <Chip
                                 size='small'
@@ -56,7 +66,7 @@ export default function OrdenesItem({ orden }) {
                         <h4>Detalles de la orden:</h4>
                         <div>
                             <div className='flex  border-t py-4 items-center'>
-                                <p className='text-sm'>Nombre: {` `}</p><span className='text-sm font-semibold'> {orden.name}</span>
+                                <p className='text-sm '>Nombre: {` `}</p><span className='text-sm font-semibold'> {orden.name}</span>
                             </div>
                             <div className='flex mt-3 border-t py-4'>
                                 <p className='text-xs'>Correo electronico: {` `}</p><span className='text-sm font-semibold'> {orden.email}</span>
@@ -100,7 +110,7 @@ export default function OrdenesItem({ orden }) {
                                 ) : (
 
                                     <div className='flex flex-col border p-4 rounded-lg shadow-md'>
-                                       <h4 className='font-bold'>TOTAL: ${orden.total}</h4>
+                                        <h4 className='font-bold'>TOTAL: ${orden.total}</h4>
                                     </div>)
                                 }
                             </div>

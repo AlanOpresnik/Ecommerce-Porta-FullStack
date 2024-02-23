@@ -31,7 +31,9 @@ export default function CouponsItem({ coupon }) {
                     <p className="text-md">{coupon.key}</p>
                     <div className="flex justify-between gap-6">
                         <p className="text-small flex gap-2 text-default-500">Cupon </p>
-                        <Chip className="text-white text-center absolute top-3 right-4 font-bold text-sm bg-[#82ba82]">Activo</Chip>
+                        <Chip className={`text-white text-center absolute top-3 right-4 font-bold text-sm ${coupon.enabled ? "bg-[#82ba82]" : "bg-red-400"}`}>
+                            {coupon.enabled ? "Activo" : "Utilizado"}
+                        </Chip>
                     </div>
                 </div>
             </CardHeader>

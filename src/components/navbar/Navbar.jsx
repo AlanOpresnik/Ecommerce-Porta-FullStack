@@ -124,7 +124,7 @@ const Navbar = () => {
                 <div className="flex flex-col relative items-center">
                   <PiShoppingCartThin
                     onClick={() => navigate("/cart")}
-                    className="cursor-pointer text-[#cacaca] text-4xl font-bold"
+                    className="cursor-pointer text-[#cacaca] text-4xl font-extrabold"
                     sx={{ color: "#D9D9D9" }}
                   />
                   {cartItems.length >= 1 ? (
