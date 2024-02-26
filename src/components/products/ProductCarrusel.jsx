@@ -90,7 +90,7 @@ const breakpoints = {
 };
 
 const ProductCarrusel = () => {
-  const { prodItems } = useProducts();
+  const { prodItems, loading } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
@@ -99,25 +99,32 @@ const ProductCarrusel = () => {
   }, [prodItems]); // agregamos prodItems como dependencia para que se ejecute el efecto cuando cambie
   console.log(filteredProducts)
   return (
-    <Swiper
-      navigation={true}
-      pagination={true}
-      breakpoints={breakpoints}
-      modules={[Pagination, Navigation]}
-      className="mySwiper max-w-full h-[540px] md:h-[600px]"
-    >
-      {filteredProducts.length > 0 ? (
-        <div className="">
-          {filteredProducts.map((prod, index) => (
-            <SwiperSlide key={prod._id}>
-              <ProductCards prod={prod} index={index} />
-            </SwiperSlide>
-          ))}
-        </div>
-      ) : (
-        <div>cargando...</div>
-      )}
-    </Swiper>
+    loading ? (
+      <div>
+        <span class="loader"></span>
+      </div>
+    ) : (
+      <Swiper
+        navigation={true}
+        pagination={true}
+        breakpoints={breakpoints}
+        modules={[Pagination, Navigation]}
+        className="mySwiper max-w-full h-[540px] md:h-[600px]"
+      >
+        {filteredProducts.length > 0 ? (
+          <div className="">
+            {filteredProducts.map((prod, index) => (
+              <SwiperSlide key={prod._id}>
+                <ProductCards prod={prod} index={index} />
+              </SwiperSlide>
+            ))}
+          </div>
+        ) : (
+          <span class="loader"></span>
+        )}
+      </Swiper>
+    )
+
   );
 };
 

@@ -25,6 +25,7 @@ const ProductsProvider = ({ children }) => {
   const [cupon, setCupon] = useState("");
   const [cuponInvalid, setCuponInvalid] = useState()
   const [descuento, setDescuento] = useState(0);
+  const [ordenById, setOrdenById] = useState([])
   const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
   const precioFinal = subtotal - descuento
 
@@ -68,7 +69,7 @@ const ProductsProvider = ({ children }) => {
   const addToCart = (product) => {
     if (product) {
       product.quantity = 1; // Valor inicial de la cantidad al agregar el producto
-  
+
       const isProductInCart = cartItems.some(item => item._id === product._id);
       if (!isProductInCart) {
         const updatedCartItems = [...cartItems, product];
@@ -81,7 +82,7 @@ const ProductsProvider = ({ children }) => {
       }
     }
   };
-  
+
   const incrementQuantity = (prod) => {
     const updatedCartItems = cartItems.map(item => {
       if (item._id === prod._id) {
@@ -92,7 +93,7 @@ const ProductsProvider = ({ children }) => {
     setCartItems(updatedCartItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   };
-  
+
   const decrementQuantity = (prod) => {
     const updatedCartItems = cartItems.map(item => {
       if (item._id === prod._id && item.quantity > 1) {
@@ -103,7 +104,7 @@ const ProductsProvider = ({ children }) => {
     setCartItems(updatedCartItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   };
-  
+
   useEffect(() => {
     const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
@@ -165,6 +166,19 @@ const ProductsProvider = ({ children }) => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const getOrdenById = async (id) => {
+    try {
+      const response = await axios.post(`https://portaflex.com.ar/api/sales/getId`, {
+        orderId: id
+      })
+      setOrdenById(response.data)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
 
@@ -290,6 +304,7 @@ const ProductsProvider = ({ children }) => {
         fetchProducts,
         loading,
         addToCart,
+        setLoading,
         cartItems,
         removeFromCart,
         clearCart,
@@ -317,7 +332,9 @@ const ProductsProvider = ({ children }) => {
         setQuantity,
         quantity,
         incrementQuantity,
-        decrementQuantity
+        decrementQuantity,
+        getOrdenById,
+        ordenById
       }}
     >
       {children}

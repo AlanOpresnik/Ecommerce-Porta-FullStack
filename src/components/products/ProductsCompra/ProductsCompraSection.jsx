@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 
 const ProductsCompraSection = () => {
-  const { prodItems } = useProducts();
+  const { prodItems, loading, setLoading } = useProducts();
   const params = useParams();
 
   // Convertir guiones a espacios en la subcategoría de los parámetros de la URL
@@ -24,28 +24,39 @@ const ProductsCompraSection = () => {
 
   return (
     <>
-      {filteredByCategoryProducts.length === 0 && (
-        <div className="text-center w-full flex justify-center">
-          <h3 className="text-xl md:text-2xl border-b py-4 text-center">
-            No hay productos de {params.subcategory} actualmente 😔
-          </h3>
+      {loading ? (
+        <div className="flex justify-center">
+          <span className="loader"></span>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 mt-6 md:mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-center items-center">
+          <AnimatePresence>
+            {filteredByCategoryProducts?.map((item) => (
+              <motion.div
+                initial={{ opacity: 0, }}
+                animate={{ opacity: 1, }}
+                transition={{ duration: 0.5 }}
+                key={item._id}
+                className="w-full h-[490px] md:h-[490px]"
+              >
+                <ProductCompraCard prod={item} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       )}
-      <div className="grid grid-cols-2 mt-6 md:mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-center items-center">
-        <AnimatePresence>
-          {filteredByCategoryProducts?.map((item) => (
-            <motion.div
-              initial={{ opacity: 0, }}
-              animate={{ opacity: 1, }}
-              transition={{ duration: 0.5 }}
-              key={item._id}
-              className="w-full h-[490px] md:h-[490px]"
-            >
-              <ProductCompraCard prod={item} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+      {filteredByCategoryProducts.length === 0 && (
+          setLoading(false),
+        <div className="">
+          <div className="text-center w-full flex justify-center">
+            <h3 className="text-xl md:text-2xl border-b py-4 text-center">
+              No hay productos de {params.subcategory} actualmente 😔
+            </h3>
+          </div>
+        </div>
+      )}
+
+
     </>
   );
 };

@@ -13,8 +13,8 @@ const ProductsMatch = () => {
   const { prodItems, loading } = useProducts();
   const params = useParams();
   const navigate = useNavigate();
-const formattedSubCategoryName = params.name.replace(/-/g, ' ');
-console.log(params.name)
+  const formattedSubCategoryName = params.name.replace(/-/g, ' ');
+  console.log(params.name)
   const matchProducts = prodItems.filter(
     (product) => product.subcategoryId.name === formattedSubCategoryName
   );
@@ -100,7 +100,9 @@ console.log(params.name)
             <SwiperSlide key={prod._id}>
               <div>
                 {loading ? (
-                  <p>cargando...</p>
+                  <div className="flex justify-center">
+                  <span className="loader"></span>
+                  </div>
                 ) : (
                   <div
                     key={prod._id}

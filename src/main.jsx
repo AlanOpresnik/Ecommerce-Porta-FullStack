@@ -48,6 +48,8 @@ import CpSection from "./pages/admin/AdminComponents/cp/CpSection.jsx";
 import NewCpForm from "./pages/admin/AdminComponents/cp/NewCpForm.jsx";
 import ReactConfetti from "react-confetti";
 import WspLogo from "./components/WspLogo/WspLogo.jsx";
+import PaymentSuccess from "./pages/PaymentSucces/PaymentSuccess.jsx";
+import NosotrosSection from "./pages/nosotros/NosotrosSection.jsx";
 
 
 
@@ -214,6 +216,60 @@ const router = createHashRouter([
           <WspLogo/>
           <div>
             <CheckoutSection />
+          </div>
+          <FooterSection />
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/paymentSuccess",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <Navbar />
+          <WspLogo/>
+          <div className="max-w-[1380px] px-4 mx-auto">
+            <PaymentSuccess/>
+          </div>
+          <FooterSection />
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/nosotros",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <Navbar />
+          <WspLogo/>
+          <div className="max-w-[1380px] px-4 mx-auto">
+            <NosotrosSection/>
           </div>
           <FooterSection />
           <ScrollToTop />

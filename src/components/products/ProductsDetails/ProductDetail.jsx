@@ -22,7 +22,7 @@ import "swiper/css/thumbs";
 const ProductDetail = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const params = useParams();
-  const { prodItems, id, addToCart } = useProducts();
+  const { prodItems, id, addToCart, } = useProducts();
   const [productFilter, setProductFilter] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(mobile());
@@ -72,7 +72,11 @@ const ProductDetail = () => {
   }, [id, params, prodItems]);
 
   if (loading) {
-    return <p className="mt-24">Cargando...</p>;
+    return (
+      <div className="mt-40 flex justify-center">
+        <span className="loader"></span>
+      </div>
+    );
   }
 
   return (
@@ -111,7 +115,7 @@ const ProductDetail = () => {
                       ))}
                     </Swiper>
                   </div>
-                  <div className="max-w-[500px] col-span-1 lg:pl-10 lg:py-6 mt-2 lg:mt-0">
+                  <div className="max-w-[500px] col-span-1  lg:pl-10 lg:py-6 mt-2 lg:mt-0">
                     <h2 className="text-sm title-font mb-1 text-gray-500 tracking-widest">
                       {product.subcategoryId.category}
                     </h2>
@@ -180,9 +184,9 @@ const ProductDetail = () => {
                     <p className="leading-relaxed">{product.description}</p>
                     <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
                     <div className="flex">
-                      <span className=" font-medium text-2xl text-gray-900">
+                      <p className=" font-sm text-2xl text-gray-900">
                         ${product.price}
-                      </span>
+                      </p>
                       <button
                         onClick={() => addToCart(product)}
                         className="flex ml-auto text-white bg-[#dbcdbc] border-0 py-2 px-6 focus:outline-none hover:bg-[#cbc2b6] rounded"

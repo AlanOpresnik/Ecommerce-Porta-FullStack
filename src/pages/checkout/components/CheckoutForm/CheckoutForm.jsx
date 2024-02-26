@@ -102,8 +102,10 @@ function CheckoutForm() {
       console.log(response)
 
       if (response.data.success === true) {
-        window.location.href = response.data.response.init_point;
+        window.location.href = response.data.init_point;
       }
+
+      localStorage.setItem(`OrderId`, response.data.orderId)
     } catch (error) {
       console.error('Error:', error);
     }
@@ -206,58 +208,58 @@ function CheckoutForm() {
             </Select>
           </Grid>
           <Grid item xs={12} sm={6}>
-          <Select
-        sx={{ display: 'flex', height: "55px" }}
-        name='paymentMethod'
-        fullWidth
-        value={formData.paymentMethod}
-        onChange={handleInputChange}
-        variant="outlined"
-        displayEmpty
-        renderValue={(selected) => (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {selected === 'Efectivo' && (
-              <ListItemIcon>
-                <img src={billete} alt="Efectivo" style={{ width: '30px', height: "25px" }} />
-              </ListItemIcon>
-            )}
-            {selected === 'Mercado Pago' && (
-              <ListItemIcon>
-                <img src={mercadoPago} alt="Mercado Pago" style={{ width: '30px', height: "25px" }} />
-              </ListItemIcon>
-            )}
+            <Select
+              sx={{ display: 'flex', height: "55px" }}
+              name='paymentMethod'
+              fullWidth
+              value={formData.paymentMethod}
+              onChange={handleInputChange}
+              variant="outlined"
+              displayEmpty
+              renderValue={(selected) => (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {selected === 'Efectivo' && (
+                    <ListItemIcon>
+                      <img src={billete} alt="Efectivo" style={{ width: '30px', height: "25px" }} />
+                    </ListItemIcon>
+                  )}
+                  {selected === 'Mercado Pago' && (
+                    <ListItemIcon>
+                      <img src={mercadoPago} alt="Mercado Pago" style={{ width: '30px', height: "25px" }} />
+                    </ListItemIcon>
+                  )}
 
-            {selected === 'Tarjeta de credito' && (
-              <ListItemIcon>
-                <img src={tarjeta} alt="tarjeta" style={{ width: '30px', height: "25px" }} />
-              </ListItemIcon>
-            )}
-            <ListItemText primary={selected || "Método de pago"} />
-          </div>
-        )}
-      >
-        <MenuItem disabled value="">
-          Método de pago
-        </MenuItem>
-        <MenuItem value="Efectivo">
-        <ListItemIcon>
-            <img src={billete} alt="billete" style={{ width: '25px' }} />
-          </ListItemIcon>
-          <ListItemText primary="Efectivo" />
-        </MenuItem>
-        <MenuItem value="Mercado Pago">
-          <ListItemIcon>
-            <img src={mercadoPago} alt="Mercado Pago" style={{ width: '25px' }} />
-          </ListItemIcon>
-          <ListItemText primary="Mercado Pago" />
-        </MenuItem>
-        <MenuItem value="Tarjeta de credito">
-        <ListItemIcon>
-            <img src={tarjeta} alt="Mercado Pago" style={{ width: '25px' }} />
-          </ListItemIcon>
-          <ListItemText primary="Tarjeta de credito" />
-        </MenuItem>
-      </Select>
+                  {selected === 'Tarjeta de credito' && (
+                    <ListItemIcon>
+                      <img src={tarjeta} alt="tarjeta" style={{ width: '30px', height: "25px" }} />
+                    </ListItemIcon>
+                  )}
+                  <ListItemText primary={selected || "Método de pago"} />
+                </div>
+              )}
+            >
+              <MenuItem disabled value="">
+                Método de pago
+              </MenuItem>
+              <MenuItem value="Efectivo">
+                <ListItemIcon>
+                  <img src={billete} alt="billete" style={{ width: '25px' }} />
+                </ListItemIcon>
+                <ListItemText primary="Efectivo" />
+              </MenuItem>
+              <MenuItem value="Mercado Pago">
+                <ListItemIcon>
+                  <img src={mercadoPago} alt="Mercado Pago" style={{ width: '25px' }} />
+                </ListItemIcon>
+                <ListItemText primary="Mercado Pago" />
+              </MenuItem>
+              <MenuItem value="Tarjeta de credito">
+                <ListItemIcon>
+                  <img src={tarjeta} alt="Mercado Pago" style={{ width: '25px' }} />
+                </ListItemIcon>
+                <ListItemText primary="Tarjeta de credito" />
+              </MenuItem>
+            </Select>
           </Grid>
           <Grid item xs={12} >
             <TextField

@@ -12,7 +12,10 @@ const ProductsSection = () => {
       </div>
       <div className='max-w-full h-[600px]  gap-12 justify-center mt-6'>
         {loading ? (
-          "cargando productos..."
+          <div className='flex justify-center mt-40'>
+         
+            <span class="loader"></span>
+          </div>
         ) : <ProductCarrusel />}
 
       </div>

@@ -23,6 +23,41 @@ p, h1, h2, h3, h4, h5{
     animation: fadeIn 800ms ;
 }
 
+.check{
+    font-size: 60px !important;
+}
+
+span {
+    font-size: 16px!important;
+}
+
+@media (max-width: 768px) {
+    span {
+        font-size: 16px!important;
+    }
+}
+
+.loader {
+    width: 48px;
+
+    height: 48px;
+    border: 5px solid #6d6d6d;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+    
 @keyframes fadeInOut {
     0% { opacity: 0; }
     100% { opacity: 1; }
