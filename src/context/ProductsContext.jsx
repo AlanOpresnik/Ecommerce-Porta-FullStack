@@ -26,6 +26,7 @@ const ProductsProvider = ({ children }) => {
   const [cuponInvalid, setCuponInvalid] = useState()
   const [descuento, setDescuento] = useState(0);
   const [ordenById, setOrdenById] = useState([])
+  const [Faq, setFaq] = useState([])
   const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
   const precioFinal = subtotal - descuento
 
@@ -143,9 +144,6 @@ const ProductsProvider = ({ children }) => {
 
   };
 
-
-
-
   const removeFromCart = (productId) => {
     const updatedCartItems = cartItems.filter(item => item._id !== productId);
     setCartItems(updatedCartItems);
@@ -181,9 +179,6 @@ const ProductsProvider = ({ children }) => {
 
   }
 
-
-
-
   const getSubCategory = async () => {
     const response = await axios.get(`https://portaflex.com.ar/api/subcategories/get`)
     setCategorys(response.data)
@@ -216,10 +211,6 @@ const ProductsProvider = ({ children }) => {
       console.log(error)
     }
   }
-
-
-
-
 
 
   const createCupon = async (key, value, expired) => {
@@ -293,6 +284,59 @@ const ProductsProvider = ({ children }) => {
     }
   }
 
+  const getFaq = async () => {
+    try {
+      const response = await axios.get(`https://portaflex.com.ar/api/faq/get`)
+      setFaq(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const newFaq = async (question, answer) => {
+    try {
+      const response = await axios.post(`https://portaflex.com.ar/api/faq/create`, {
+        question: question,
+        answer: answer
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const removeFaq = async (id) => {
+    Swal.fire({
+      title: "Estas seguro?",
+      html: `Deseas eliminar esta pregunta frecuente?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete("https://portaflex.com.ar/api/faq/delete", {
+            data: {
+              _id: id
+            }
+          });
+          getFaq()
+        } catch (error) {
+          console.error("Error al eliminar la pregunta:", error);
+        }
+        Swal.fire({
+          title: "Pregunta eliminada!",
+          text: "la pregunta fue eliminada correctamente.",
+          icon: "success"
+        });
+      }
+    });
+
+  };
+
+
+
 
   return (
     <ProductsContext.Provider
@@ -334,7 +378,11 @@ const ProductsProvider = ({ children }) => {
         incrementQuantity,
         decrementQuantity,
         getOrdenById,
-        ordenById
+        ordenById,
+        Faq,
+        getFaq,
+        newFaq,
+        removeFaq,
       }}
     >
       {children}

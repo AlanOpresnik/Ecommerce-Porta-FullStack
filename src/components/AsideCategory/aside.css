@@ -2,7 +2,16 @@
     text-overflow: unset !important;
     overflow: visible !important;
     white-space: normal !important;
-    font-size: "xs" !important;
+    font-size: "12px" !important;
+  }
+
+  @media (max-width: 768px) {
+    .no-truncate {
+      text-overflow: unset !important;
+      overflow: visible !important;
+      white-space: normal !important;
+      font-size: "5px" !important;
+    }
   }
 
   @media (max-width: 768px) {

@@ -7,7 +7,7 @@ const SecondNavbar = () => {
       <div className="flex justify-evenly relative top-[18px] gap-12  items-center text-sm text-[#AAAAAA] newsLetter-heading font-bold">
         <Link to={"/"}>Inicio</Link>
         <Link to={"/nosotros"}>Nuestra historia</Link>
-        <Link to={"/devoluciones"}>Cambios y devoluciones</Link>
+        <Link to={"/faqs"}>Preguntas frecuentes</Link>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import React from "react";
 import { SelectorIcon } from "./SelectorIcon";
 import { animals } from "./data";
 import { useProducts } from "../../context/ProductsContext";
+import "./aside.css"
 const AsideFilterSelect = () => {
     const {handleOrdenChange} = useProducts()
   return (
@@ -15,10 +16,10 @@ const AsideFilterSelect = () => {
     onChange={(e) => handleOrdenChange(e.target.value)}
   >
     <SelectItem className="no-truncate" value="lowToHigh">
-     Precio: Mas bajo
+     Precio:Mas bajo
     </SelectItem>
     <SelectItem className="no-truncate" value="highToLow">
-      Precio: Mas alto
+      Precio:Mas alto
     </SelectItem>
   </Select>
   )

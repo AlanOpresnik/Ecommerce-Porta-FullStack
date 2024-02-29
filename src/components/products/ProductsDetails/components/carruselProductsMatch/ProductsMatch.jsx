@@ -112,7 +112,7 @@ const ProductsMatch = () => {
                     onMouseLeave={() => handleMouseLeave(index)}
                     onClick={() =>
                       navigate(
-                        `/products/${prod.category}/${prod.name
+                        `/products/${prod.subcategoryId.category}/${prod.subcategoryId.name}/${prod.name
                           .replace(/\s+/g, "-")
                           .toLowerCase()}/${prod._id}`
                       )

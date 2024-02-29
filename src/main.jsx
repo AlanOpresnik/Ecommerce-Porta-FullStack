@@ -50,6 +50,9 @@ import ReactConfetti from "react-confetti";
 import WspLogo from "./components/WspLogo/WspLogo.jsx";
 import PaymentSuccess from "./pages/PaymentSucces/PaymentSuccess.jsx";
 import NosotrosSection from "./pages/nosotros/NosotrosSection.jsx";
+import FaqSection from "./pages/FAQ/FaqSection.jsx";
+import FaqSectionUI from "./pages/FAQ/FaqSectionUI/FaqSectionUi.jsx";
+import NewFaqForm from "./pages/FAQ/NewFaqForm.jsx";
 
 
 
@@ -81,7 +84,7 @@ const router = createHashRouter([
             <div className="p-2">
               <Main />
               <InfoDividerSection />
-              <WspLogo/>
+              <WspLogo />
               <div className="max-w-[1280px]  flex-col items-center justify-center mx-auto">
                 <ProductsSection />
               </div>
@@ -118,7 +121,7 @@ const router = createHashRouter([
         <ProductsProvider>
           <Navbar />
           <Toaster />
-          <WspLogo/>
+          <WspLogo />
           <div className="px-2 md:hidden ml-5">
             <AsideCategory />
           </div>
@@ -158,12 +161,16 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
-          <WspLogo/>
+          <WspLogo />
           <Toaster position="top-right" />
+            <motion.div
+              initial={{ opacity: 0, y:-30 }} // Animación inicial: transparente y moviéndose hacia arriba
+              animate={{ opacity: 1, y: 0 }} // Animación al estado animado: completamente opaco y en su posición original
+              transition={{ duration: 0.3 }} // Duración de la animación
+              className="max-w-[1380px] mb-12 mx-auto">
           <ProductDetail />
-          <div className="max-w-[1380px] mb-12 mx-auto">
             <ProductsMatch />
-          </div>
+          </motion.div>
           <FooterSection />
           <ScrollToTop />
         </ProductsProvider>
@@ -187,7 +194,7 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
-          <WspLogo/>
+          <WspLogo />
           <div className="max-w-[1380px] px-4 mx-auto">
             <CartSection />
           </div>
@@ -213,7 +220,7 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
-          <WspLogo/>
+          <WspLogo />
           <div>
             <CheckoutSection />
           </div>
@@ -240,9 +247,9 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
-          <WspLogo/>
+          <WspLogo />
           <div className="max-w-[1380px] px-4 mx-auto">
-            <PaymentSuccess/>
+            <PaymentSuccess />
           </div>
           <FooterSection />
           <ScrollToTop />
@@ -267,11 +274,43 @@ const router = createHashRouter([
         </Helmet>
         <ProductsProvider>
           <Navbar />
-          <WspLogo/>
+          <WspLogo />
           <div className="max-w-[1380px] px-4 mx-auto">
-            <NosotrosSection/>
+            <NosotrosSection />
           </div>
           <FooterSection />
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/faqs",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <Navbar />
+            <motion.div
+              initial={{ opacity: 0, y: -50 }} // Animación inicial: transparente y moviéndose hacia arriba
+              animate={{ opacity: 1, y: 0 }} // Animación al estado animado: completamente opaco y en su posición original
+              transition={{ duration: 0.5 }} // Duración de la animación
+              className="w-[980px] mx-auto px-4 ">
+              <FaqSectionUI />
+            </motion.div>
+          </div>
+ 
           <ScrollToTop />
         </ProductsProvider>
       </>
@@ -349,7 +388,7 @@ const router = createHashRouter([
           <div className="h-full relative  flex flex-1 ">
             <div className="relative">
               <SideBar />
-            </div> 
+            </div>
             <div className="w-[80%] h-full   md:w-[1280px] mx-auto">
               <OrdenesSection />
             </div>
@@ -503,6 +542,62 @@ const router = createHashRouter([
           <div className="h-[100vh] flex flex-1 ">
             <SideBar />
             <NewCpForm />
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/preguntas",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <Toaster className='z-50' position="top-right" />
+            <div className="w-[980px] mx-auto px-2">
+              <FaqSection />
+            </div>
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newpregunta",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <Toaster position="top-right" />
+            <div className="w-[980px] mx-auto px-2">
+              <NewFaqForm />
+            </div>
           </div>
           <ScrollToTop />
         </ProductsProvider>

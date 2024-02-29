@@ -92,6 +92,7 @@ export default function OrdenesItem({ orden }) {
               <Typography className="text-sm w-[100px]" variant="body1">
                 {formatearFecha(orden.orderDate)}
               </Typography>
+
             </div>
             <div className="flex  md:flex-col items-center">
               <p className="text-xs hidden md:block border-b">Nombre</p>
@@ -107,32 +108,33 @@ export default function OrdenesItem({ orden }) {
                 {orden.dni}
               </p>
             </div>
-
-            <div className="flex flex-col items-center">
-              <p className="text-xs border-b mb-1">Estado del pago</p>
-              <Chip
-                size="small"
-                className="px-0"
-                label={orden.paymentStatus}
-                color={orden.paymentStatus === "Aprobado" ? "success" : "error"}
-                variant={
-                  orden.paymentStatus === "Aprobado" ? "contained" : "outlined"
-                }
-              />
+            <div className="flex gap-6 mb-4">
+              <div className="flex flex-col items-center">
+                <p className="text-xs border-b mb-1">Estado del pago</p>
+                <Chip
+                  size="small"
+                  className="px-0"
+                  label={orden.paymentStatus}
+                  color={orden.paymentStatus === "Aprobado" ? "success" : "error"}
+                  variant={
+                    orden.paymentStatus === "Aprobado" ? "contained" : "outlined"
+                  }
+                />
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-xs border-b mb-1">Estado del envio</p>
+                <Chip
+                  size="small"
+                  className="px-0"
+                  label={orden.shippingStatus}
+                  color={orden.shippingStatus === "Aprobado" ? "success" : "error"}
+                  variant={
+                    orden.shippingStatus === "Aprobado" ? "contained" : "outlined"
+                  }
+                />
+              </div>
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-xs border-b mb-1">Estado del envio</p>
-              <Chip
-                size="small"
-                className="px-0"
-                label={orden.shippingStatus}
-                color={orden.shippingStatus === "Aprobado" ? "success" : "error"}
-                variant={
-                  orden.shippingStatus === "Aprobado" ? "contained" : "outlined"
-                }
-              />
-            </div>
-            <div className="flex mt-2 lg:mt-0">
+            <div className="flex mt-2 right-0 absolute md:relative top-0 lg:mt-0">
               <Tooltip title="Editar" arrow>
                 <Button onClick={handleOpenModal}>
                   <ModeEditIcon />
@@ -204,7 +206,7 @@ export default function OrdenesItem({ orden }) {
                 {cuponOrden && (
                   <div className="flex flex-col border p-4 rounded-lg shadow-md">
                     <p>Cupón utilizado:</p>
-                    <p className="font-bold">{cuponOrden.key}</p>
+                    <p className="font-bold">{orden.cuponKey}</p>
                     <p className="flex gap-1">
                       Descuento de:{" "}
                       <p className="font-bold">${cuponOrden.value}</p>
@@ -227,17 +229,18 @@ export default function OrdenesItem({ orden }) {
           </div>
         </AccordionDetails>
         <Modal sx={{
-            zIndex: 1000,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }} open={openModal} onClose={handleCloseModal} closeAfterTransition>
+          zIndex: 1000,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }} open={openModal} onClose={handleCloseModal} closeAfterTransition>
           <Fade in={openModal}>
             <div className="modal-container w-auto md:w-full">
               <div className="modal-content bg-white rounded shadow p-4 max-w-md w-full mx-auto">
                 <h2 className="text-lg font-semibold mb-4">Editar Orden</h2>
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4">
+                    <p>Estado del pago</p>
                     <Select
                       fullWidth
                       label="Estado del pago"
@@ -250,6 +253,7 @@ export default function OrdenesItem({ orden }) {
                     </Select>
                   </div>
                   <div className="mb-4 w-full">
+                    <p>Estado del envio</p>
                     <Select
                       fullWidth
                       label="Estado del envio"

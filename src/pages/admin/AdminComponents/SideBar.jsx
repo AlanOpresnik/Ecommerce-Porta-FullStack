@@ -6,6 +6,8 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
+import QuizIcon from '@mui/icons-material/Quiz';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 import logo from "../../../assets/img/logo-blanco.png";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
@@ -21,6 +23,8 @@ const SideBar = () => {
         { title: "Cargar nuevo cupon", icon: <LibraryAddIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcupon` },
         { title: "Codigos Postales", icon: <LocalShippingIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/cp` },
         { title: "Agregar nuevo codigo postal", icon: <AddLocationIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcp` },
+        { title: "Preguntas frecuentes", icon: <QuizIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/preguntas` },
+        { title: "Agregar nueva pregunta frecuente", icon: <AddCommentIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newpregunta` },
     ];
 
     return (

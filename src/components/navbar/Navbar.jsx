@@ -46,8 +46,8 @@ const NavbarItemsMobile = [
     title: "Nuestra historia",
   },
   {
-    path: "/devoluciones",
-    title: "Cambios y devoluciones",
+    path: "/faqs",
+    title: "Preguntas frecuentes",
   },
 ];
 
