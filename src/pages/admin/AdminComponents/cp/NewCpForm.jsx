@@ -1,6 +1,7 @@
 import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -30,8 +31,10 @@ const NewCpForm = () => {
                     Authorization: `Bearer ${tokenFormated}`
                 }
             })
-
-
+            setLocation("")
+            setPrice(0)
+            setKey(0)
+            toast.success("codigo postal agregado con exito")
         } catch (error) {
             console.log(error)
         }
@@ -54,6 +57,7 @@ const NewCpForm = () => {
                                 label="Localidad"
                                 variant="outlined"
                                 name="location"
+                                value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                                 className="w-[60vw] sm:w-full"
                             />
@@ -65,6 +69,7 @@ const NewCpForm = () => {
                                 label="Numero del codigo postal"
                                 variant="outlined"
                                 name="key"
+                                value={key}
                                 onChange={(e) => setKey(e.target.value)}
                                 className="w-[60vw] sm:w-full"
                             />
@@ -76,6 +81,7 @@ const NewCpForm = () => {
                                 fullWidth
                                 variant="outlined"
                                 name="price"
+                                value={price}
                                 onChange={(e) => setPrice(e.target.value)}
                                 className="w-[60vw] sm:w-full"
                             />

@@ -516,6 +516,7 @@ const router = createHashRouter([
         <ProductsProvider>
           <div className="h-[100vh] flex flex-1 ">
             <SideBar />
+            <Toaster />
             <CpSection />
           </div>
           <ScrollToTop />
@@ -541,6 +542,7 @@ const router = createHashRouter([
         <ProductsProvider>
           <div className="h-[100vh] flex flex-1 ">
             <SideBar />
+            <Toaster position="top-right" />
             <NewCpForm />
           </div>
           <ScrollToTop />
