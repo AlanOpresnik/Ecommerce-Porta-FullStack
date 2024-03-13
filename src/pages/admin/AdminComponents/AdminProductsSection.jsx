@@ -4,7 +4,7 @@ import ProductInfoCard from './ProductInfoCard'
 import ProdAdminCard from './ProdAdminCard'
 import DropDownCategorys from './DropDownCategorys'
 import { Button } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const AdminProductsSection = () => {
@@ -12,6 +12,15 @@ const AdminProductsSection = () => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [search, setSearch] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null); // Nuevo estado para la categoría seleccionada
+
+    const navigate = useNavigate()
+
+    const token = localStorage.getItem('token');
+
+    if (!token || token == "") {
+        navigate('/')
+    }
+
 
     useEffect(() => {
         const filtered = prodItems.filter((prod) => {

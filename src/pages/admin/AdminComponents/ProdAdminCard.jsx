@@ -11,11 +11,13 @@ import { Textarea } from '@material-tailwind/react';
 
 const ProdAdminCard = ({ prod }) => {
     const navigate = useNavigate();
-    const { removeProduct, categorys,fetchProducts } = useProducts();
+    const { removeProduct, categorys, fetchProducts } = useProducts();
     const [openModal, setOpenModal] = useState(false);
     const [editedProduct, setEditedProduct] = useState(prod);
     const formattedProductName = prod.name.replace(/ /g, "-");
     const formattedSubCategoryName = prod.subcategoryId.name.replace(/ /g, "-");
+    const token = localStorage.getItem('token').replace(/['"]+/g, '');
+    console.log(token)
 
     const handleOpenModal = () => {
         setOpenModal(true);
@@ -29,10 +31,10 @@ const ProdAdminCard = ({ prod }) => {
         const { name, value, type, checked } = e.target;
         const newValue = type === "checkbox" ? checked : value;
         setEditedProduct({
-          ...editedProduct,
-          [name]: newValue,
+            ...editedProduct,
+            [name]: newValue,
         });
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,7 +52,12 @@ const ProdAdminCard = ({ prod }) => {
                 enabled: editedProduct.enabled,
                 createdAt: editedProduct.createdAt,
                 updatedAt: editedProduct.updatedAt,
-            });
+            },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
             handleCloseModal();
             fetchProducts()
             // Aquí puedes agregar alguna lógica adicional, como mostrar una notificación de éxito

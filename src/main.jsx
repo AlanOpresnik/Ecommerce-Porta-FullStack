@@ -163,12 +163,12 @@ const router = createHashRouter([
           <Navbar />
           <WspLogo />
           <Toaster position="top-right" />
-            <motion.div
-              initial={{ opacity: 0, y:-30 }} // Animación inicial: transparente y moviéndose hacia arriba
-              animate={{ opacity: 1, y: 0 }} // Animación al estado animado: completamente opaco y en su posición original
-              transition={{ duration: 0.3 }} // Duración de la animación
-              className="max-w-[1380px] mb-12 mx-auto">
-          <ProductDetail />
+          <motion.div
+            initial={{ opacity: 0, y: -30 }} // Animación inicial: transparente y moviéndose hacia arriba
+            animate={{ opacity: 1, y: 0 }} // Animación al estado animado: completamente opaco y en su posición original
+            transition={{ duration: 0.3 }} // Duración de la animación
+            className="max-w-[1380px] mb-12 mx-auto">
+            <ProductDetail />
             <ProductsMatch />
           </motion.div>
           <FooterSection />
@@ -310,7 +310,7 @@ const router = createHashRouter([
               <FaqSectionUI />
             </motion.div>
           </div>
- 
+
           <ScrollToTop />
         </ProductsProvider>
       </>

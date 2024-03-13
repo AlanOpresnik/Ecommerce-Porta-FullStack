@@ -28,6 +28,7 @@ export default function OrdenesItem({ orden }) {
   const { coupons, getCoupons, getOrdenes } = useProducts();
   const [openModal, setOpenModal] = useState(false);
   const [editedOrden, setEditedOrden] = useState(orden);
+  const token = localStorage.getItem('token').replace(/['"]+/g, '');
 
   useEffect(() => {
     getCoupons();
@@ -59,9 +60,15 @@ export default function OrdenesItem({ orden }) {
         orderId: editedOrden._id,
         paymentStatus: editedOrden.paymentStatus,
         shippingStatus: editedOrden.shippingStatus,
-      });
-      handleCloseModal();
-      getOrdenes();
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+        );
+        handleCloseModal();
+        await getOrdenes();
       // Aquí puedes agregar alguna lógica adicional, como mostrar una notificación de éxito
     } catch (error) {
       console.error("Error al actualizar el producto:", error);
@@ -134,7 +141,7 @@ export default function OrdenesItem({ orden }) {
                 />
               </div>
             </div>
-            <div className="flex mt-2 right-0 absolute md:relative top-0 lg:mt-0">
+            <div className="flex mt-2 right-0 absolute md:relative  top-0 lg:mt-0">
               <Tooltip title="Editar" arrow>
                 <Button onClick={handleOpenModal}>
                   <ModeEditIcon />

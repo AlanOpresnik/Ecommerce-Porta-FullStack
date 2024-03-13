@@ -2,12 +2,21 @@ import React, { useEffect, useState } from 'react';
 import OrdenesItem from './OrdenesItem';
 import { TextField, Button } from '@mui/material';
 import { useProducts } from '../../../context/ProductsContext';
+import { useNavigate } from 'react-router-dom';
 
 const OrdenesSection = () => {
   const { ordenes, getOrdenes } = useProducts();
   const [filteredOrdenes, setFilteredOrdenes] = useState([]);
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('newest'); // State to track sorting order
+
+  const navigate = useNavigate()
+
+  const token = localStorage.getItem('token');
+
+  if (!token || token == "") {
+      navigate('/')
+  }
 
   useEffect(() => {
     const filtered = ordenes.filter((orden) => {

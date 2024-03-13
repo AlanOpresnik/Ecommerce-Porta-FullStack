@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react';
 import { useProducts } from '../../context/ProductsContext';
 import FaqItem from './FaqItem';
+import { useNavigate } from 'react-router-dom';
 
 const FaqSection = () => {
     const { Faq, getFaq } = useProducts();
+    const navigate = useNavigate()
 
+    const token = localStorage.getItem('token');
+
+    if (!token || token == "") {
+        navigate('/')
+    }
     useEffect(() => {
         getFaq();
     }, []);

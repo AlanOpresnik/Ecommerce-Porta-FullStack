@@ -29,7 +29,7 @@ const ProductsProvider = ({ children }) => {
   const [Faq, setFaq] = useState([])
   const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
   const precioFinal = subtotal - descuento
-
+  const token = localStorage.getItem('token').replace(/['"]+/g, '');
   const [orden, setOrden] = useState("lowToHigh");
 
   const fetchProducts = async () => {
@@ -129,7 +129,12 @@ const ProductsProvider = ({ children }) => {
             data: {
               productId: product._id
             }
-          });
+          },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
           fetchProducts()
         } catch (error) {
           console.error("Error al eliminar el producto:", error);
@@ -158,14 +163,21 @@ const ProductsProvider = ({ children }) => {
 
   const getOrdenes = async () => {
     try {
-      const response = await axios.get(`https://portaflex.com.ar/api/sales/get`)
+
+      const response = await axios.get(`https://portaflex.com.ar/api/sales/get`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      )
       setOrdenes(response.data)
       console.log(response.data)
     } catch (error) {
       console.log(error)
     }
   }
-
+  console.log(localStorage.getItem('token'));
   const getOrdenById = async (id) => {
     try {
       const response = await axios.post(`https://portaflex.com.ar/api/sales/getId`, {
@@ -190,11 +202,17 @@ const ProductsProvider = ({ children }) => {
 
   const NewSubCategory = async (name, category, enabled) => {
     try {
-      const response = await axios.post(`https://portaflex.com.ar/api/subcategories/create`, {
-        name: name,
-        category: category,
-        enabled: enabled
-      })
+      const response = await axios.post(`https://portaflex.com.ar/api/subcategories/create`,
+        {
+          name: name,
+          category: category,
+          enabled: enabled
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       getSubCategory()
       console.log("respuesta:" + response.data)
     } catch (error) {
@@ -204,7 +222,11 @@ const ProductsProvider = ({ children }) => {
 
   const getCoupons = async () => {
     try {
-      const response = await axios.get(`https://portaflex.com.ar/api/coupons/get`)
+      const response = await axios.get(`https://portaflex.com.ar/api/coupons/get`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       setCoupons(response.data.data)
       console.log(response.data.data)
     } catch (error) {
@@ -219,6 +241,10 @@ const ProductsProvider = ({ children }) => {
         key: key,
         value: value,
         expired: expired,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       getCoupons()
       console.log("respuesta post cupon", response.data)
@@ -248,9 +274,13 @@ const ProductsProvider = ({ children }) => {
     try {
       const response = await axios.delete(`https://portaflex.com.ar/api/coupons/delete`, {
         data: {
-          couponId: id
+          couponId: id,
         },
-      });
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      },
+      );
       getCoupons()
 
 
@@ -274,8 +304,12 @@ const ProductsProvider = ({ children }) => {
       const response = await axios.delete(`https://portaflex.com.ar/api/cp/delete`, {
         data: {
           cpId: id
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      })
+      },
+      )
       getCp()
       console.log(response)
     } catch (error) {
@@ -298,7 +332,12 @@ const ProductsProvider = ({ children }) => {
       const response = await axios.post(`https://portaflex.com.ar/api/faq/create`, {
         question: question,
         answer: answer
-      })
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
     } catch (error) {
       console.log(error)
     }
@@ -319,8 +358,12 @@ const ProductsProvider = ({ children }) => {
           const response = await axios.delete("https://portaflex.com.ar/api/faq/delete", {
             data: {
               _id: id
+            },
+            headers: {
+              Authorization: `Bearer ${token}`
             }
-          });
+          },
+            );
           getFaq()
         } catch (error) {
           console.error("Error al eliminar la pregunta:", error);
@@ -335,7 +378,17 @@ const ProductsProvider = ({ children }) => {
 
   };
 
-
+  const getCuotasCard = async (bin, amount) => {
+    try {
+      const response = await axios.post('https://portaflex.com.ar/api/mercadopago/getInstallments', {
+        bin: bin,
+        amount: amount
+      })
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   return (
@@ -383,6 +436,7 @@ const ProductsProvider = ({ children }) => {
         getFaq,
         newFaq,
         removeFaq,
+        getCuotasCard
       }}
     >
       {children}

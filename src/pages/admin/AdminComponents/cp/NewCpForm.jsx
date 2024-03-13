@@ -1,12 +1,22 @@
 import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 const NewCpForm = () => {
+    const tokenFormated = localStorage.getItem('token').replace(/['"]+/g, '');
     const [location, setLocation] = useState("")
     const [key, setKey] = useState(0)
     const [price, setPrice] = useState(0)
+
+    const navigate = useNavigate()
+
+    const token = localStorage.getItem('token');
+
+    if (!token || token == "") {
+        navigate('/')
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -15,7 +25,12 @@ const NewCpForm = () => {
                 location: location,
                 key: key,
                 price: price,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${tokenFormated}`
+                }
             })
+
 
         } catch (error) {
             console.log(error)

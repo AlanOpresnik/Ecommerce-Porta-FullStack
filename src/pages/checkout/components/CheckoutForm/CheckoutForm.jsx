@@ -9,18 +9,23 @@ import billete from '../../../../assets/img/billete.png'
 import tarjeta from '../../../../assets/img/tarjeta.png'
 
 function CheckoutForm() {
-  const { cartItems, getCp, cp, precioFinal } = useProducts();
+  const { cartItems, getCp, cp, precioFinal, getCuotasCard } = useProducts();
   const [codigoPostalEncontrado, setCodigoPostalEncontrado] = useState(null);
   const [existe, setExiste] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false); // Nuevo estado para controlar la visualización del confeti
   const [open, setOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [bin, setBin] = useState("");
+  const [totalCuotas, setTotalCuotas] = useState("")
+
 
   // useEffect para verificar la validez del formulario
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const navigate = useNavigate();
+  const handldeCuotas = () => {
+    setTotalCuotas(precioFinal + codigoPostalEncontrado)
+
+    getCuotasCard(bin, totalCuotas)
+  }
 
   const [formData, setFormData] = useState({
     name: '',
@@ -261,6 +266,59 @@ function CheckoutForm() {
               </MenuItem>
             </Select>
           </Grid>
+          <>
+            {formData.paymentMethod === 'Tarjeta de credito' && (
+              <>
+                <Grid item xs={12} >
+                  <TextField
+                    fullWidth
+                    name='Titular'
+                    label="Titular de la tarjeta"
+                    value={formData.creditCardNumber}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} >
+                  <TextField
+                    fullWidth
+                    name='creditCardNumber'
+                    label="Número de tarjeta de crédito"
+                    value={formData.creditCardNumber}
+                    onChange={(e) => setBin(e.target.value)}
+                    variant="outlined"
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} >
+                  <TextField
+                    fullWidth
+                    name='cardVenc'
+                    label="Fecha de vencimiento"
+                    value={formData.creditCardNumber}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} >
+                  <TextField
+                    fullWidth
+                    name='cvv'
+                    label="Codigo de seguridad"
+                    value={formData.creditCardNumber}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    required
+                  />
+                </Grid>
+                <div className='flex justify-center w-full py-6'>
+                  <Button onClick={handldeCuotas} variant='contained'>VALIDAR TARJETA DE CREDITO</Button>
+                </div>
+              </>
+            )}
+          </>
           <Grid item xs={12} >
             <TextField
               name='cp'

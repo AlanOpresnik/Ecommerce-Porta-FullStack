@@ -11,9 +11,9 @@ import axios from 'axios';
 
 const ProductsFeatured = ({ prod }) => {
     const { prodItems } = useProducts();
-
+    const token = localStorage.getItem('token').replace(/['"]+/g, '');
     const navigate = useNavigate();
-    const { removeProduct, categorys } = useProducts();
+    const { removeProduct, categorys, fetchProducts } = useProducts();
     const [openModal, setOpenModal] = useState(false);
     const [editedProduct, setEditedProduct] = useState(prod);
 
@@ -39,7 +39,12 @@ const ProductsFeatured = ({ prod }) => {
         e.preventDefault();
         try {
             // Enviar los cambios al servidor
-            await axios.put(`https://portaflex.com.ar/api/products/update`, editedProduct);
+            await axios.put(`https://portaflex.com.ar/api/products/update`, editedProduct, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            fetchProducts()
             handleCloseModal();
             // Aquí puedes agregar alguna lógica adicional, como mostrar una notificación de éxito
         } catch (error) {

@@ -3,10 +3,20 @@ import ProductsFeatured from './ProductsFeatured';
 
 import FeaturedInfoCard from './FeaturedInfoCard';
 import { useProducts } from '../../../context/ProductsContext';
+import { useNavigate } from 'react-router-dom';
 
 const FeaturedSection = () => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const { prodItems } = useProducts()
+
+    const navigate = useNavigate()
+
+    const token = localStorage.getItem('token').replace(/['"]+/g, '');
+
+
+    if (!token || token == "") {
+        navigate('/')
+    }
     useEffect(() => {
         const filtered = prodItems.filter(product => product.featured === true);
         setFilteredProducts(filtered);

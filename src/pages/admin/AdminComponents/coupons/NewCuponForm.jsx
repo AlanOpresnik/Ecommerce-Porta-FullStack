@@ -10,7 +10,7 @@ const NewCuponForm = () => {
     console.log(key)
     const handleSubmit = (e) => {
         e.preventDefault()
-        createCupon(key,value,expired)
+        createCupon(key, value, expired)
         setKey("")
         setValue("")
         setExpired("")

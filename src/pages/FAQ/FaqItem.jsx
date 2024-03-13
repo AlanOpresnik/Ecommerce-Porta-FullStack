@@ -13,7 +13,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const FaqItem = ({ faq }) => {
-    const { getFaq,removeFaq } = useProducts()
+    const { getFaq, removeFaq } = useProducts()
     const [openModal, setOpenModal] = useState(false);
     const [editedFaq, setEditedFaq] = useState(faq);
 
@@ -39,7 +39,12 @@ const FaqItem = ({ faq }) => {
                 _id: editedFaq._id,
                 question: editedFaq.question,
                 answer: editedFaq.answer,
-            });
+            },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
             handleCloseModal();
             getFaq();
             toast.success('Pregunta actualizada correctamente')
@@ -90,16 +95,16 @@ const FaqItem = ({ faq }) => {
                                 <div className="mb-4">
                                     <p className='mb-1 text-sm '>Pregunta</p>
                                     <Input
-                                    className='w-full'
+                                        className='w-full'
                                         value={editedFaq.question}
                                         name='question'
                                         onChange={handleChange}
                                         placeholder='editar pregunta' />
                                 </div>
                                 <div className="mb-4 w-full">
-                                <p className='mb-2 text-sm '>Respuesta</p>
+                                    <p className='mb-2 text-sm '>Respuesta</p>
                                     <Textarea
-                                    className='w-full'
+                                        className='w-full'
                                         value={editedFaq.answer}
                                         name='answer'
                                         onChange={handleChange}

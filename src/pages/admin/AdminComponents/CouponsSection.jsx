@@ -6,11 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 const CouponsSection = () => {
     const { getCoupons, coupons } = useProducts();
+
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+
+    if (!token || token == "") {
+        navigate('/')
+    }
     useEffect(() => {
         getCoupons();
         console.log(coupons);
     }, []);
-    const navigate = useNavigate();
 
     // Filtrar y ordenar los cupones habilitados primero
     const sortedCoupons = coupons.sort((a, b) => (a.enabled === b.enabled ? 0 : a.enabled ? -1 : 1));

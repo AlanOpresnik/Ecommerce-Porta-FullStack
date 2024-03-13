@@ -2,24 +2,30 @@ import React, { useState } from "react";
 import logo from "../../../assets/img/logo.png";
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dni, setDni] = useState("");
   const navigate = useNavigate();
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email !== "lorena_pal74@hotmail.com" || password !== "181174culo") {
-      Swal.fire({
-        icon: "error",
-        title: "el email o la contraseña que ingresaste es incorrecto",
+    try {
+      const response = await axios.post(`https://portaflex.com.ar/api/admin/login`, {
+        email: email,
+        password: password,
+        dni: dni,
+      })
+      localStorage.setItem('token', JSON.stringify(response.data.token));
+      localStorage.setItem('name', JSON.stringify(response.data.name));
 
-        footer: '<a href="">Contactate conmigo para cambiar el usuario y contraseña</a>',
-      });
-    } else {
-      navigate("/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712")
+      navigate('/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712')
+      console.log(response)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -57,9 +63,23 @@ const LoginComponent = () => {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
+
           </div>
 
           <div>
+            <label htmlFor="dni">DNI</label>
+            <div className="mt-2">
+              <input
+                id="dni"
+                name="dni"
+                type="text"
+                autoComplete="email"
+                required
+                value={dni} // Set the value to the email state
+                onChange={(e) => setDni(e.target.value)} // Update email state when the input changes
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
@@ -67,6 +87,7 @@ const LoginComponent = () => {
               >
                 Contraseña
               </label>
+
               <div className="text-sm">
                 <a
                   href="#"

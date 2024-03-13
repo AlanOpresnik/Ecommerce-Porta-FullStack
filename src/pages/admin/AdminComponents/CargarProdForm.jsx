@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { useProducts } from "../../../context/ProductsContext";
+import { useNavigate } from "react-router-dom";
 
 const CargarProdForm = () => {
   const [fileInput, setFileInput] = useState(null);
@@ -12,6 +13,16 @@ const CargarProdForm = () => {
   const [category, setCategory] = useState('')
   const [name, setName] = useState('')
   const [enabled, setEnabled] = useState(true)
+
+  const tokenFormated = localStorage.getItem('token').replace(/['"]+/g, '');
+  const navigate = useNavigate()
+
+  const token = localStorage.getItem('token');
+
+  if (!token || token == "") {
+      navigate('/')
+  }
+
   const [formDatasi, setFormData] = useState({
     name: "",
     description: "",
@@ -108,6 +119,7 @@ const CargarProdForm = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+             "Authorization": `Bearer ${tokenFormated}`,
           },
         }
       );

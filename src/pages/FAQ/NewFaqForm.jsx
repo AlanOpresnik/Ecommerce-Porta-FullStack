@@ -5,11 +5,20 @@ import { CardBody, CardFooter } from '@material-tailwind/react'
 import { Label } from '@mui/icons-material'
 import { Textarea } from '@nextui-org/react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const NewFaqForm = () => {
     const { newFaq } = useProducts()
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
+
+    const navigate = useNavigate()
+
+    const token = localStorage.getItem('token');
+
+    if (!token || token == "") {
+        navigate('/')
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
