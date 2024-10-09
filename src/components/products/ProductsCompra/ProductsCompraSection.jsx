@@ -3,6 +3,7 @@ import { useProducts } from "../../../context/ProductsContext";
 import ProductCompraCard from "./ProductsCompraCard";
 import { AnimatePresence, motion } from "framer-motion";
 import { useParams } from "react-router-dom";
+import '../../../index.css'
 
 const ProductsCompraSection = () => {
   const { prodItems, loading, setLoading } = useProducts();
@@ -29,7 +30,7 @@ const ProductsCompraSection = () => {
           <span className="loader"></span>
         </div>
       ) : (
-        <div className="grid grid-cols-2 mt-6 md:mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-center items-center">
+        <div className="grid-custom mt-6 md:mt-0  justify-center items-center ">
           <AnimatePresence>
             {filteredByCategoryProducts?.map((item) => (
               <motion.div
@@ -37,7 +38,7 @@ const ProductsCompraSection = () => {
                 animate={{ opacity: 1, }}
                 transition={{ duration: 0.5 }}
                 key={item._id}
-                className="w-full h-[490px] md:h-[490px]"
+                className=" h-[490px] "
               >
                 <ProductCompraCard prod={item} />
               </motion.div>

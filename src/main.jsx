@@ -1,15 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import Navbar from "./components/navbar/Navbar.jsx";
 import {
-  createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
   createHashRouter,
-  useLocation,
+
 } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Main from "./components/MainSection/Main.jsx";
@@ -17,7 +14,6 @@ import InfoDividerSection from "./components/InfoDivider/InfoDividerSection.jsx"
 import ProductsSection from "./components/products/ProductsSection.jsx";
 import NewsLettterSection from "./components/Newsletter/NewsLettterSection.jsx";
 import InstagramDividerSection from "./components/IntagramDivider/InstagramDividerSection.jsx";
-import Footer from "./components/footer/Footer.jsx";
 import FooterSection from "./components/footer/FooterSection.jsx";
 import AsideCategory from "./components/AsideCategory/AsideCategory.jsx";
 import { NextUIProvider } from "@nextui-org/react";
@@ -25,7 +21,6 @@ import AsideCategoryDesktop from "./components/AsideCategory/AsideCategoryDeskto
 import AsideFilterSelect from "./components/AsideCategory/AsideFilterSelect.jsx";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  ProductsContext,
   ProductsProvider,
 } from "./context/ProductsContext.jsx";
 import ProductsCompraSection from "./components/products/ProductsCompra/ProductsCompraSection.jsx";
@@ -40,13 +35,11 @@ import AdminProductsSection from "./pages/admin/AdminComponents/AdminProductsSec
 import SideBar from "./pages/admin/AdminComponents/SideBar.jsx";
 import ScrollToTop from "./components/Scroll/ScrollToTop.js";
 import OrdenesSection from "./pages/admin/ordenes/OrdenesSection.jsx";
-import ProductsFeatured from "./pages/admin/destacados/ProductsFeatured.jsx";
 import FeaturedSection from "./pages/admin/destacados/FeaturedSection.jsx";
 import CouponsSection from "./pages/admin/AdminComponents/CouponsSection.jsx";
 import NewCuponSection from "./pages/admin/AdminComponents/coupons/NewCuponSection.jsx";
 import CpSection from "./pages/admin/AdminComponents/cp/CpSection.jsx";
 import NewCpForm from "./pages/admin/AdminComponents/cp/NewCpForm.jsx";
-import ReactConfetti from "react-confetti";
 import WspLogo from "./components/WspLogo/WspLogo.jsx";
 import PaymentSuccess from "./pages/PaymentSucces/PaymentSuccess.jsx";
 import NosotrosSection from "./pages/nosotros/NosotrosSection.jsx";
@@ -122,20 +115,24 @@ const router = createHashRouter([
           <Navbar />
           <Toaster />
           <WspLogo />
-          <div className="px-2 md:hidden ml-5">
-            <AsideCategory />
-          </div>
-          <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white pb-2 z-10">
-            <div className="w-[170px]">
-              <AsideFilterSelect />
+          <section className="px-2">
+
+
+            <div className="md:hidden ">
+              <AsideCategory />
             </div>
-          </div>
-          <div className="flex justify-center px-2  md:gap-12  max-w-[1260px] mx-auto">
-            <div className="hidden md:block">
-              <AsideCategoryDesktop />
+            <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white pb-2 z-10">
+              <div className="w-[170px]">
+                <AsideFilterSelect />
+              </div>
             </div>
-            <ProductsCompraSection />
-          </div>
+            <div className="md:flex max-w-[1280px] mx-auto  md:gap-6 ">
+              <div className="hidden md:block">
+                <AsideCategoryDesktop />
+              </div>
+              <ProductsCompraSection />
+            </div>
+          </section>
           <div className="w-full mt-24 ">
             <FooterSection />
           </div>

@@ -61,7 +61,7 @@ const ProductsFeatured = ({ prod }) => {
                 <div>
                     <img
                         className="w-[160px] h-[100px] object-cover rounded-lg"
-                        src={import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename}
+                        src={prod.images[0].secure_url}
                         alt={`Product ${prod._id}`}
                     />
                 </div>

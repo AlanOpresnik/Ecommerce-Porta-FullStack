@@ -73,7 +73,7 @@ const Navbar = () => {
       <div className="h-[90px] ">
         <nav className="bg-white  dark:bg-[#fff] fixed w-full z-20  start-0 border-b border-gray-200 ">
           <div className="w-full h-[30px]  bg-[#DDD6CD] z-50 "></div>
-          <div className="max-w-[1380px] flex items-center justify-between  mx-auto p-4">
+          <div className="max-w-[1380px] flex items-center gap-4 sm:justify-between  mx-auto p-4">
             <Link
               to="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"

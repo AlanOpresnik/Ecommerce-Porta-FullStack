@@ -1,56 +1,49 @@
 import React, { useState } from "react";
 import RemoveRedEyeOutlined from "@mui/icons-material/RemoveRedEyeOutlined";
 import { useProducts } from "../../../context/ProductsContext";
-import { useParams } from "react-router-dom";
+import formatProductName from "../../../helpers/formatProductName";
 
 const ProductCompraCard = ({ prod, index }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredImage, setHoveredImage] = useState('');
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [MouseEnter, setMouseEnter] = useState(false);
-  const [mouseLeave, setMouseLeave] = useState(false);
 
   const { handleRedirect } = useProducts();
-  const formattedProductName = prod.name.replace(/ /g, "-");
-  const formattedSubCategoryName = prod.subcategoryId.name.replace(/ /g, "-");
+
   const handleMouseEnter = () => {
-    if (prod && prod.images.length > 1) {
-      setMouseEnter(true)
-      setHoveredImage(import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[1].filename);
-    }
-  };
-  const handleMouseLeave = () => {
-    setMouseEnter(false)
-    setMouseLeave(true)
-    if (prod) {
-      setHoveredImage(import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename);
+    if (prod && prod.images && prod.images.length > 1) {
+      setHoveredImage(prod.images[1].secure_url);
     }
   };
 
-  const handleImageLoad = () => {
-    setImageLoaded(true);
+  const handleMouseLeave = () => {
+    if (prod && prod.images && prod.images.length > 0) {
+      setHoveredImage(prod.images[0].secure_url);
+    } else {
+      setHoveredImage('/no-image.jpg');
+    }
   };
 
   return (
     <div>
       <div
-        key={index}
-        className={`w-[175px] md:w-[190px] md:h-[440px] xl:w-[235px]  cursor-pointer h-auto  border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:h-[489px]" : ""
+        key={prod._id}
+        className={`w-[175px] sm:w-[170px] md:w-[170px] md:h-[400px] lg:w-[235px]  cursor-pointer h-auto border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:!h-[449px]" : ""
           }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() =>
-          handleRedirect(prod._id, prod.subcategoryId.category, formattedSubCategoryName, formattedProductName)
+          handleRedirect(prod._id, prod.subcategoryId.category, formatProductName(prod.subcategoryId.name), formatProductName(prod.name))
         }
       >
-        <div className="border-b-4 h-[260px] md:h-[300px] relative">
+        <div className="border-b-4 h-[260px] md:h-[260px] relative">
           <img
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            src={hoveredImage || (prod && import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename)}
-
-            className={`h-full object-contain w-full rounded-t-[20px] ${isHovered ? 'animate-fadeInOut' : 'animate-fadeIn'}`}
-
+            src={hoveredImage || (prod.images && prod.images.length > 0
+              ? prod.images[0].secure_url
+              : '/no-image.jpg'
+            )}
+            className={`h-full  w-full rounded-t-[20px] ${isHovered ? 'animate-fadeInOut' : 'animate-fadeIn'}`}
             alt="product"
             loading="lazy"
           />
@@ -75,7 +68,7 @@ const ProductCompraCard = ({ prod, index }) => {
           </div>
           {/* Botones visibles en dispositivos móviles */}
           <div className="flex justify-center mt-2 gap-2 md:gap-2">
-            <button className="  md:hidden bg-[#DDD6CD] text-white px-4 py-1 rounded-full text-xs w-[100px]">
+            <button className="md:hidden bg-[#DDD6CD] text-white px-4 py-1 rounded-full text-xs w-[100px]">
               COMPRAR
             </button>
             <button className="md:hidden text-[#9b9b9bf7] border px-4 py-2 rounded-full">

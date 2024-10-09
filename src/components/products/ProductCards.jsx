@@ -3,32 +3,34 @@ import RemoveRedEyeOutlined from "@mui/icons-material/RemoveRedEyeOutlined";
 import prod from "../../assets/img/prod.webp";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../context/ProductsContext";
+import formatProductName from "../../helpers/formatProductName";
 
 const ProductCards = ({ prod, index }) => {
   const { handleRedirect, loading } = useProducts()
   const [isHovered, setIsHovered] = useState(false);
-  const formattedProductName = prod.name.replace(/ /g, "-");
-  const formattedSubCategoryName = prod.subcategoryId.name.replace(/ /g, "-");
+
 
   const navigate = useNavigate();
   return (
 
     <div>
-      {loading ? (
+      {loading  ? (
         <p>cargando...</p>
       ) : (
         <div
           key={index}
-          className={`w-[220px] hover:opacity-90  md:w-[300px] cursor-pointer h-auto md:h-[480px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:h-[530px]" : ""
+          className={`w-[220px] hover:opacity-90  md:w-[300px] cursor-pointer h-auto md:h-[380px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:!h-[400px]" : ""
             }`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => handleRedirect(prod._id, prod.subcategoryId.category, formattedSubCategoryName, formattedProductName)}
+          onClick={() => handleRedirect(prod._id, prod.subcategoryId.category, formatProductName(prod.subcategoryId.name), formatProductName(prod.name))}
         >
-          <div className="border-b-4 h-[280px] md:h-[360px] relative">
+          <div className="border-b-4 h-[280px] md:h-[250px] relative">
             <img
-              src={import.meta.env.VITE_ENDPOINT_IMAGES + prod?.images[0].filename}
-              className="h-full object-contain w-full rounded-t-[20px]"
+             src={prod?.images.length === 0 
+              ? "/no-image.jpg" 
+              : prod?.images[0].secure_url}
+              className="h-full  w-full rounded-t-[20px]"
               alt="product"
             />
           </div>

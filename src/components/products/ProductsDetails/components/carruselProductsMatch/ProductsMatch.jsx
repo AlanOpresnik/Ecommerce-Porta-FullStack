@@ -62,29 +62,35 @@ const ProductsMatch = () => {
         className="mySwiper mt-6 h-[520px] md:h-[490px]"
         breakpoints={{
           300: {
-            slidesPerView: 1.3,
+            slidesPerView: 1,
             navigation: true,
           },
+          340: {
+            slidesPerView: 1.4,
+          },
           400: {
-            slidesPerView: 1.5,
+            slidesPerView: 1.7,
+          },
+          450: {
+            slidesPerView: 1.9,
           },
           500: {
-            slidesPerView: 2,
-          },
-          550: {
             slidesPerView: 2.3,
           },
-          660: {
-            slidesPerView: 2.7,
+          600: {
+            slidesPerView: 2.6,
           },
-          768: {
+          680: {
             slidesPerView: 2.9,
+          },
+          738: {
+            slidesPerView: 3,
           },
           820: {
             slidesPerView: 3.4,
           },
           1022: {
-            slidesPerView: 3.8,
+            slidesPerView: 3.4,
           },
           1300: {
             slidesPerView: 4,
@@ -101,7 +107,7 @@ const ProductsMatch = () => {
               <div>
                 {loading ? (
                   <div className="flex justify-center">
-                  <span className="loader"></span>
+                    <span className="loader"></span>
                   </div>
                 ) : (
                   <div
@@ -119,14 +125,23 @@ const ProductsMatch = () => {
                     }
                   >
                     <div className="border-b-4 h-[280px] md:h-[270px] relative">
-                      <img
-                        src={
-                          import.meta.env.VITE_ENDPOINT_IMAGES +
-                          prod?.images[0].filename
-                        }
-                        className="h-full object-contain w-full rounded-t-[20px]"
-                        alt="product"
-                      />
+                      {prod.images && prod.images.length > 0 ? (
+                        <img
+                          src={
+
+                            prod?.images[0].secure_url
+                          }
+                          className="h-full object-contain w-full rounded-t-[20px]"
+                          alt="product"
+                        />
+                      ) : (
+                        <img
+                          src='/no-image.jpg'
+                          className="h-full object-contain w-full rounded-t-[20px]"
+                          alt="product"
+                        />
+                      )
+                      }
                     </div>
                     <div className="text-center flex  flex-col items-center p-3">
                       <p className="line-clamp-2 w-[190px] text-center">

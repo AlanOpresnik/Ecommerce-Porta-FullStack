@@ -2,39 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
 }
 
-.newsLetter-heading{
-    font-family: 'Libre Baskerville', sans-serif !important; 
+.newsLetter-heading {
+    font-family: 'Libre Baskerville', sans-serif !important;
 }
-.products-flex{
+
+.products-flex {
     justify-content: start !important;
 }
-p, h1, h2, h3, h4, h5{
-  opacity: .8;
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    opacity: .8;
 }
 
-.animate-fadeInOut{
-    animation: fadeInOut 800ms ;
-}
-.animate-fadeIn{
-    animation: fadeIn 800ms ;
+.animate-fadeInOut {
+    animation: fadeInOut 800ms;
 }
 
-.check{
+.animate-fadeIn {
+    animation: fadeIn 800ms;
+}
+
+.check {
     font-size: 60px !important;
 }
 
 span {
-    font-size: 16px!important;
+    font-size: 16px !important;
 }
 
 @media (max-width: 768px) {
     span {
-        font-size: 16px!important;
+        font-size: 16px !important;
+    }
+}
+
+.grid-custom {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(185px, 1fr));
+    place-items: center;
+    align-items: center;
+   
+    gap: 0px;
+}
+
+@media (min-width: 584px) {
+    .grid-custom {
+        grid-template-columns: repeat(3, minmax(110px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (min-width: 900px) {
+    .grid-custom {
+        grid-template-columns: repeat(4, minmax(110px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1020px) {
+    .grid-custom {
+        grid-template-columns: repeat(3, minmax(110px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1234px) {
+    .grid-custom {
+        grid-template-columns: repeat(4, minmax(110px, 1fr));
+        gap: 20px;
     }
 }
 
@@ -48,22 +93,34 @@ span {
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    }
+}
 
-    @keyframes rotation {
+@keyframes rotation {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
-    } 
-    
+}
+
 @keyframes fadeInOut {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

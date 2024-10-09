@@ -109,7 +109,7 @@ const ProductCarrusel = () => {
         pagination={true}
         breakpoints={breakpoints}
         modules={[Pagination, Navigation]}
-        className="mySwiper max-w-full h-[540px] md:h-[600px]"
+        className="mySwiper2 max-w-full h-[540px] md:h-[400px]"
       >
         {filteredProducts.length > 0 ? (
           <div className="">

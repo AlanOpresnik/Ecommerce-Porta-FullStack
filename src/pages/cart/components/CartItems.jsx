@@ -9,7 +9,7 @@ import { useProducts } from "../../../context/ProductsContext";
 import ModalDelete from "./ModalDelete";
 
 const CartItems = ({ prod }) => {
-  const { removeFromCart,setQuantity,quantity,incrementQuantity,decrementQuantity } = useProducts()
+  const { removeFromCart, setQuantity, quantity, incrementQuantity, decrementQuantity } = useProducts()
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -29,10 +29,18 @@ const CartItems = ({ prod }) => {
         key={prod._id}
       >
         <div className="flex items-center gap-6">
-          <img
-            className="h-[100px] min-w-[100px] max-w-[100px] md:h-[100px] md:min-w-[100px] rounded-md ml-2"
-            src={import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename}
-          />
+          {prod.images && prod.images.length === 0 ? (
+            <img
+              className="h-[100px] min-w-[100px] max-w-[100px] md:h-[100px] md:min-w-[100px] rounded-md ml-2"
+              src="/no-image.jpg"
+              alt={`Product ${prod._id}`}
+            />
+          ) : (
+            <img
+              className="h-[100px] min-w-[100px] max-w-[100px] md:h-[100px] md:min-w-[100px] rounded-md ml-2"
+              src={prod.images[0].secure_url}
+            />
+          )}
           <div className="max-w-[300px]">
             <span className="text-xs font-bold">{prod.subcategoryId.category}</span>
             <h3 className="text-sm md:text-[17px] w-full line-clamp-2 md:line-clamp-3 mb-2">{prod.name}</h3>

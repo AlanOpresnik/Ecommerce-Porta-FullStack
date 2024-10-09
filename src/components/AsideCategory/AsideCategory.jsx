@@ -52,12 +52,12 @@ const AsideCategory = () => {
             <input
               type="text"
               placeholder="desde"
-              className="border max-w-[90px] rounded-full bg-[#F4F4F5]  p-2"
+              className="border max-w-[70px] rounded-full bg-[#F4F4F5]  p-1"
             />
             <input
               type="text"
               placeholder="hasta"
-              className=" border max-w-[90px] bg-[#F4F4F5] rounded-full p-2"
+              className=" border max-w-[70px] bg-[#F4F4F5] rounded-full p-1"
             />
           </div>
         </div>

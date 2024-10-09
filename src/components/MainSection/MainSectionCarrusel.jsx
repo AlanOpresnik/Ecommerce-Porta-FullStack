@@ -18,7 +18,7 @@ const MainSectionCarrusel = () => {
       navigation={true}
       pagination={true}
       modules={[Pagination, Navigation]}
-      className="mySwiper h-[550px] mt-12 "
+      className="mySwiper2 h-[550px] mt-12 "
     >
       <SwiperSlide>
         <div

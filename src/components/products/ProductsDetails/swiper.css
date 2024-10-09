@@ -1,0 +1,42 @@
+.mySwiper2 .swiper-button-prev,
+.mySwiper2 .swiper-button-next {
+color: #ffffff;
+    /* Cambia el color del botón */
+    background-color: rgba(255, 255, 255);
+    /* Fondo semi-transparente */
+    padding: 10px;
+    /* Espaciado interno */
+    border-radius: 50%;
+    /* Botones redondos */
+    border: 1px solid rgba(0, 0, 0, 0.416);
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    
+
+}
+
+.mySwiper2 .swiper-button-prev:hover,
+.mySwiper2 .swiper-button-next:hover {
+    background-color: rgba(226, 221, 221, 0.7);
+    /* Fondo más oscuro al pasar el ratón */
+}
+
+.mySwiper2 .swiper-button-prev::after,
+.mySwiper2 .swiper-button-next::after {
+    color: black !important;
+    font-size: 10px !important;
+  
+    /* Tamaño del icono */
+}
+
+@media (min-width: 768px) {
+    .flex_change {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

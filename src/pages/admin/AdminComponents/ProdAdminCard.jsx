@@ -8,14 +8,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Textarea } from '@material-tailwind/react';
+import formatProductName from '../../../helpers/formatProductName';
 
 const ProdAdminCard = ({ prod }) => {
     const navigate = useNavigate();
     const { removeProduct, categorys, fetchProducts } = useProducts();
     const [openModal, setOpenModal] = useState(false);
     const [editedProduct, setEditedProduct] = useState(prod);
-    const formattedProductName = prod.name.replace(/ /g, "-");
-    const formattedSubCategoryName = prod.subcategoryId.name.replace(/ /g, "-");
+
     const token = localStorage.getItem('token').replace(/['"]+/g, '');
     console.log(token)
 
@@ -72,7 +72,7 @@ const ProdAdminCard = ({ prod }) => {
             <div>
                 <img
                     className="w-[160px] h-[100px] object-cover rounded-lg "
-                    src={import.meta.env.VITE_ENDPOINT_IMAGES + prod.images[0].filename}
+                    src={prod.images[0].secure_url}
                     alt={`Product ${prod._id}`}
                 />
             </div>
@@ -99,7 +99,7 @@ const ProdAdminCard = ({ prod }) => {
                         </Button>
                     </Tooltip>
                     <Tooltip title="Ver Producto" arrow>
-                        <Button onClick={() => navigate(`/products/${prod.subcategoryId.category}/${formattedSubCategoryName}/${formattedProductName}/${prod._id}`)} >
+                        <Button onClick={() => navigate(`/products/${prod.subcategoryId.category}/${formatProductName(prod.subcategoryId.name)}/${formatProductName(prod.name)}/${prod._id}`)} >
                             <OpenInNewIcon sx={{ color: "#C7B297" }} />
                         </Button>
                     </Tooltip>
