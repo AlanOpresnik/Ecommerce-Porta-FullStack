@@ -74,7 +74,7 @@ const ProductDetail = () => {
                   >
                     {product.images && product.images.length > 0 ? (
                       product.images.map((image, index) => (
-                        <SwiperSlide className="w-full" key={index}>
+                        <SwiperSlide className="!min-w-[400px]" key={index}>
                           <img
                              ref={index === 0 ? imageRef : null}
                             src={image.secure_url}
