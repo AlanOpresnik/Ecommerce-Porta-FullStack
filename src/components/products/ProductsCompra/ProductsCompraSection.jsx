@@ -32,8 +32,8 @@ const ProductsCompraSection = () => {
       ) : (
         filteredByCategoryProducts.length === 0 ? (
           setLoading(false),
-          <div className="">
-            <div className="text-center w-full flex justify-center">
+          <div className="flex justify-center items-start w-full">
+            <div className="text-center w-full flex items-center justify-center">
               <h3 className="text-xl md:text-2xl border-b py-4 text-center">
                 No hay productos de {params.subcategory} actualmente 😔
               </h3>

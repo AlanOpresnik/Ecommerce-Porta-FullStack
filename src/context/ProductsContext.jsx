@@ -83,13 +83,18 @@ const addToCart = (product) => {
       const updatedCartItems = [...cartItems, product];
       setCartItems(updatedCartItems);
       localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-      toast.success(`Producto: ${product.name} agregado con éxito`);
+ 
       console.log('Producto agregado con éxito', product);
     } else {
       toast.error(`El producto ya se encuentra en el carrito`);
     }
   }
 };
+
+const isInCart = (productId) => {
+  return cartItems.some((item) => item._id === productId);
+};
+
 
 const incrementQuantity = (prod) => {
   const updatedCartItems = cartItems.map(item => {
@@ -443,7 +448,8 @@ return (
       getFaq,
       newFaq,
       removeFaq,
-      getCuotasCard
+      getCuotasCard,
+      isInCart
     }}
   >
     {children}

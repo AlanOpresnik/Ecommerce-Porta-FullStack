@@ -66,7 +66,6 @@ const Search = ({ products, onSearch }) => {
                     <img
                       className="max-h-[120px] w-[180px]"
                       src={
-                        import.meta.env.VITE_ENDPOINT_IMAGES +
                         product.images[0].secure_url
                       }
                       alt={product.name}

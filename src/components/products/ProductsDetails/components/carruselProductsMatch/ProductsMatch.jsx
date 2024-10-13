@@ -131,7 +131,7 @@ const ProductsMatch = () => {
 
                             prod?.images[0].secure_url
                           }
-                          className="h-full object-contain w-full rounded-t-[20px]"
+                          className="h-full  w-full rounded-t-[20px]"
                           alt="product"
                         />
                       ) : (

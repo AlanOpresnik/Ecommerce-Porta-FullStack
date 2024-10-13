@@ -2,13 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useProducts } from "../../../context/ProductsContext";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Thumbs,
-  Pagination,
-  Autoplay,
-} from "swiper/modules";
-
+import { Navigation, Thumbs, Pagination, Autoplay } from "swiper/modules";
 
 import "./swiper.css";
 import "swiper/css/free-mode";
@@ -17,33 +11,25 @@ import "swiper/css/pagination";
 import "swiper/css/thumbs";
 import ProductDetailAside from "./ProductDetailAside/ProductDetailAside";
 
-// import required modules
-
 const ProductDetail = () => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const params = useParams();
-  const { prodItems, id, addToCart, } = useProducts();
+  const { prodItems, id } = useProducts();
   const [productFilter, setProductFilter] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(mobile());
+  const imageRef = useRef(null); // Referencia de la imagen del Swiper
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [mainSwiper, setMainSwiper] = useState(null);
   const [activeThumb, setActiveThumb] = useState();
-
-
-
 
   function mobile() {
     return window.matchMedia("(max-width: 640px)").matches;
   }
 
   useEffect(() => {
-    function handleResize() {
-      setIsMobile(mobile());
-    }
+    const handleResize = () => setIsMobile(mobile());
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -51,7 +37,6 @@ const ProductDetail = () => {
       (product) => product._id == params.id
     );
     setProductFilter(filteredProducts);
-    console.log(filteredProducts);
     setLoading(false);
   }, [id, params, prodItems]);
 
@@ -63,7 +48,7 @@ const ProductDetail = () => {
     );
   }
 
-  return (
+  return  (
     <>
       {isMobile
         ? productFilter.map((product) => (
@@ -91,6 +76,7 @@ const ProductDetail = () => {
                       product.images.map((image, index) => (
                         <SwiperSlide className="w-full" key={index}>
                           <img
+                             ref={index === 0 ? imageRef : null}
                             src={image.secure_url}
                             alt={product.name}
                             className="w-full lg:h-[420px] h-[350px] md:object-cover rounded-sm object-center"
@@ -111,7 +97,7 @@ const ProductDetail = () => {
                   </Swiper>
 
                 </div>
-                <ProductDetailAside product={product} />
+                <ProductDetailAside product={product} imageRef={imageRef} />
               </div>
             </div>
           </section>
@@ -131,7 +117,10 @@ const ProductDetail = () => {
                       disableOnInteraction: true,
                     }}
                     loop
-                    navigation={true}
+                    navigation={{
+                      prevEl: ".custom-swiper-button-prev",
+                      nextEl: ".custom-swiper-button-next",
+                    }}
                     thumbs={{ swiper: activeThumb }}
                     modules={[Navigation, Thumbs]}
                     className="mySwiper2  w-full md:w-[400px] lg:w-[600px] md:mt-0"
@@ -142,6 +131,7 @@ const ProductDetail = () => {
                           <img
                             src={image.secure_url}
                             alt={product.name}
+                            ref={index === 0 ? imageRef : null}
                             className="w-full lg:h-[420px] h-[350px]  rounded-xl object-center"
                           />
                         </SwiperSlide>
@@ -182,6 +172,7 @@ const ProductDetail = () => {
                               src={
                                 image.secure_url
                               }
+                              
                               alt={product.name}
                               className='md:w-[90px] hover:opacity-65 lg:w-[120px] cursor-pointer h-[80px]'
                               onClick={() => handleThumbnailClick(index)}
@@ -199,7 +190,7 @@ const ProductDetail = () => {
                     </div>
                   </Swiper>
                 </div>
-                <ProductDetailAside product={product} />
+                <ProductDetailAside product={product} imageRef={imageRef} />
               </div>
             </div>
           </section>

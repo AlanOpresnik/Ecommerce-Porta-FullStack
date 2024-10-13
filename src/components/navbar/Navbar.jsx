@@ -8,11 +8,7 @@ import Search from "./search/Search";
 import logo from "../../assets/img/logo.png";
 import SecondNavbar from "./SecondNavbar";
 import { useProducts } from "../../context/ProductsContext";
-import {
-  FavoriteBorderOutlined,
-  FavoriteBorderTwoTone,
-  FavoriteOutlined,
-} from "@mui/icons-material";
+
 const NavbarItems = [
   {
     path: "/",
@@ -82,13 +78,14 @@ const Navbar = () => {
             </Link>
             <div className="flex md:order-1 space-x-0 md:space-x-0 rtl:space-x-reverse">
               <Search products={filteredProducts} onSearch={handleSearch} />
-              <div className=" flex relative md:hidden px-2 items-center">
+              <div id="cart-icon2" className=" flex relative md:hidden px-2 items-center">
                 <PiShoppingCartThin
                   onClick={() => navigate("/cart")}
                   className="cursor-pointer  text-[#cacaca] text-3xl font-bold"
                   sx={{ color: "#D9D9D9" }}
                 />
                 {cartItems.length >= 1 ? (
+  
                   <span
                     onClick={() => navigate("/cart")}
                     className="absolute cursor-pointer text-xs font-bold text-white w-[23px] h-[24px] items-center text-center border p-1 rounded-full bg-[#aea18f] right-[-15px] top-[-10px]"
@@ -121,7 +118,7 @@ const Navbar = () => {
                 {NavbarItems.map((item) => (
                   <NavbarItem key={item.path} item={item} />
                 ))}
-                <div className="flex flex-col relative items-center">
+                <div id="cart-icon" className="flex flex-col relative items-center">
                   <PiShoppingCartThin
                     onClick={() => navigate("/cart")}
                     className="cursor-pointer text-[#cacaca] text-4xl font-extrabold"
