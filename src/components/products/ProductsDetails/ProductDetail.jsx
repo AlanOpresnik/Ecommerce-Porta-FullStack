@@ -93,7 +93,7 @@ const ProductDetail = () => {
                           <img
                             src={image.secure_url}
                             alt={product.name}
-                            className="w-full lg:h-[420px] h-[350px] md:object-cover object-center"
+                            className="w-full lg:h-[420px] h-[350px] md:object-cover rounded-sm object-center"
                           />
                         </SwiperSlide>
                       ))
@@ -142,7 +142,7 @@ const ProductDetail = () => {
                           <img
                             src={image.secure_url}
                             alt={product.name}
-                            className="w-full lg:h-[420px] h-[350px] md:object-cover object-center"
+                            className="w-full lg:h-[420px] h-[350px]  rounded-xl object-center"
                           />
                         </SwiperSlide>
                       ))

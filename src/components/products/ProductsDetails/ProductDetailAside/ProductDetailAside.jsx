@@ -6,9 +6,9 @@ import { useProducts } from '../../../../context/ProductsContext'
 const ProductDetailAside = ({product}) => {
     const {addToCart} = useProducts()
     return (
-        <div className="relative lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <div className="relative w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             {product.featured ? (
-                <p className='text-xs absolute right-0 top-0 bg-[#d3a360] p-2 rounded-full font-semibold text-white'>Producto destacado</p>
+                <p className='text-xs absolute right-0 top-[-10px] md:top-0 bg-[#d3a360] p-2 rounded-full font-semibold text-white'>Producto destacado</p>
             ) : ""}
             <h2 className="text-sm title-font mb-1 text-gray-500 tracking-widest">
                 {product.subcategoryId.category}

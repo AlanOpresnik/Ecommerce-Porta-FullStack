@@ -19,7 +19,7 @@ const ProductCards = ({ prod, index }) => {
       ) : (
         <div
           key={index}
-          className={`w-[220px] hover:opacity-90  md:w-[300px] cursor-pointer h-auto md:h-[380px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:!h-[400px]" : ""
+          className={`w-[220px] hover:opacity-90  md:w-[300px] cursor-pointer h-auto md:h-[380px] border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:!h-[420px]" : ""
             }`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
