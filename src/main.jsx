@@ -121,7 +121,7 @@ const router = createHashRouter([
             <div className="md:hidden ">
               <AsideCategory />
             </div>
-            <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white pb-2 z-10">
+            <div className="hidden md:flex sticky top-[152px] justify-end mt-16 pt-2 px-12 mb-2 bg-white pb-2 z-40">
               <div className="w-[170px]">
                 <AsideFilterSelect />
               </div>

@@ -11,10 +11,10 @@ const NewFaqForm = () => {
     const { newFaq } = useProducts()
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
-
     const navigate = useNavigate()
 
     const token = localStorage.getItem('token');
+  
 
     if (!token || token == "") {
         navigate('/')

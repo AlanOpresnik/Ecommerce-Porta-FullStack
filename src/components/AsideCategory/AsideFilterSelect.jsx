@@ -10,15 +10,16 @@ const AsideFilterSelect = () => {
     <Select
     placeholder="Filtrar por"
     labelPlacement="outside"
-    className=" mt-6 "
+    className="mt-6 relative !z-0"
     disableSelectorIconRotation
     selectorIcon={<SelectorIcon />}
     onChange={(e) => handleOrdenChange(e.target.value)}
+    popperClassName="fixed-menu"
   >
-    <SelectItem className="no-truncate" value="lowToHigh">
+    <SelectItem className="no-truncate !z-0  " value="lowToHigh">
      Precio:Mas bajo
     </SelectItem>
-    <SelectItem className="no-truncate" value="highToLow">
+    <SelectItem className="no-truncate !z-0 " value="highToLow">
       Precio:Mas alto
     </SelectItem>
   </Select>

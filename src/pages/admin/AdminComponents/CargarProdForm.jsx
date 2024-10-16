@@ -9,7 +9,7 @@ const CargarProdForm = () => {
   const [fileInput, setFileInput] = useState(null);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const { categorys, NewSubCategory,fetchProducts } = useProducts()
+  const { categorys, NewSubCategory, fetchProducts } = useProducts()
   const [category, setCategory] = useState('')
   const [name, setName] = useState('')
   const [enabled, setEnabled] = useState(true)
@@ -20,7 +20,7 @@ const CargarProdForm = () => {
   const token = localStorage.getItem('token');
 
   if (!token || token == "") {
-      navigate('/')
+    navigate('/')
   }
 
   const [formDatasi, setFormData] = useState({
@@ -34,6 +34,7 @@ const CargarProdForm = () => {
     updatedAt: Date.now(),
     enabled: true,
     featured: false,
+
   });
 
 
@@ -66,42 +67,21 @@ const CargarProdForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (imagePreviews.length === 0) {
-      return Swal.fire({
-        icon: "error",
-        title: "Porfavor seleccione una imagen",
-        text: "Es nesecario una imagen valida para subir el producto",
-        footer: 'si seguis teniendo este problema contactate con @alan_opk',
-      });
-    }
-    let timerInterval;
-    Swal.fire({
-      title: "Su producto se esta subiendo",
-      html: "Este cartel se cerrara en <b></b> milisegundos .",
-      timer: 10000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const timer = Swal.getPopup().querySelector("b");
-        timerInterval = setInterval(() => {
-          timer.textContent = `${Swal.getTimerLeft()}`;
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    }).then((result) => {
-
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
-      }
-    });
-
+  
     try {
       const formData = new FormData();
-      for (let i = 0; i < fileInput.length; i++) {
-        formData.append("images", fileInput[i]);
+      
+      // Asegúrate de que fileInput no sea nulo o vacío
+      if (fileInput && fileInput.length > 0) {
+        for (let i = 0; i < fileInput.length; i++) {
+          formData.append("images", fileInput[i]);
+        }
+      } else {
+        console.log("No se han seleccionado imágenes");
+        return; // Evita enviar si no hay imágenes
       }
+  
+      // Agregamos los demás campos del formulario
       formData.append("name", formDatasi.name);
       formData.append("description", formDatasi.description);
       formData.append("price", formDatasi.price);
@@ -112,18 +92,26 @@ const CargarProdForm = () => {
       formData.append("enabled", formDatasi.enabled);
       formData.append("featured", formDatasi.featured);
       formData.append("subcategoryId", formDatasi.subcategoryId);
-      console.log(formDatasi)
+  
+      // DEBUG: Mostrar el contenido de formData en consola
+      console.log("Datos enviados:");
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+  
+      // Realizamos la petición al servidor
       const response = await axios.post(
         "https://www.portaflex.com.ar/api/products/create",
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-             "Authorization": `Bearer ${tokenFormated}`,
+            "Authorization": `Bearer ${tokenFormated}`,
+            "Content-Type": "multipart/form-data", // Importante para subir archivos
           },
         }
       );
-      console.log("Respuesta:", response);
+  
+      // Reseteamos los estados del formulario
       setFormData({
         name: "",
         description: "",
@@ -136,11 +124,11 @@ const CargarProdForm = () => {
         featured: false,
         subcategoryId: "",
       });
-      setFileInput(null)
-      setImagePreviews([])
-      fetchProducts()
+      setFileInput(null);
+      setImagePreviews([]);
+      fetchProducts();
     } catch (error) {
-      console.log("Error:", error);
+      console.error("Error:", error);
     }
   };
 
@@ -228,7 +216,7 @@ const CargarProdForm = () => {
                 Crear nueva categoria
               </Button>
 
-            
+
             </Grid>
             <Grid item xs={12}>
               <label>
@@ -306,86 +294,86 @@ const CargarProdForm = () => {
           </Button>
         </form>
         <Modal
-                open={openModal}
-                sx={{ zIndex: 1000, display: "flex", justifyContent: "center", alignItems: "center", }}
-                onClose={() => setOpenModal(false)}
-                closeAfterTransition
+          open={openModal}
+          sx={{ zIndex: 1000, display: "flex", justifyContent: "center", alignItems: "center", }}
+          onClose={() => setOpenModal(false)}
+          closeAfterTransition
 
-              >
-                <Fade in={openModal}>
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    if (name.trim() === '' || category.trim() === '') {
-                      // Si el nombre o la categoría están vacíos, no se envía el formulario
-                      return;
-                    }
-                    NewSubCategory(name, category, enabled);
-                  }}>
-                    <div className=" w-auto md:w-[500px]">
-                      <div className="modal-content bg-white rounded shadow p-4 max-w-md w-full mx-auto">
-                        <h2 className="text-lg font-semibold mb-4">Nueva Subcategoria</h2>
+        >
+          <Fade in={openModal}>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              if (name.trim() === '' || category.trim() === '') {
+                // Si el nombre o la categoría están vacíos, no se envía el formulario
+                return;
+              }
+              NewSubCategory(name, category, enabled);
+            }}>
+              <div className=" w-auto md:w-[500px]">
+                <div className="modal-content bg-white rounded shadow p-4 max-w-md w-full mx-auto">
+                  <h2 className="text-lg font-semibold mb-4">Nueva Subcategoria</h2>
 
-                        <TextField
-                          fullWidth
-                          label="Nombre de la nueva Subcategoria"
-                          variant="outlined"
-                          type="text"
-                          name="name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          className="w-[60vw] sm:w-full"
+                  <TextField
+                    fullWidth
+                    label="Nombre de la nueva Subcategoria"
+                    variant="outlined"
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-[60vw] sm:w-full"
 
-                        />
-                        <Grid sx={{ marginTop: "1rem" }} item xs={12}>
-                          <InputLabel id="demo-simple-select-label">Seccion donde aparecera</InputLabel>
-                          <Select
-                            fullWidth
-                            labelId="category"
-                            name="category"
-                            id="category select"
-                            sx={{ marginBottom: "1rem" }}
-                            label="Elegir categoria"
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                          >
-                            <MenuItem value={"construccion"}>{"construccion"}</MenuItem>
-                            <MenuItem value={"hogar"}>{"hogar"}</MenuItem>
-                          </Select>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <label>
-                            Habilitado
-                            <input
-                              type="checkbox"
-                              name="enabled"
-                              className="mb-6"
-                              onChange={(e) => setEnabled(e.target.checked)}
-                              value={enabled}
-                            />
-                          </label>
-                        </Grid>
-                        <Button
-                          fullWidth
-                          sx={{
-                            backgroundColor: "#C7B297",
-                            color: "white",
-                            border: "none",
-                            ":hover": {
-                              backgroundColor: "#b7a084",
-                              border: "none",
-                            }
-                          }}
-                          label="Crear nueva categoria"
-                          variant="outlined"
-                          type="submit"
-                          className="w-[60vw] sm:w-auto">
-                          Crear
-                        </Button>
-                      </div>
-                    </div>
-                  </form>
-                </Fade>
-              </Modal>
+                  />
+                  <Grid sx={{ marginTop: "1rem" }} item xs={12}>
+                    <InputLabel id="demo-simple-select-label">Seccion donde aparecera</InputLabel>
+                    <Select
+                      fullWidth
+                      labelId="category"
+                      name="category"
+                      id="category select"
+                      sx={{ marginBottom: "1rem" }}
+                      label="Elegir categoria"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    >
+                      <MenuItem value={"construccion"}>{"construccion"}</MenuItem>
+                      <MenuItem value={"hogar"}>{"hogar"}</MenuItem>
+                    </Select>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <label>
+                      Habilitado
+                      <input
+                        type="checkbox"
+                        name="enabled"
+                        className="mb-6"
+                        onChange={(e) => setEnabled(e.target.checked)}
+                        value={enabled}
+                      />
+                    </label>
+                  </Grid>
+                  <Button
+                    fullWidth
+                    sx={{
+                      backgroundColor: "#C7B297",
+                      color: "white",
+                      border: "none",
+                      ":hover": {
+                        backgroundColor: "#b7a084",
+                        border: "none",
+                      }
+                    }}
+                    label="Crear nueva categoria"
+                    variant="outlined"
+                    type="submit"
+                    className="w-[60vw] sm:w-auto">
+                    Crear
+                  </Button>
+                </div>
+              </div>
+            </form>
+          </Fade>
+        </Modal>
       </Container>
     </>
   );

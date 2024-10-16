@@ -23,38 +23,55 @@ const ProductCompraCard = ({ prod, index }) => {
     }
   };
 
+
+
   return (
-    <div>
+    <div className="relative top-5">
+      {!prod.stock && (
+        <div className="z-20  absolute right-[-7px] top-[-5px] ">
+          <p className="text-white bg-orange-500 text-xs px-2 opacity-100 py-1 rounded-full font-semibold">Sin stock</p>
+        </div>
+      )}
+
       <div
         key={prod._id}
-        className={`w-[175px] sm:w-[170px] md:w-[170px] md:h-[400px] lg:w-[235px]  cursor-pointer h-auto border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:!h-[449px]" : ""
-          }`}
+        className={`w-[175px] sm:w-[170px] md:w-[170px] md:h-[400px] lg:w-[235px] cursor-pointer h-auto border rounded-[20px] relative overflow-hidden transition-all ease-in-out duration-300 ${isHovered ? "h-auto md:!h-[449px]" : ""
+          } ${prod.stock ? "opacity-100" : "opacity-60"}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() =>
-          handleRedirect(prod._id, prod.subcategoryId.category, formatProductName(prod.subcategoryId.name), formatProductName(prod.name))
+          handleRedirect(
+            prod._id,
+            prod.subcategoryId.category,
+            formatProductName(prod.subcategoryId.name),
+            formatProductName(prod.name)
+          )
         }
       >
         <div className="border-b-4 h-[260px] md:h-[260px] relative">
           <img
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            src={hoveredImage || (prod.images && prod.images.length > 0
-              ? prod.images[0].secure_url
-              : '/no-image.jpg'
-            )}
-            className={`h-full  w-full rounded-t-[20px] ${isHovered ? 'animate-fadeInOut' : 'animate-fadeIn'}`}
+            src={
+              hoveredImage ||
+              (prod.images && prod.images.length > 0
+                ? prod.images[0].secure_url
+                : "/no-image.jpg")
+            }
+            className={`h-full w-full rounded-t-[20px] ${isHovered ? "animate-fadeInOut" : "animate-fadeIn"
+              }`}
             alt="product"
             loading="lazy"
           />
         </div>
+
         <div className="text-center relative p-3">
           <p className="line-clamp-2 font-bold">{prod.name}</p>
-          <p className="font-bold text-2xl text-[#ddd6cd]">${prod.price}</p>{" "}
+          <p className="font-bold text-2xl text-[#ddd6cd]">${prod.price}</p>
           <p className="text-sm">
-            <strong>{3}</strong> Cuotas sin interés de{" "}
-            <strong>$3.200,00</strong>
+            <strong>3</strong> Cuotas sin interés de <strong>$3.200,00</strong>
           </p>
+
           <div
             className={`hidden md:flex gap-4 items-center justify-center md:absolute lg:relative lg:bottom-0 md:bottom-[-29px] md:left-[6px] lg:left-0 lg:mt-1 opacity-0 ${isHovered ? "opacity-100" : ""
               } transition-opacity duration-300`}
@@ -66,7 +83,8 @@ const ProductCompraCard = ({ prod, index }) => {
               <RemoveRedEyeOutlined /> <span className="md:hidden lg:block">Ver</span>
             </button>
           </div>
-          {/* Botones visibles en dispositivos móviles */}
+
+          {/* Botones para móviles */}
           <div className="flex justify-center mt-2 gap-2 md:gap-2">
             <button className="md:hidden bg-[#DDD6CD] text-white px-4 py-1 rounded-full text-xs w-[100px]">
               COMPRAR
@@ -78,6 +96,7 @@ const ProductCompraCard = ({ prod, index }) => {
         </div>
       </div>
     </div>
+
   );
 };
 

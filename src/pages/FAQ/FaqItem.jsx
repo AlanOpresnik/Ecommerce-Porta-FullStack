@@ -16,6 +16,10 @@ const FaqItem = ({ faq }) => {
     const { getFaq, removeFaq } = useProducts()
     const [openModal, setOpenModal] = useState(false);
     const [editedFaq, setEditedFaq] = useState(faq);
+    const [tokenFormmated, setTokenFormmated] = useState('')
+    const token = localStorage.getItem('token');
+
+  
 
     const handleOpenModal = () => {
         setOpenModal(true);
@@ -42,7 +46,7 @@ const FaqItem = ({ faq }) => {
             },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token.replace(/['"]+/g, '')}`
                     }
                 });
             handleCloseModal();

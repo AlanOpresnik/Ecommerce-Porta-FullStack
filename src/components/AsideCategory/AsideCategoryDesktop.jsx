@@ -15,7 +15,7 @@ const AsideCategoryDesktop = () => {
   )) || [];
 
   return (
-    <div className="hidden md:block sticky top-[222px]">
+    <div className="hidden md:block sticky top-[230px]">
       <div className="w-[226px]">
         <h4>
           Categoria / <span className="font-bold">{params.category}</span>
