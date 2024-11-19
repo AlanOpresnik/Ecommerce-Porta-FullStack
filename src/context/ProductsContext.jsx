@@ -25,10 +25,18 @@ const ProductsProvider = ({ children }) => {
   const [descuento, setDescuento] = useState(0);
   const [ordenById, setOrdenById] = useState([])
   const [Faq, setFaq] = useState([])
+  const [colors, setColors] = useState([]);
   let token;
-  const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
-  const precioFinal = subtotal - descuento
+
   const getToken = localStorage.getItem('token');
+
+  const precioAnterior = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+
+  const precioFinal = precioAnterior - descuento;
 
   if (getToken && getToken != "") {
     token = getToken.replace(/['"]+/g, '');
@@ -422,7 +430,101 @@ const ProductsProvider = ({ children }) => {
     }
   }
 
+  const getColors = async () => {
+    try {
+      const response = await axios.get('https://portaflex.com.ar/api/colors/get')
+      console.log(response.data.data)
+      setColors(response.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
+  const updateColor = async (color) => {
+    try {
+      const response = await axios.put(`https://portaflex.com.ar/api/colors/update`, {
+
+        colorId: color._id,
+        name: color.name,
+        enabled: color.enabled,
+        hex: color.hex
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+      console.log(response)
+      Swal.fire({
+        title: response.data.message,
+        icon: "success"
+      });
+      getColors()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+
+  const createColor = async (color) => {
+    try {
+      const response = await axios.post(`https://portaflex.com.ar/api/colors/create`, {
+        name: color.name,
+        hex: color.hex
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+      console.log(response)
+      Swal.fire({
+        title: response.data.message,
+        icon: "success"
+      });
+      getColors()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteColor = async (color) => {
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.delete(`https://portaflex.com.ar/api/colors/delete`, {
+          data: { colorId: color._id },
+          headers: { Authorization: `Bearer ${token}` },
+        });
+  
+        console.log(response);
+  
+        Swal.fire({
+          title: response.data.message,
+          icon: "success",
+        });
+  
+        getColors();
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo eliminar el color',
+          icon: 'error',
+        });
+      }
+    }
+  };
   return (
     <ProductsContext.Provider
       value={{
@@ -454,6 +556,7 @@ const ProductsProvider = ({ children }) => {
         setCupon,
         descuento,
         setDescuento,
+        precioAnterior,
         precioFinal,
         deleteCp,
         cuponInvalid,
@@ -470,7 +573,12 @@ const ProductsProvider = ({ children }) => {
         removeFaq,
         getCuotasCard,
         isInCart,
-        updateFaq
+        updateFaq,
+        getColors,
+        colors,
+        updateColor,
+        deleteColor,
+        createColor
       }}
     >
       {children}

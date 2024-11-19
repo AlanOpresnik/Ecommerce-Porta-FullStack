@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AccountCircle, CalendarToday, Dashboard } from '@mui/icons-material';
+import { AccountCircle, CalendarToday, ColorLens, ColorizeOutlined, Dashboard } from '@mui/icons-material';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import StarsIcon from '@mui/icons-material/Stars';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
@@ -25,6 +25,8 @@ const SideBar = () => {
         { title: "Agregar nuevo codigo postal", icon: <AddLocationIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newcp` },
         { title: "Preguntas frecuentes", icon: <QuizIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/preguntas` },
         { title: "Agregar nueva pregunta frecuente", icon: <AddCommentIcon />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newpregunta` },
+        { title: "Colores de Productos", icon: <ColorLens />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/colorsProducts`},
+        { title: "Agregar nuevo color", icon: <ColorizeOutlined />, path: `/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newColor`}
     ];
 
     return (

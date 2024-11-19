@@ -203,6 +203,18 @@ export default function OrdenesItem({ orden }) {
                       <p className="font-bold text-black">{product.name}</p>
                     </p>
                     <p className=" flex gap-1 py-2">
+                      Nombre color: {product.color?.name}
+   
+                    </p>
+                    <p className=" flex gap-1 py-2 ">
+                      HEX: <p className="font-bold">{product.color?.hex}</p>
+                    </p>
+                    <p className=" flex items-center gap-1 py-2 ">
+                       Color: <div style={{
+                        background: product.color?.hex
+                      }} className="w-[50px] shadow-md rounded-lg h-[20px]"></div>
+                    </p>
+                    <p className=" flex gap-1 py-2">
                       Precio: <p className="font-bold">{product.price}</p>
                     </p>
                     <p className=" flex gap-1 py-2">

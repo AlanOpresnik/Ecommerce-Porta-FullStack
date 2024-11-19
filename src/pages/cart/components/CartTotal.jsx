@@ -5,31 +5,31 @@ import { useNavigate } from "react-router-dom";
 
 
 const CartTotal = () => {
-  const { cartItems, ValidateCupon, cuponData, setDescuento, descuento, setCupon, cupon, precioFinal, subtotal, cuponInvalid,cuponDataDiscout } = useProducts();
+  const { cartItems, ValidateCupon, cuponData, setDescuento, descuento, setCupon, cupon, precioFinal, precioAnterior, cuponInvalid, cuponDataDiscout } = useProducts();
   const navigate = useNavigate();
   const [cuponInvalido, setCuponInvalido] = useState(false);
-  const [updatedCartItems, setUpdatedCartItems] = useState([]); 
-  const [input, setInput] = useState(``)  
+  const [updatedCartItems, setUpdatedCartItems] = useState([]);
+  const [input, setInput] = useState(``)
 
-  const precioAnterior = cartItems.reduce((total, item) => total + item.price, 0);
- 
+
+
   localStorage.setItem('couponKey', cupon);
   console.log('Cupón almacenado en localStorage:', cupon);
   useEffect(() => {
     if (cuponDataDiscout && cuponDataDiscout.success) {
-        setDescuento(cuponDataDiscout.discountValue);
-        // Establecer el valor del cupón en localStorage
+      setDescuento(cuponDataDiscout.discountValue);
+      // Establecer el valor del cupón en localStorage
     } else {
-        setDescuento(0);
+      setDescuento(0);
     }
-}, [cuponDataDiscout]);
-  
-  
+  }, [cuponDataDiscout]);
+
+
 
   useEffect(() => {
-
     const updatedItems = cartItems.map(item => ({
       ...item,
+      color: item.color?._id,  // Guarda solo el ID del color
       couponId: cuponData
     }));
     setUpdatedCartItems(updatedItems);
@@ -42,7 +42,6 @@ const CartTotal = () => {
       navigate(`/checkout/${cupon}`);
     } else {
       navigate('/checkout');
-      l
     }
   };
 

@@ -106,9 +106,7 @@ function CheckoutForm() {
       });
       console.log(response)
 
-      if (response.data.success === true) {
-        window.location.href = response.data.init_point;
-      }
+    window.location.href = response.data.init_point
 
       localStorage.setItem(`OrderId`, response.data.orderId)
     } catch (error) {

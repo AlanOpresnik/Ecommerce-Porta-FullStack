@@ -46,6 +46,8 @@ import NosotrosSection from "./pages/nosotros/NosotrosSection.jsx";
 import FaqSection from "./pages/FAQ/FaqSection.jsx";
 import FaqSectionUI from "./pages/FAQ/FaqSectionUI/FaqSectionUi.jsx";
 import NewFaqForm from "./pages/FAQ/NewFaqForm.jsx";
+import ColorPickerSection from "./pages/admin/AdminComponents/ColorPickerProducts/ColorPickerSection.jsx";
+import ColorsActive from "./pages/admin/AdminComponents/ColorPickerProducts/ColorsActive.jsx";
 
 
 
@@ -596,6 +598,62 @@ const router = createHashRouter([
             <Toaster position="top-right" />
             <div className="w-[980px] mx-auto px-2">
               <NewFaqForm />
+            </div>
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/colorsProducts",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <Toaster position="top-right" />
+            <div className="w-[980px] mx-auto px-2">
+              <ColorsActive />
+            </div>
+          </div>
+          <ScrollToTop />
+        </ProductsProvider>
+      </>
+    ),
+  },
+  {
+    path: "/adminPortaflex/logeado/estadoDelIncioSucces=a878373734674674238283283723467426712/newColor",
+
+    element: (
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Lorecunas</title>
+          <meta name="description" />
+          <meta
+            name="description"
+            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
+       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+          />
+        </Helmet>
+        <ProductsProvider>
+          <div className="h-[100vh] flex flex-1 ">
+            <SideBar />
+            <Toaster position="top-right" />
+            <div className="w-[980px] mx-auto px-2">
+              <ColorPickerSection />
             </div>
           </div>
           <ScrollToTop />

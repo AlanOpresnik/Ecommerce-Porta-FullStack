@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import formatPrice from "../../../../helpers/formatPrice";
 import DescriptionPublication from "./ProductDescription";
 import { useProducts } from "../../../../context/ProductsContext";
 import toast from "react-hot-toast";
 
 const ProductDetailAside = ({ product, imageRef }) => {
-    const { addToCart, isInCart } = useProducts();
-
+    const { addToCart, isInCart, getColors, colors } = useProducts();
+    const [color, setSelectedColor] = useState(null);
     // Función para detectar si es móvil
     const isMobile = () =>
         window.matchMedia("(max-width: 640px)").matches;
@@ -17,7 +17,14 @@ const ProductDetailAside = ({ product, imageRef }) => {
         if (isInCart(product._id)) {
             toast.error(`El producto ya se encuentra en el carrito`);
             return;
+
+            
         }
+
+        if (!color) {
+            toast.error("Por favor, selecciona un color");
+            return;
+          }
 
         if (!imageRef.current) return;
 
@@ -51,9 +58,18 @@ const ProductDetailAside = ({ product, imageRef }) => {
         clonedImg.addEventListener("transitionend", () => {
             clonedImg.remove();
         });
+        const productWithColor = { ...product, color };
 
-        addToCart(product);
-    };
+        addToCart(productWithColor); 
+      };
+   
+
+    useEffect(() => {
+        getColors()
+    }, [])
+    const handleSelectColor = (color) => {
+        setSelectedColor(color); // Guardamos el color seleccionado
+      };
 
     return (
         <div className="relative w-full lg:pl-10 lg:py-6 mt-6 md:mt-0 lg:mt-0">
@@ -67,7 +83,20 @@ const ProductDetailAside = ({ product, imageRef }) => {
             <h1 className="text-gray-900 text-3xl  title-font font-medium mb-1">
                 {product.name}
             </h1>
-
+            <p>{colors.length === 0 ? "cargando colores..." : (
+                <div className="flex flex-wrap gap-2">
+                    {colors.map((colorProds) => (
+                        <button
+                            key={colorProds._id}
+                            onClick={() => handleSelectColor(colorProds)} // Maneja la selección
+                            className={`px-2 py-1 rounded-full w-[30px] h-[30px] border-2 
+                            ${color?.hex === colorProds.hex ? "border-black" : "border-transparent"}`}
+                            style={{ backgroundColor: colorProds.hex }}
+                        />
+                    ))}
+                </div>
+            )}</p>
+            
             <div className="flex mb-4">
                 <span className="flex items-center">
                     {[...Array(5)].map((_, index) => (
@@ -140,10 +169,10 @@ const ProductDetailAside = ({ product, imageRef }) => {
                     </button>
                 ) : (
                     <button
-                    className="flex ml-auto  text-sm text-white font-semibold  border-0 py-2 px-6 focus:outline-none bg-[#cbc2b6] rounded"
-                >
-                    No hay stock actualmente
-                </button>
+                        className="flex ml-auto  text-sm text-white font-semibold  border-0 py-2 px-6 focus:outline-none bg-[#cbc2b6] rounded"
+                    >
+                        No hay stock actualmente
+                    </button>
                 )}
 
             </div>

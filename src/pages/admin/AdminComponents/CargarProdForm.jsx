@@ -28,7 +28,6 @@ const CargarProdForm = () => {
     description: "",
     price: 0,
     subcategoryId: "",
-    color: "",
     stock: true,
     createdAt: Date.now(),
     updatedAt: Date.now(),
@@ -71,7 +70,6 @@ const CargarProdForm = () => {
     try {
       const formData = new FormData();
       
-      // Asegúrate de que fileInput no sea nulo o vacío
       if (fileInput && fileInput.length > 0) {
         for (let i = 0; i < fileInput.length; i++) {
           formData.append("images", fileInput[i]);
@@ -85,7 +83,6 @@ const CargarProdForm = () => {
       formData.append("name", formDatasi.name);
       formData.append("description", formDatasi.description);
       formData.append("price", formDatasi.price);
-      formData.append("color", formDatasi.color);
       formData.append("stock", formDatasi.stock);
       formData.append("createdAt", formDatasi.createdAt);
       formData.append("updatedAt", formDatasi.updatedAt);
@@ -116,7 +113,6 @@ const CargarProdForm = () => {
         name: "",
         description: "",
         price: 0,
-        color: "",
         stock: true,
         createdAt: Date.now(),
         updatedAt: Date.now(),
@@ -161,17 +157,6 @@ const CargarProdForm = () => {
                 variant="outlined"
                 name="description"
                 value={formDatasi.description}
-                onChange={handleChange}
-                className="w-[60vw] sm:w-full"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Color producto"
-                variant="outlined"
-                name="color"
-                value={formDatasi.color}
                 onChange={handleChange}
                 className="w-[60vw] sm:w-full"
               />

@@ -37,7 +37,7 @@ const ProductDetail = () => {
       (product) => product._id == params.id
     );
     setProductFilter(filteredProducts);
-    setLoading(false);
+    setLoading(false); 
   }, [id, params, prodItems]);
 
   if (loading) {
