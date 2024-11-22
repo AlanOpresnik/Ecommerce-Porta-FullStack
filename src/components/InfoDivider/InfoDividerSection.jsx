@@ -3,7 +3,7 @@ import InfoDividerCard from "./InfoDividerCard";
 
 const InfoDividerSection = () => {
   return (
-    <div>
+    <div className="py-12">
       <div className="w-full  border-t md:border-b mt-12 ">
         <InfoDividerCard />
       </div>
@@ -12,7 +12,7 @@ const InfoDividerSection = () => {
           Hacemos de tu casa, tu Hogar
         </h5>
         <p className="text-center text-[16px]">
-          "Transformamos espacios en hogares con deco linda a precios ganga."
+          "Transformamos espacios en hogares con deco linda a precios inigualables"
         </p>
       </div>
     </div>

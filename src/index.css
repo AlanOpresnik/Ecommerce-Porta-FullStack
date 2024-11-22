@@ -96,6 +96,23 @@ span {
     animation: rotation 1s linear infinite;
 }
 
+.gradient-newsletter {
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,1) 5%, rgba(156,156,144,1) 46%, rgba(255,255,255,1) 87%);
+    background: -webkit-linear-gradient(180deg, rgba(255,255,255,1) 5%, rgba(156,156,144,1) 46%, rgba(255,255,255,1) 87%);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 5%, rgba(156,156,144,1) 46%, rgba(255,255,255,1) 87%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
+    color: black;
+}
+
+.bg-parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+}
+
 @keyframes rotation {
     0% {
         transform: rotate(0deg);

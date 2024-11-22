@@ -5,11 +5,13 @@ import { useProducts } from '../../../context/ProductsContext';
 import { useNavigate } from 'react-router-dom';
 
 const OrdenesSection = () => {
-  const { ordenes, getOrdenes } = useProducts();
+  const { ordenes, getOrdenes, getCoupons, coupons} = useProducts();
   const [filteredOrdenes, setFilteredOrdenes] = useState([]);
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('newest'); // State to track sorting order
-
+  useEffect(() => {
+    getCoupons();
+  }, []);
   const navigate = useNavigate()
 
   const token = localStorage.getItem('token');
@@ -79,7 +81,7 @@ const OrdenesSection = () => {
       </div>
       <div className='overflow-y-scroll h-[750px]'>
         {sortedOrdenes.length > 0 ? (
-          sortedOrdenes.map((orden) => <OrdenesItem key={orden._id} orden={orden} />)
+          sortedOrdenes.map((orden) => <OrdenesItem key={orden._id} orden={orden} coupons={coupons} />)
         ) : (
           <p className='text-center text-xl'>No hay ninguna orden que coincida con la búsqueda.</p>
         )}

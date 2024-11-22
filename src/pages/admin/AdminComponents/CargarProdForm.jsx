@@ -97,6 +97,9 @@ const CargarProdForm = () => {
       }
   
       // Realizamos la petición al servidor
+
+      
+      
       const response = await axios.post(
         "https://www.portaflex.com.ar/api/products/create",
         formData,
@@ -105,8 +108,11 @@ const CargarProdForm = () => {
             "Authorization": `Bearer ${tokenFormated}`,
             "Content-Type": "multipart/form-data", // Importante para subir archivos
           },
+          timeout: 10000,
         }
       );
+
+      console.log(response)
   
       // Reseteamos los estados del formulario
       setFormData({

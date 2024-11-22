@@ -55,9 +55,7 @@ const ProductsProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, [])
+  
 
   const handleOrdenChange = (valor) => {
     const nuevoOrden = valor === "$.0" ? "lowToHigh" : "highToLow";
@@ -201,7 +199,7 @@ const ProductsProvider = ({ children }) => {
       console.log(error)
     }
   }
-  console.log(localStorage.getItem('token'));
+
   const getOrdenById = async (id) => {
     try {
       const response = await axios.post(`https://portaflex.com.ar/api/sales/getId`, {
@@ -578,7 +576,8 @@ const ProductsProvider = ({ children }) => {
         colors,
         updateColor,
         deleteColor,
-        createColor
+        createColor,
+        getSubCategory
       }}
     >
       {children}

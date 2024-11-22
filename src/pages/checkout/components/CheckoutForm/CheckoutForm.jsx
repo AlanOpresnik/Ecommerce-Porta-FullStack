@@ -11,20 +11,27 @@ import tarjeta from '../../../../assets/img/tarjeta.png'
 function CheckoutForm() {
   const { cartItems, getCp, cp, precioFinal, getCuotasCard } = useProducts();
   const [codigoPostalEncontrado, setCodigoPostalEncontrado] = useState(null);
+  const [pagado, setPagado] = useState(false);
   const [existe, setExiste] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false); // Nuevo estado para controlar la visualización del confeti
   const [open, setOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [bin, setBin] = useState("");
-  const [totalCuotas, setTotalCuotas] = useState("")
+  const [totalCuotas, setTotalCuotas] = useState(0)
+  const [displayCardVenc, setDisplayCardVenc] = useState(''); // Visualización formateada
 
 
   // useEffect para verificar la validez del formulario
+
+
 
   const handldeCuotas = () => {
     setTotalCuotas(precioFinal + codigoPostalEncontrado)
 
     getCuotasCard(bin, totalCuotas)
+
+    console.log(bin)
+    console.log(JSON.stringify(totalCuotas))
   }
 
   const [formData, setFormData] = useState({
@@ -38,6 +45,9 @@ function CheckoutForm() {
     paymentMethod: '',
     cp: "",
     cpId: '',
+    //creditCardNumber: '',
+    //cardVenc: '', // Valor crudo (sin formato)
+    //cvv: '',
     couponKey: localStorage.getItem(`couponKey`) === '' ? '0' : localStorage.getItem(`couponKey`),
     productList: JSON.parse(localStorage.getItem('cartItems')) || []
   });
@@ -88,6 +98,23 @@ function CheckoutForm() {
   };
 
   const handleInputChange = (event) => {
+
+    /* if(name === "creditCardNumber") {
+       setBin(value);
+     }
+ 
+     if (name === 'cardVenc') {
+       // Permitir solo números y limitar a 4 caracteres
+       const rawValue = value.replace(/\D/g, '').slice(0, 4); // Solo números, máximo 4 dígitos
+ 
+       // Formatear como MM/AA
+       const formattedValue = rawValue.replace(/(\d{2})(\d{0,2})/, (_, mm, aa) => (aa ? `${mm}/${aa}` : mm));
+ 
+       setDisplayCardVenc(formattedValue);
+       setFormData((prev) => ({ ...prev, cardVenc: rawValue }));
+     } else {
+       setFormData((prev) => ({ ...prev, [name]: value }));
+     }*/
     const { name, value } = event.target;
     setFormData(prevFormData => ({
       ...prevFormData,
@@ -106,7 +133,7 @@ function CheckoutForm() {
       });
       console.log(response)
 
-    window.location.href = response.data.init_point
+      window.location.href = response.data.init_point
 
       localStorage.setItem(`OrderId`, response.data.orderId)
     } catch (error) {
@@ -232,11 +259,11 @@ function CheckoutForm() {
                     </ListItemIcon>
                   )}
 
-                  {selected === 'Tarjeta de credito' && (
+                  {/*selected === 'Tarjeta de credito' && (
                     <ListItemIcon>
                       <img src={tarjeta} alt="tarjeta" style={{ width: '30px', height: "25px" }} />
                     </ListItemIcon>
-                  )}
+                  )*/}
                   <ListItemText primary={selected || "Método de pago"} />
                 </div>
               )}
@@ -256,63 +283,67 @@ function CheckoutForm() {
                 </ListItemIcon>
                 <ListItemText primary="Mercado Pago" />
               </MenuItem>
+              {/*
               <MenuItem value="Tarjeta de credito">
                 <ListItemIcon>
                   <img src={tarjeta} alt="Mercado Pago" style={{ width: '25px' }} />
                 </ListItemIcon>
-                <ListItemText primary="Tarjeta de credito" />
+                  <ListItemText primary="Tarjeta de credito" />
               </MenuItem>
+                */}
             </Select>
           </Grid>
           <>
             {formData.paymentMethod === 'Tarjeta de credito' && (
               <>
-                <Grid item xs={12} >
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    name='Titular'
+                    name="Titular"
                     label="Titular de la tarjeta"
-                    value={formData.creditCardNumber}
+                    value={formData.Titular} // Usar la clave correspondiente del estado
                     onChange={handleInputChange}
                     variant="outlined"
                     required
                   />
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    name='creditCardNumber'
+                    name="creditCardNumber"
                     label="Número de tarjeta de crédito"
-                    value={formData.creditCardNumber}
-                    onChange={(e) => setBin(e.target.value)}
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} >
-                  <TextField
-                    fullWidth
-                    name='cardVenc'
-                    label="Fecha de vencimiento"
-                    value={formData.creditCardNumber}
+                    value={formData.creditCardNumber} // Corregido: usa el estado correspondiente
                     onChange={handleInputChange}
                     variant="outlined"
                     required
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} >
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    name='cvv'
-                    label="Codigo de seguridad"
-                    value={formData.creditCardNumber}
+                    name="cardVenc"
+                    label="Fecha de vencimiento (MM/AA)"
+                    value={displayCardVenc} // Usa el estado de display para formatear
                     onChange={handleInputChange}
                     variant="outlined"
                     required
                   />
                 </Grid>
-                <div className='flex justify-center w-full py-6'>
-                  <Button onClick={handldeCuotas} variant='contained'>VALIDAR TARJETA DE CREDITO</Button>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="cvv"
+                    label="Código de seguridad"
+                    value={formData.cvv} // Corregido: usa el estado correspondiente
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    required
+                  />
+                </Grid>
+                <div className="flex justify-center w-full py-6">
+                  <Button onClick={handldeCuotas} variant="contained">
+                    VALIDAR TARJETA DE CREDITO
+                  </Button>
                 </div>
               </>
             )}
@@ -343,6 +374,7 @@ function CheckoutForm() {
 
         </Grid>
         <Button
+          onClick={() => setPagado(true)}
           disabled={!isFormValid}
           type='submit'
           sx={{
@@ -352,13 +384,14 @@ function CheckoutForm() {
               backgroundColor: "#d4c4af",
             }
           }}
-          className="mt-6 bg-[#cdc3b5] hover:bg-[#d4c4af]"
+          className="mt-6 bg-[#cdc3b5] !p-2 hover:bg-[#d4c4af]"
           variant="contained"
           color="primary"
           fullWidth
         >
-          Pagar
+          {!isFormValid ? "Asegurate de rellenar todos los campos" : pagado ? "Pagando..." : 'Confirmar compra'}
         </Button>
+
       </form>
     </Container>
   );

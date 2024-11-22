@@ -1,9 +1,13 @@
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useProducts } from "../../../context/ProductsContext";
 
 const ProductInfoCard = () => {
-  const { prodItems } = useProducts()
+  const { prodItems, fetchProducts } = useProducts()
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+  
   return (
     <div className="w-[250px] md:w-auto ">
       <Card sx={{ bgcolor: "black", color: "white", opacity: ".8", marginBottom: "2.5rem" }}>

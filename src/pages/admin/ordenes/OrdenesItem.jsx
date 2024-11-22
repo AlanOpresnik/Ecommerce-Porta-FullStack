@@ -24,15 +24,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import axios from "axios";
 
-export default function OrdenesItem({ orden }) {
-  const { coupons, getCoupons, getOrdenes } = useProducts();
+export default function OrdenesItem({ orden, coupons }) {
+  const {getOrdenes } = useProducts();
   const [openModal, setOpenModal] = useState(false);
   const [editedOrden, setEditedOrden] = useState(orden);
   const token = localStorage.getItem('token').replace(/['"]+/g, '');
 
-  useEffect(() => {
-    getCoupons();
-  }, []);
+
 
   const buscarCuponPorId = (couponId) => {
     return coupons.find((coupon) => coupon._id === couponId);

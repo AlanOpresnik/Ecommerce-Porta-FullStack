@@ -2,7 +2,7 @@ import React from "react";
 
 const NewsLetter = () => {
   return (
-    <div className="h-[300px] flex flex-col items-center justify-center text-center gap-12 leading-9 ">
+    <div className="h-[370px] flex flex-col items-center justify-center text-center gap-12 leading-9 ">
       <div className="flex flex-col gap-5 ">
         <p className="newsLetter-heading">NEWSLETTER</p>
         <p className="text-[34px] newsLetter-heading font-bold ">

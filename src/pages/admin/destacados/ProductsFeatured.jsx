@@ -61,7 +61,9 @@ const ProductsFeatured = ({ prod }) => {
                 <div>
                     <img
                         className="w-[160px] h-[100px] object-cover rounded-lg"
-                        src={prod.images[0].secure_url}
+                        src={prod?.images.length === 0
+                            ? "/no-image.jpg"
+                            : prod?.images[0].secure_url}
                         alt={`Product ${prod._id}`}
                     />
                 </div>
