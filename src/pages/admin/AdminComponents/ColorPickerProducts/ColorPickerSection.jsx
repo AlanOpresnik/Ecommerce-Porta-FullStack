@@ -43,7 +43,7 @@ const ColorPickerSection = () => {
         <div className="flex flex-col mt-6 md:mt-0 items-center">
           <p className="text-center">Color seleccionado: {color}</p>
           <div
-            className="text-lg w-[160px] h-[160px] text-center p-4 rounded-full mt-2"
+            className="text-lg w-[160px] border h-[160px] text-center p-4 rounded-full mt-2"
             style={{ backgroundColor: color }}
           ></div>
           <TextField
@@ -81,7 +81,7 @@ const ColorPickerSection = () => {
                 <p className="text-center">Color seleccionado: {colorForm.hex}</p>
                 <p>Nombre del color: {colorForm.name}</p>
                 <div
-                  className="text-lg w-[160px] h-[160px] text-center p-4 rounded-full mt-2"
+                  className="text-lg w-[160px] border h-[160px] text-center p-4 rounded-full mt-2"
                   style={{ backgroundColor: colorForm.hex }}
                 ></div>
               </div>

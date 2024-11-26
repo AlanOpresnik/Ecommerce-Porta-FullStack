@@ -74,7 +74,7 @@ const Navbar = () => {
               to="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
-              <img className=" w-[135px]  sm:w-[240px]" src={logo} />
+              <img className=" w-[135px] h-full  sm:w-[240px]" src={logo} /> 
             </Link>
             <div className="flex md:order-1 space-x-0 md:space-x-0 rtl:space-x-reverse">
               <Search products={filteredProducts} onSearch={handleSearch} />

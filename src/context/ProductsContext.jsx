@@ -56,6 +56,7 @@ const ProductsProvider = ({ children }) => {
   };
 
   
+  
 
   const handleOrdenChange = (valor) => {
     const nuevoOrden = valor === "$.0" ? "lowToHigh" : "highToLow";

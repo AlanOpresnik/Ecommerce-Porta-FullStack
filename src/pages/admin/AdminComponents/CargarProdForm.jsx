@@ -108,7 +108,7 @@ const CargarProdForm = () => {
             "Authorization": `Bearer ${tokenFormated}`,
             "Content-Type": "multipart/form-data", // Importante para subir archivos
           },
-          timeout: 10000,
+          timeout: 100000,
         }
       );
 

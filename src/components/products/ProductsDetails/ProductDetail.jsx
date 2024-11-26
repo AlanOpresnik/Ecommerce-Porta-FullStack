@@ -13,7 +13,7 @@ import ProductDetailAside from "./ProductDetailAside/ProductDetailAside";
 
 const ProductDetail = () => {
   const params = useParams();
-  const { prodItems, id } = useProducts();
+  const { prodItems, id,fetchProducts } = useProducts();
   const [productFilter, setProductFilter] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(mobile());
@@ -21,6 +21,11 @@ const ProductDetail = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [mainSwiper, setMainSwiper] = useState(null);
   const [activeThumb, setActiveThumb] = useState();
+
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+
 
   function mobile() {
     return window.matchMedia("(max-width: 640px)").matches;
@@ -37,7 +42,7 @@ const ProductDetail = () => {
       (product) => product._id == params.id
     );
     setProductFilter(filteredProducts);
-    setLoading(false); 
+    setLoading(false);
   }, [id, params, prodItems]);
 
   if (loading) {
@@ -48,7 +53,7 @@ const ProductDetail = () => {
     );
   }
 
-  return  (
+  return (
     <>
       {isMobile
         ? productFilter.map((product) => (
@@ -76,7 +81,7 @@ const ProductDetail = () => {
                       product.images.map((image, index) => (
                         <SwiperSlide className="!min-w-[400px]" key={index}>
                           <img
-                             ref={index === 0 ? imageRef : null}
+                            ref={index === 0 ? imageRef : null}
                             src={image.secure_url}
                             alt={product.name}
                             className="w-full lg:h-[420px] h-[350px] md:object-cover rounded-sm object-center"
@@ -110,7 +115,7 @@ const ProductDetail = () => {
             <div className="md:mt-24 mb-12">
               <div className=" md:flex gap-6 px-4">
                 <div className="flex justify-center flex-col">
-                <Swiper
+                  <Swiper
                     spaceBetween={10}
                     autoplay={{
                       delay: 2500,
@@ -172,7 +177,7 @@ const ProductDetail = () => {
                               src={
                                 image.secure_url
                               }
-                              
+
                               alt={product.name}
                               className='md:w-[90px] hover:opacity-65 lg:w-[120px] cursor-pointer h-[80px]'
                               onClick={() => handleThumbnailClick(index)}

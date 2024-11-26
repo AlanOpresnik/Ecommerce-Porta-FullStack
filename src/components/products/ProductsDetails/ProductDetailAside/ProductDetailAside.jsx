@@ -18,13 +18,13 @@ const ProductDetailAside = ({ product, imageRef }) => {
             toast.error(`El producto ya se encuentra en el carrito`);
             return;
 
-            
+
         }
 
         if (!color) {
             toast.error("Por favor, selecciona un color");
             return;
-          }
+        }
 
         if (!imageRef.current) return;
 
@@ -60,16 +60,16 @@ const ProductDetailAside = ({ product, imageRef }) => {
         });
         const productWithColor = { ...product, color };
 
-        addToCart(productWithColor); 
-      };
-   
+        addToCart(productWithColor);
+    };
+
 
     useEffect(() => {
         getColors()
     }, [])
     const handleSelectColor = (color) => {
         setSelectedColor(color); // Guardamos el color seleccionado
-      };
+    };
 
     return (
         <div className="relative w-full lg:pl-10 lg:py-6 mt-6 md:mt-0 lg:mt-0">
@@ -84,19 +84,22 @@ const ProductDetailAside = ({ product, imageRef }) => {
                 {product.name}
             </h1>
             <p>{colors.length === 0 ? "cargando colores..." : (
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mt-2">
                     {colors.map((colorProds) => (
-                        <button
-                            key={colorProds._id}
-                            onClick={() => handleSelectColor(colorProds)} // Maneja la selección
-                            className={`px-2 py-1 rounded-full w-[30px] h-[30px] border-2 
-                            ${color?.hex === colorProds.hex ? "border-black" : "border-transparent"}`}
-                            style={{ backgroundColor: colorProds.hex }}
-                        />
+                        <div className="relative">
+                            <button
+                                key={colorProds._id}
+                                onClick={() => handleSelectColor(colorProds)} // Maneja la selección
+                                className={`px-2 py-1 rounded-full border border-b w-[30px] h-[30px]
+                            ${color?.hex === colorProds.hex ? "border-black" : ""}`}
+                                style={{ backgroundColor: colorProds.hex }}
+                            />
+                            <div className={`${color?.hex === colorProds?.hex ? "absolute opacity-100 transition-all bg-[#DCB580] top-[-4px] right-[-4px] h-[12px] w-[12px] text-white flex items-center justify-center py-2 px-2 rounded-full" : 'opacity-0 h-2 w-2'} `}  >✔</div>
+                        </div>
                     ))}
                 </div>
             )}</p>
-            
+
             <div className="flex mb-4">
                 <span className="flex items-center">
                     {[...Array(5)].map((_, index) => (

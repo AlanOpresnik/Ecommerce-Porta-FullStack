@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import '../../../index.css';
 
 const ProductsCompraSection = () => {
-  const { prodItems, loading, setLoading } = useProducts();
+  const { prodItems, loading, setLoading,fetchProducts } = useProducts();
   const params = useParams();
 
   const subcategoryWithSpaces = params.subcategory?.replace(/-/g, ' ');
@@ -20,7 +20,10 @@ const ProductsCompraSection = () => {
       }
     })
     .sort((a, b) => (a.stock === b.stock ? 0 : a.stock ? -1 : 1)); // Ordena por stock
-
+    
+    useEffect(() => {
+      fetchProducts();
+    }, [])
   return (
     <>
       {loading ? (
