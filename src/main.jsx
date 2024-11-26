@@ -61,12 +61,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -111,12 +110,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -156,12 +154,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos - productos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -189,12 +186,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos carrito</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -215,12 +211,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos carrito</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -242,12 +237,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos carrito - Pago exitoso</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -269,12 +263,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos carrito - Orden exitosa</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -296,12 +289,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -323,12 +315,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -355,12 +346,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -380,12 +370,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -408,12 +397,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-            Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -437,12 +425,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -462,12 +449,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -487,12 +473,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -512,12 +497,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -537,12 +521,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -563,12 +546,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -589,12 +571,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -615,12 +596,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -643,12 +623,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -671,12 +650,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
@@ -699,12 +677,11 @@ const router = createHashRouter([
       <>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Lorecunas</title>
+          <title>Portaflex baños quimicos</title>
           <meta name="description" />
           <meta
             name="description"
-            content="Lorecunas- Lore Cunas se dedica a la elaboración de muebles Infanto Juveniles con los mejores precios del mercado,              confeccionando nuestros productos en maderas de Pino-guatambu-MDF-Melamina. Con un gran equilibrio Precio-Calidad.
-       Contamos con Showroom, disponemos de gran variedad en modelos-colores y terminaciones en forma artesanal."
+            content="venta y fabricacion baños quimicos, cabinas de seguridad, canalizadores viales"
           />
         </Helmet>
         <ProductsProvider>
