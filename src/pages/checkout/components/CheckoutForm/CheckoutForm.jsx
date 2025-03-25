@@ -58,27 +58,33 @@ function CheckoutForm() {
     getCp();
   }, []);
 
-  console.log(cartItems[0])
   localStorage.setItem(`cpKey`, formData.cp)
 
 
   useEffect(() => {
-    console.log(formData)
-    const isValid = Object.values(formData).every(value => value !== undefined && value !== null && value !== "");
+    console.log(formData);
+  
+
+    const isValid = Object.entries(formData).every(([key, value]) => {
+      if (formData.shippingMethod === "retiro" && key === "cp") {
+        formData.cp = '1722'
+        validatePostalCode()
+      }
+      return value !== undefined && value !== null && value !== "";
+    });
+  
     setIsFormValid(isValid);
-  }, [formData]);
-
-  const validatePostalCode = () => {
-    const formDataCpNumber = parseInt(formData.cp);
-    const cpEncontrado = cp.find((cpItem) => cpItem.key === formDataCpNumber);
-
-    if (cpEncontrado && cpEncontrado.price === 0) {
-      setShowConfetti(true);
-      setOpen(true)
-      setTimeout(() => {
-        setOpen(false)
-      }, 2500);
+  
+    // Si el método de envío es diferente de "retiro", validar el CP
+    if (formData.shippingMethod !== "retiro") {
+      validatePostalCode(); // Solo se ejecuta cuando cambia formData
     }
+  }, [formData]); // Se ejecuta cada vez que formData cambia
+  
+  const validatePostalCode = () => {
+    const formDataCpNumber = parseInt(formData.cp, 10);
+    const cpEncontrado = cp.find((cpItem) => cpItem.key === formDataCpNumber);
+  
     if (cpEncontrado) {
       setExiste(true);
       setCodigoPostalEncontrado(cpEncontrado);
@@ -86,16 +92,25 @@ function CheckoutForm() {
         ...prevState,
         cpId: cpEncontrado._id,
       }));
-      console.log(cpEncontrado._id)
+      console.log(cpEncontrado._id);
+  
+      if (cpEncontrado.price === 0) {
+        setShowConfetti(true);
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false);
+        }, 2500);
+      }
     } else {
       setExiste(false);
-      setCodigoPostalEncontrado("");
+      setCodigoPostalEncontrado(null);
       setFormData(prevState => ({
         ...prevState,
-        cpId: '' // Limpia el ID del código postal
+        cpId: '',
       }));
     }
   };
+  
 
   const handleInputChange = (event) => {
 
@@ -237,6 +252,7 @@ function CheckoutForm() {
               <MenuItem value="retiro">Retiro en sucursal</MenuItem>
             </Select>
           </Grid>
+
           <Grid item xs={12} sm={6}>
             <Select
               sx={{ display: 'flex', height: "55px" }}
@@ -348,30 +364,32 @@ function CheckoutForm() {
               </>
             )}
           </>
-          <Grid item xs={12} >
-            <TextField
-              name='cp'
-              fullWidth
-              label="Código Postal"
-              variant="outlined"
-              value={formData.cp}
-              onChange={handleInputChange}
-              required />
-            <Button onClick={validatePostalCode}>Validar código postal</Button>
-            {existe ? (
-              <div className='flex flex-col ml-2 border rounded-xl p-2 shadow-md'>
-                <p className='flex gap-1'>Localidad: <p className='font-bold'>{codigoPostalEncontrado.location}</p></p>
-                <p className='flex gap-1'>Costo de envío: <p className='font-bold'>{codigoPostalEncontrado.price === 0 ? (<p className='underline font-bold text-[#4ca74c]'>GRATIS</p>) : codigoPostalEncontrado.price}</p></p>
-                <p className='flex gap-1 text-lg  py-2 border-t'>TOTAL FINAL + ENVÍO: <p className='font-bold'>{precioFinal + codigoPostalEncontrado.price}</p></p>
-              </div>
-            ) : (codigoPostalEncontrado === null ? "" : (
-              <div>
-                <p className='flex gap-1 items-center'>Todavia no llegamos a esa <p className='font-bold text-black'>zona 😪</p></p>
-              </div>
-            ))}
-          </Grid>
-
-
+          {formData.shippingMethod === 'retiro' ? (
+            <></>
+          ) : (
+            <Grid item xs={12} >
+              <TextField
+                name='cp'
+                fullWidth
+                label="Código Postal"
+                variant="outlined"
+                value={formData.cp}
+                onChange={handleInputChange}
+                required />
+              <Button onClick={validatePostalCode}>Validar código postal</Button>
+              {existe ? (
+                <div className='flex flex-col ml-2 border rounded-xl p-2 shadow-md'>
+                  <p className='flex gap-1'>Localidad: <p className='font-bold'>{codigoPostalEncontrado.location}</p></p>
+                  <p className='flex gap-1'>Costo de envío: <p className='font-bold'>{codigoPostalEncontrado.price === 0 ? (<p className='underline font-bold text-[#4ca74c]'>GRATIS</p>) : codigoPostalEncontrado.price}</p></p>
+                  <p className='flex gap-1 text-lg  py-2 border-t'>TOTAL FINAL + ENVÍO: <p className='font-bold'>{precioFinal + codigoPostalEncontrado.price}</p></p>
+                </div>
+              ) : (codigoPostalEncontrado === null ? "" : (
+                <div>
+                  <p className='flex gap-1 items-center'>Todavia no llegamos a esa <p className='font-bold text-black'>zona 😪</p></p>
+                </div>
+              ))}
+            </Grid>
+          )}
         </Grid>
         <Button
           onClick={() => setPagado(true)}
