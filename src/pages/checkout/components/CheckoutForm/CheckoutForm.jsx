@@ -67,7 +67,7 @@ function CheckoutForm() {
 
     const isValid = Object.entries(formData).every(([key, value]) => {
       if (formData.shippingMethod === "retiro" && key === "cp") {
-        formData.cp = '1722'
+        formData.cp = '9999'
         validatePostalCode()
       }
       return value !== undefined && value !== null && value !== "";
